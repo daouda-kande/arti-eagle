@@ -1,7 +1,7 @@
 <script setup>
-import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue'
-import { useUserListStore } from '@/views/apps/user/useUserListStore'
-import { avatarText } from '@core/utils/formatters'
+import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue';
+import { useUserListStore } from '@/views/apps/user/useUserListStore';
+import { avatarText } from '@core/utils/formatters';
 
 const userListStore = useUserListStore()
 const searchQuery = ref('')
@@ -142,6 +142,8 @@ const resolveUserStatusVariant = stat => {
   return 'primary'
 }
 
+const resolveAbsStatusVariant = stat => { return 'error'}
+
 const isAddNewUserDrawerVisible = ref(false)
 
 // 👉 watching current page
@@ -205,83 +207,10 @@ const userListMeta = [
 <template>
   <section>
     <VRow>
-      <VCol
-        v-for="meta in userListMeta"
-        :key="meta.title"
-        cols="12"
-        sm="6"
-        lg="3"
-      >
-        <VCard>
-          <VCardText class="d-flex justify-space-between">
-            <div>
-              <span>{{ meta.title }}</span>
-              <div class="d-flex align-center gap-2 my-1">
-                <h6 class="text-h6">
-                  {{ meta.stats }}
-                </h6>
-                <span :class="meta.percentage > 0 ? 'text-success' : 'text-error'">({{ meta.percentage }}%)</span>
-              </div>
-              <span>{{ meta.subtitle }}</span>
-            </div>
-
-            <VAvatar
-              rounded
-              variant="tonal"
-              :color="meta.color"
-              :icon="meta.icon"
-            />
-          </VCardText>
-        </VCard>
-      </VCol>
-
       <VCol cols="12">
-        <VCard title="Search Filter">
+        <VCard title="Liste du Personnel">
           <!-- 👉 Filters -->
-          <VCardText>
-            <VRow>
-              <!-- 👉 Select Role -->
-              <VCol
-                cols="12"
-                sm="4"
-              >
-                <VSelect
-                  v-model="selectedRole"
-                  label="Select Role"
-                  :items="roles"
-                  clearable
-                  clear-icon="tabler-x"
-                />
-              </VCol>
-              <!-- 👉 Select Plan -->
-              <VCol
-                cols="12"
-                sm="4"
-              >
-                <VSelect
-                  v-model="selectedPlan"
-                  label="Select Plan"
-                  :items="plans"
-                  clearable
-                  clear-icon="tabler-x"
-                />
-              </VCol>
-              <!-- 👉 Select Status -->
-              <VCol
-                cols="12"
-                sm="4"
-              >
-                <VSelect
-                  v-model="selectedStatus"
-                  label="Select Status"
-                  :items="status"
-                  clearable
-                  clear-icon="tabler-x"
-                />
-              </VCol>
-            </VRow>
-          </VCardText>
-
+        
           <VDivider />
 
           <VCardText class="d-flex flex-wrap py-4 gap-4">
@@ -297,14 +226,12 @@ const userListMeta = [
               />
             </div>
 
-            <VSpacer />
-
             <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
               <!-- 👉 Search  -->
               <div style="width: 10rem;">
                 <VTextField
                   v-model="searchQuery"
-                  placeholder="Search"
+                  placeholder="Rechercher"
                   density="compact"
                 />
               </div>
@@ -315,15 +242,7 @@ const userListMeta = [
                 color="secondary"
                 prepend-icon="tabler-screen-share"
               >
-                Export
-              </VBtn>
-
-              <!-- 👉 Add user button -->
-              <VBtn
-                prepend-icon="tabler-plus"
-                @click="isAddNewUserDrawerVisible = true"
-              >
-                Add New User
+                Exporter
               </VBtn>
             </div>
           </VCardText>
@@ -335,19 +254,19 @@ const userListMeta = [
             <thead>
               <tr>
                 <th scope="col">
-                  USER
+                  NOM & PRENOM
                 </th>
                 <th scope="col">
-                  ROLE
+                  RETARD
                 </th>
                 <th scope="col">
-                  PLAN
+                  ABS/JUSTIFIEES
                 </th>
                 <th scope="col">
-                  BILLING
+                  PROJETS
                 </th>
                 <th scope="col">
-                  STATUS
+                  PROGRESS
                 </th>
                 <th scope="col">
                   ACTIONS
@@ -361,7 +280,7 @@ const userListMeta = [
                 :key="user.id"
                 style="height: 3.75rem;"
               >
-                <!-- 👉 User -->
+                <!-- 👉 NOM & PRENOM -->
                 <td>
                   <div class="d-flex align-center">
                     <VAvatar
@@ -370,11 +289,7 @@ const userListMeta = [
                       class="me-3"
                       size="38"
                     >
-                      <VImg
-                        v-if="user.avatar"
-                        :src="user.avatar"
-                      />
-                      <span v-else>{{ avatarText(user.fullName) }}</span>
+                      <span>{{ avatarText(user.fullName) }}</span>
                     </VAvatar>
 
                     <div class="d-flex flex-column">
@@ -386,43 +301,71 @@ const userListMeta = [
                           {{ user.fullName }}
                         </RouterLink>
                       </h6>
-                      <span class="text-sm text-disabled">@{{ user.email }}</span>
                     </div>
                   </div>
                 </td>
 
-                <!-- 👉 Role -->
+                <!-- 👉 RETARDS -->
                 <td>
-                  <VAvatar
-                    :color="resolveUserRoleVariant(user.role).color"
-                    :icon="resolveUserRoleVariant(user.role).icon"
-                    variant="tonal"
-                    size="30"
-                    class="me-4"
-                  />
-                  <span class="text-capitalize text-base">{{ user.role }}</span>
+                  <span class="text-capitalize text-base">
+                    <VChip
+                      label
+                      :color="resolveUserRoleVariant(user.role).color"
+                      size="small"
+                      class="text-capitalize"
+                    >
+                      12
+                    </VChip>
+                  </span>
                 </td>
 
-                <!-- 👉 Plan -->
+                <!-- 👉 ABS/JUSTIFIEES -->
                 <td>
-                  <span class="text-capitalize text-base font-weight-semibold">{{ user.currentPlan }}</span>
+                  <span class="text-capitalize text-base font-weight-semibold">
+                    <VChip
+                      label
+                      :color="resolveUserRoleVariant(user.role).color"
+                      size="small"
+                      class="text-capitalize"
+                    >
+                      9
+                    </VChip>
+                    <VDivider
+                      vertical
+                      class="mx-auto"
+                    />
+                    <VChip
+                      label
+                      :color="resolveUserRoleVariant(user.status).color"
+                      size="small"
+                      class="text-capitalize"
+                    >
+                      12
+                    </VChip>
+                  </span>
                 </td>
 
-                <!-- 👉 Billing -->
+                <!-- 👉 Projet -->
                 <td>
-                  <span class="text-base">{{ user.billing }}</span>
+                  <span class="text-base">
+                    <VChip
+                      label
+                      :color="resolveUserRoleVariant(user.status).color"
+                      size="small"
+                      class="text-capitalize"
+                    >
+                      12
+                    </VChip>
+                  </span>
                 </td>
 
-                <!-- 👉 Status -->
+                <!-- 👉 PROGRESS -->
                 <td>
-                  <VChip
-                    label
+                  <VProgressLinear
+                    model-value="15"
+                    bg-color="primary"
                     :color="resolveUserStatusVariant(user.status)"
-                    size="small"
-                    class="text-capitalize"
-                  >
-                    {{ user.status }}
-                  </VChip>
+                  />
                 </td>
 
                 <!-- 👉 Actions -->
@@ -433,50 +376,14 @@ const userListMeta = [
                   <VBtn
                     icon
                     size="x-small"
-                    color="default"
+                    color="primary"
                     variant="text"
+                    :to="{ name: 'apps-user-view-id', params: { id: user.id } }"
                   >
                     <VIcon
                       size="22"
-                      icon="tabler-edit"
+                      icon="tabler-eye"
                     />
-                  </VBtn>
-
-                  <VBtn
-                    icon
-                    size="x-small"
-                    color="default"
-                    variant="text"
-                  >
-                    <VIcon
-                      size="22"
-                      icon="tabler-trash"
-                    />
-                  </VBtn>
-
-                  <VBtn
-                    icon
-                    size="x-small"
-                    color="default"
-                    variant="text"
-                  >
-                    <VIcon
-                      size="22"
-                      icon="tabler-dots-vertical"
-                    />
-
-                    <VMenu activator="parent">
-                      <VList>
-                        <VListItem
-                          title="View"
-                          :to="{ name: 'apps-user-view-id', params: { id: user.id } }"
-                        />
-                        <VListItem
-                          title="Suspend"
-                          href="javascript:void(0)"
-                        />
-                      </VList>
-                    </VMenu>
                   </VBtn>
                 </td>
               </tr>

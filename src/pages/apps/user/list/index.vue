@@ -254,10 +254,13 @@ const userListMeta = [
             <thead>
               <tr>
                 <th scope="col">
-                  NOM & PRENOM
+                  NOM & PRENOMS
                 </th>
                 <th scope="col">
-                  RETARD
+                  MATRICULE
+                </th>
+                <th scope="col">
+                  RETARDS
                 </th>
                 <th scope="col">
                   ABS/JUSTIFIEES
@@ -266,10 +269,10 @@ const userListMeta = [
                   PROJETS
                 </th>
                 <th scope="col">
-                  PROGRESS
+                  PROGRESSION
                 </th>
                 <th scope="col">
-                  ACTIONS
+                  ACTION
                 </th>
               </tr>
             </thead>
@@ -302,6 +305,13 @@ const userListMeta = [
                         </RouterLink>
                       </h6>
                     </div>
+                  </div>
+                </td>
+
+                <!-- 👉 ATRICULE -->
+                <td>
+                  <div class="d-flex align-center">
+                    <span>{{ avatarText(user.fullName) }}</span>
                   </div>
                 </td>
 

@@ -6,7 +6,7 @@ import UserTabAbsence from '@/views/apps/user/view/UserTabAbsence.vue'
 import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
 import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
-import UserTabOverview from '@/views/apps/user/view/UserTabOverview.vue'
+import UserTabProject from '@/views/apps/user/view/UserTabProject.vue'
 import UserTabSecurity from '@/views/apps/user/view/UserTabSecurity.vue'
 
 
@@ -83,7 +83,7 @@ userListStore.fetchUser(Number(route.params.id)).then(response => {
         </VWindowItem>
         
         <VWindowItem>
-          <UserTabOverview />
+          <UserTabProject />
         </VWindowItem>
 
         <VWindowItem>

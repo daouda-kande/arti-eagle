@@ -5,9 +5,9 @@ import UserStatisticsTransactions from '@/views/apps/user/view/UserStatisticsTra
 import UserTabAbsence from '@/views/apps/user/view/UserTabAbsence.vue'
 import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
+import UserTabEvaluation from '@/views/apps/user/view/UserTabEvaluation.vue'
 import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
 import UserTabOverview from '@/views/apps/user/view/UserTabOverview.vue'
-import UserTabSecurity from '@/views/apps/user/view/UserTabSecurity.vue'
 
 
 const userListStore = useUserListStore()
@@ -23,6 +23,10 @@ const tabs = [
   {
     icon: 'tabler-user-check',
     title: 'Projets',
+  },
+  {
+    icon: 'tabler-ad-2',
+    title: 'Evaluations',
   },
 ]
 
@@ -79,7 +83,7 @@ userListStore.fetchUser(Number(route.params.id)).then(response => {
         </VWindowItem>
 
         <VWindowItem>
-          <UserTabSecurity />
+          <UserTabEvaluation />
         </VWindowItem>
 
         <VWindowItem>

@@ -1,7 +1,5 @@
 <script setup>
-import {
-avatarText
-} from '@core/utils/formatters';
+import { avatarText } from '@core/utils/formatters';
 
 const props = defineProps({
   userData: {
@@ -108,8 +106,6 @@ const resolveUserRoleVariant = role => {
             MAT001256
           </VChip>
         </VCardText>
-
-        
 
         <VDivider />
 

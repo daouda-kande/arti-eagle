@@ -578,12 +578,15 @@ export const getHeatMapChartConfig = themeColors => {
         enableShades: false,
         colorScale: {
           ranges: [
-            { to: 10, from: 0, name: '0-10', color: '#b9b3f8' },
-            { to: 20, from: 11, name: '10-20', color: '#aba4f6' },
-            { to: 30, from: 21, name: '20-30', color: '#9d95f5' },
-            { to: 40, from: 31, name: '30-40', color: '#8f85f3' },
-            { to: 50, from: 41, name: '40-50', color: '#8176f2' },
-            { to: 60, from: 51, name: '50-60', color: '#7367f0' },
+            { to: 0, from: 0, name: 'Non', color: '#b9b3f8' },
+            { to: 1, from: 1, name: 'Oui', color: '#7367f0' },
+
+            // { to: 10, from: 0, name: '0-10', color: '#b9b3f8' },
+            // { to: 20, from: 11, name: '10-20', color: '#aba4f6' },
+            // { to: 30, from: 21, name: '20-30', color: '#9d95f5' },
+            // { to: 40, from: 31, name: '30-40', color: '#8f85f3' },
+            // { to: 50, from: 41, name: '40-50', color: '#8176f2' },
+            // { to: 60, from: 51, name: '50-60', color: '#7367f0' },
           ],
         },
       },

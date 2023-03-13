@@ -2,6 +2,7 @@
 import { hexToRgb } from '@layouts/utils';
 import VueApexCharts from 'vue3-apexcharts';
 import { useTheme } from 'vuetify';
+import UserCardCheckin from './UserCardCheckin.vue';
 
 const vuetifyTheme = useTheme()
 
@@ -182,6 +183,15 @@ const chartOptions = computed(() => {
 </script>
 
 <template>
+  <VCard
+    title="Pointage hebdomadaire"
+    subtitle="Mois de Janvier 2023"
+  >
+    <UserCardCheckin />  
+  </VCard>
+
+  <VDivider /><br>
+
   <VCard>
     <VRow no-gutters>
       <VCol

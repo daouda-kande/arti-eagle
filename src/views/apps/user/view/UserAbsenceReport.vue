@@ -192,7 +192,7 @@ const chartOptions = computed(() => {
       >
         <VCardText class="pe-2">
           <h6 class="text-h6 mb-6">
-            Aperçu Global des Pointage
+            Aperçu Global des Pointages
           </h6>
 
           <VueApexCharts

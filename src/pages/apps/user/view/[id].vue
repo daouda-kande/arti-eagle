@@ -1,8 +1,8 @@
 <script setup>
 import { useUserListStore } from '@/views/apps/user/useUserListStore'
-import UserAbsenceReport from '@/views/apps/user/view/UserAbsenceReport.vue'
 import UserBioPanel from '@/views/apps/user/view/UserBioPanel.vue'
 import UserStatisticsTransactions from '@/views/apps/user/view/UserStatisticsTransactions.vue'
+import UserTabAbsence from '@/views/apps/user/view/UserTabAbsence.vue'
 import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
 import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
@@ -17,24 +17,20 @@ const userTab = ref(null)
 
 const tabs = [
   {
+    icon: 'tabler-24-hours',
+    title: "Check-in",
+  },
+  {
     icon: 'tabler-user-check',
-    title: 'Overview',
+    title: 'Projets',
   },
   {
     icon: 'tabler-lock',
-    title: 'Security',
+    title: 'Evaluations',
   },
   {
     icon: 'tabler-currency-dollar',
-    title: 'Billing & Plan',
-  },
-  {
-    icon: 'tabler-bell',
-    title: 'Notifications',
-  },
-  {
-    icon: 'tabler-link',
-    title: 'Connections',
+    title: 'Formations',
   },
 ]
 
@@ -60,8 +56,6 @@ userListStore.fetchUser(Number(route.params.id)).then(response => {
     >
       <UserStatisticsTransactions />
       <br>
-      <UserAbsenceReport />
-      <br>
       <VTabs
         v-model="userTab"
         class="v-tabs-pill"
@@ -84,6 +78,10 @@ userListStore.fetchUser(Number(route.params.id)).then(response => {
         class="mt-6 disable-tab-transition"
         :touch="false"
       >
+        <VWindowItem>
+          <UserTabAbsence />
+        </VWindowItem>
+        
         <VWindowItem>
           <UserTabOverview />
         </VWindowItem>

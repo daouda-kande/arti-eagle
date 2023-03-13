@@ -8,7 +8,7 @@ const vuetifyTheme = useTheme()
 const series = {
   bar: [
     {
-      name: 'Earning',
+      name: 'Retards',
       data: [
         270,
         210,
@@ -22,7 +22,7 @@ const series = {
       ],
     },
     {
-      name: 'Expense',
+      name: 'Absences',
       data: [
         -140,
         -160,
@@ -33,40 +33,6 @@ const series = {
         -80,
         -100,
         -180,
-      ],
-    },
-  ],
-  line: [
-    {
-      name: 'Last Month',
-      data: [
-        20,
-        10,
-        30,
-        16,
-        24,
-        5,
-        40,
-        23,
-        28,
-        5,
-        30,
-      ],
-    },
-    {
-      name: 'This Month',
-      data: [
-        50,
-        40,
-        60,
-        46,
-        54,
-        35,
-        70,
-        53,
-        58,
-        35,
-        60,
       ],
     },
   ],
@@ -211,46 +177,6 @@ const chartOptions = computed(() => {
         active: { filter: { type: 'none' } },
       },
     },
-    line: {
-      chart: {
-        toolbar: { show: false },
-        zoom: { enabled: false },
-        type: 'line',
-      },
-      stroke: {
-        curve: 'smooth',
-        dashArray: [
-          5,
-          0,
-        ],
-        width: [
-          1,
-          2,
-        ],
-      },
-      legend: { show: false },
-      colors: [
-        borderColor,
-        currentTheme.primary,
-      ],
-      grid: {
-        show: false,
-        borderColor,
-        padding: {
-          top: -30,
-          bottom: -15,
-          left: 25,
-        },
-      },
-      markers: { size: 0 },
-      xaxis: {
-        labels: { show: false },
-        axisTicks: { show: false },
-        axisBorder: { show: false },
-      },
-      yaxis: { show: false },
-      tooltip: { enabled: false },
-    },
   }
 })
 </script>
@@ -260,13 +186,13 @@ const chartOptions = computed(() => {
     <VRow no-gutters>
       <VCol
         cols="12"
-        sm="8"
-        lg="8"
+        sm="12"
+        lg="12"
         :class="$vuetify.display.smAndUp ? 'border-e' : 'border-b'"
       >
         <VCardText class="pe-2">
           <h6 class="text-h6 mb-6">
-            Revenue Report
+            Aperçu Global des Pointage
           </h6>
 
           <VueApexCharts
@@ -274,58 +200,6 @@ const chartOptions = computed(() => {
             :series="series.bar"
             height="365"
           />
-        </VCardText>
-      </VCol>
-
-      <VCol
-        cols="12"
-        sm="4"
-      >
-        <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
-          <VBtn
-            variant="outlined"
-            size="small"
-            class="d-flex mx-auto"
-          >
-            <span>2022</span>
-            <template #append>
-              <VIcon
-                size="16"
-                icon="tabler-chevron-down"
-              />
-            </template>
-            <VMenu activator="parent">
-              <VList>
-                <VListItem
-                  v-for="(item, index) in ['2021', '2020', '2019']"
-                  :key="index"
-                  :value="index"
-                >
-                  <VListItemTitle>{{ item }}</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
-
-          <div class="d-flex flex-column mt-6">
-            <h5 class="font-weight-semibold text-h5">
-              $25,825
-            </h5>
-            <p>
-              <span class="text-high-emphasis font-weight-semibold me-1">Budget:</span>
-              <span>56,800</span>
-            </p>
-          </div>
-
-          <VueApexCharts
-            :options="chartOptions.line"
-            :series="series.line"
-            height="100"
-          />
-
-          <VBtn class="mt-4">
-            Increase Budget
-          </VBtn>
         </VCardText>
       </VCol>
     </VRow>

@@ -1,11 +1,14 @@
 <script setup>
 import { useUserListStore } from '@/views/apps/user/useUserListStore'
+import UserAbsenceReport from '@/views/apps/user/view/UserAbsenceReport.vue'
 import UserBioPanel from '@/views/apps/user/view/UserBioPanel.vue'
 import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
 import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
 import UserTabOverview from '@/views/apps/user/view/UserTabOverview.vue'
 import UserTabSecurity from '@/views/apps/user/view/UserTabSecurity.vue'
+import CardStatisticsTransactions from '@/views/pages/cards/card-statistics/CardStatisticsTransactions.vue'
+
 
 const userListStore = useUserListStore()
 const route = useRoute()
@@ -55,6 +58,10 @@ userListStore.fetchUser(Number(route.params.id)).then(response => {
       md="7"
       lg="8"
     >
+      <CardStatisticsTransactions />
+      <br>
+      <UserAbsenceReport />
+      <br>
       <VTabs
         v-model="userTab"
         class="v-tabs-pill"

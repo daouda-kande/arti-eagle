@@ -254,34 +254,15 @@ const userListMeta = [
               />
             </div>
 
-            <VSpacer />
-
             <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
               <!-- 👉 Search  -->
               <div style="width: 10rem;">
                 <VTextField
                   v-model="searchQuery"
-                  placeholder="Search"
+                  placeholder="Rechercher"
                   density="compact"
                 />
               </div>
-
-              <!-- 👉 Export button -->
-              <VBtn
-                variant="tonal"
-                color="secondary"
-                prepend-icon="tabler-screen-share"
-              >
-                Export
-              </VBtn>
-
-              <!-- 👉 Add user button -->
-              <VBtn
-                prepend-icon="tabler-plus"
-                @click="isAddNewUserDrawerVisible = true"
-              >
-                Add New User
-              </VBtn>
             </div>
           </VCardText>
 

@@ -324,7 +324,7 @@ const userListMeta = [
                     <div class="d-flex flex-column">
                       <h6 class="text-base">
                         <RouterLink
-                          :to="{ name: 'apps-user-view-id', params: { id: project.id } }"
+                          :to="{ name: 'apps-project-view-id', params: { id: project.id } }"
                           class="font-weight-medium user-list-name"
                         >
                           {{ project.name }}
@@ -391,7 +391,7 @@ const userListMeta = [
                     size="x-small"
                     color="primary"
                     variant="text"
-                    :to="{ name: 'apps-user-view-id', params: { id: project.id } }"
+                    :to="{ name: 'apps-project-view-id', params: { id: project.id } }"
                   >
                     <VIcon
                       size="22"

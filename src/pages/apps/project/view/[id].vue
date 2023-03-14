@@ -1,7 +1,7 @@
 <script setup>
 import CardProjectProgressOverview from '@/views/apps/project/view/CardProjectProgressOverview.vue'
+import ProjectBioPanel from '@/views/apps/project/view/ProjectBioPanel.vue'
 import { useUserListStore } from '@/views/apps/user/useUserListStore'
-import UserBioPanel from '@/views/apps/user/view/UserBioPanel.vue'
 import UserTabAbsence from '@/views/apps/user/view/UserTabAbsence.vue'
 import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
@@ -42,7 +42,7 @@ userListStore.fetchUser(Number(route.params.id)).then(response => {
       md="5"
       lg="4"
     >
-      <UserBioPanel :user-data="userData" />
+      <ProjectBioPanel :user-data="userData" />
     </VCol>
 
     <VCol

@@ -147,7 +147,9 @@ const resolveUserRoleVariant = role => {
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
                   Email:
-                  <span class="text-body-2">al-moustapha.cisse@arti.ci</span>
+                  <a
+                    href="mailto:al-moustapha.cisse@arti.ci"
+                  >al-moustapha.cisse@arti.ci</a>
                 </h6>
               </VListItemTitle>
             </VListItem>

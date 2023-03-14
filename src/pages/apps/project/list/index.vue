@@ -76,37 +76,22 @@ const directions = [
   },
 ]
 
-const plans = [
-  {
-    title: 'Basic',
-    value: 'basic',
-  },
-  {
-    title: 'Company',
-    value: 'company',
-  },
-  {
-    title: 'Enterprise',
-    value: 'enterprise',
-  },
-  {
-    title: 'Team',
-    value: 'team',
-  },
-]
-
 const status = [
   {
-    title: 'Pending',
-    value: 'pending',
+    title: 'Non demarré',
+    value: 'Schedulled',
   },
   {
-    title: 'Active',
-    value: 'active',
+    title: 'En cours',
+    value: 'In Progress',
   },
   {
-    title: 'Inactive',
-    value: 'inactive',
+    title: 'Suspendu',
+    value: 'Stopped',
+  },
+  {
+    title: 'Echec',
+    value: 'Failled',
   },
 ]
 
@@ -259,7 +244,7 @@ const userListMeta = [
               >
                 <VSelect
                   v-model="selectedDirection"
-                  label="Filtre par direction"
+                  label="Filtre par Direction"
                   :items="directions"
                   clearable
                   clear-icon="tabler-x"
@@ -271,21 +256,8 @@ const userListMeta = [
                 sm="4"
               >
                 <VSelect
-                  v-model="selectedPlan"
-                  label="Select Plan"
-                  :items="plans"
-                  clearable
-                  clear-icon="tabler-x"
-                />
-              </VCol>
-              <!-- 👉 Select Status -->
-              <VCol
-                cols="12"
-                sm="4"
-              >
-                <VSelect
                   v-model="selectedStatus"
-                  label="Select Status"
+                  label="Filtre par Status"
                   :items="status"
                   clearable
                   clear-icon="tabler-x"

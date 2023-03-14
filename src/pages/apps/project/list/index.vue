@@ -5,7 +5,7 @@ import { avatarText } from '@core/utils/formatters';
 
 const projectListStore = useProjectListStore()
 const searchQuery = ref('')
-const selectedRole = ref()
+const selectedDirection = ref()
 const selectedPlan = ref()
 const selectedStatus = ref()
 const rowPerPage = ref(10)
@@ -20,7 +20,7 @@ const fetchProjects = () => {
     q: searchQuery.value,
     status: selectedStatus.value,
     plan: selectedPlan.value,
-    role: selectedRole.value,
+    direction: selectedDirection.value,
     perPage: rowPerPage.value,
     currentPage: currentPage.value,
   }).then(response => {
@@ -41,26 +41,38 @@ watchEffect(() => {
 })
 
 // 👉 search filters
-const roles = [
+const directions = [
   {
-    title: 'Admin',
-    value: 'admin',
+    title: 'DAAF',
+    value: 'DAAF',
   },
   {
-    title: 'Author',
-    value: 'author',
+    title: 'DCP',
+    value: 'DCP',
   },
   {
-    title: 'Editor',
-    value: 'editor',
+    title: 'DCSTI',
+    value: 'DCSTI',
   },
   {
-    title: 'Maintainer',
-    value: 'maintainer',
+    title: 'DGPECRP',
+    value: 'DGPECRP',
   },
   {
-    title: 'Subscriber',
-    value: 'subscriber',
+    title: 'DMGP',
+    value: 'GMGP',
+  },
+  {
+    title: 'DSESP',
+    value: 'DSESP',
+  },
+  {
+    title: 'DSI',
+    value: 'DSI',
+  },
+  {
+    title: 'DRRN',
+    value: 'DRRN',
   },
 ]
 
@@ -240,20 +252,20 @@ const userListMeta = [
           <!-- 👉 Filters -->
           <VCardText>
             <VRow>
-              <!-- 👉 Select Role -->
+              <!-- 👉 Select Direction -->
               <VCol
                 cols="12"
                 sm="4"
               >
                 <VSelect
-                  v-model="selectedRole"
-                  label="Select Role"
-                  :items="roles"
+                  v-model="selectedDirection"
+                  label="Filtre par direction"
+                  :items="directions"
                   clearable
                   clear-icon="tabler-x"
                 />
               </VCol>
-              <!-- 👉 Select Plan -->
+              <!-- 👉 Select Status -->
               <VCol
                 cols="12"
                 sm="4"

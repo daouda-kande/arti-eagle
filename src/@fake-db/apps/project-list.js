@@ -799,10 +799,10 @@ const project = [
 
 // 👉  return projects
 mock.onGet('/apps/projects/list').reply(config => {
-  const { q = '', status = null, perPage = 10, currentPage = 1 } = config.params ?? {}
+  const { q = '', direction = null, status = null, perPage = 10, currentPage = 1 } = config.params ?? {}
   const queryLower = q.toLowerCase()
 
-  let filteredProjects = projects.filter(project => ((project.code.toLowerCase().includes(queryLower) || project.name.toLowerCase().includes(queryLower)) && project.status === (status || project.status))).reverse()
+  let filteredProjects = projects.filter(project => ((project.code.toLowerCase().includes(queryLower) || project.name.toLowerCase().includes(queryLower)) && project.status === (status || project.status) && project.direction === (direction || project.direction))).reverse()
   const totalPage = Math.ceil(filteredProjects.length / perPage) ? Math.ceil(filteredProjects.length / perPage) : 1
   const totalProjects = filteredProjects.length
   if (perPage) {

@@ -128,15 +128,15 @@ const resolveUserRoleVariant = role => {
   }
 }
 
-const resolveUserStatusVariant = stat => {
-  if (stat === 'pending')
-    return 'warning'
-  if (stat === 'active')
-    return 'success'
-  if (stat === 'inactive')
-    return 'secondary'
-  
-  return 'primary'
+const resolveProjectStatusVariant = stat => {
+  if (stat === 'Schedulled')
+    return { status:'Non Demarré', color:'secondary' }
+  if (stat === 'In Progress')
+    return { status:'En Cours', color:'info' }
+  if (stat === 'Stopped')
+    return { status:'Suspendu', color:'warning' }
+  if (stat === 'Failled')
+    return { status:'Echec', color:'error' }
 }
 
 const isAddNewUserDrawerVisible = ref(false)
@@ -356,7 +356,7 @@ const userListMeta = [
                   <div class="d-flex align-center">
                     <VAvatar
                       variant="tonal"
-                      :color="resolveUserRoleVariant(user.role).color"
+                      :color="resolveProjectStatusVariant(user.status).color"
                       class="me-3"
                       size="38"
                     >
@@ -410,11 +410,11 @@ const userListMeta = [
                 <td>
                   <VChip
                     label
-                    :color="resolveUserStatusVariant(user.status)"
+                    :color="resolveProjectStatusVariant(user.status).color"
                     size="small"
                     class="text-capitalize"
                   >
-                    {{ user.status }}
+                    {{ resolveProjectStatusVariant(user.status).status }}
                   </VChip>
                 </td>
 
@@ -423,7 +423,7 @@ const userListMeta = [
                   <VProgressLinear
                     :model-value="user.progress"
                     bg-color="primary"
-                    :color="resolveUserStatusVariant(user.status)"
+                    :color="resolveProjectStatusVariant(user.status).color"
                   />
                 </td>
 

@@ -11,6 +11,7 @@ import './apps/calendar'
 import './apps/chat'
 import './apps/email'
 import './apps/invoice'
+import './apps/project-list'
 
 // Dashboard
 import './dashboard/analytics'

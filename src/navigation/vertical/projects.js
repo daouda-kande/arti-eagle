@@ -2,7 +2,7 @@ export default[
   { heading: 'Vue des Projets' },
   {
     title: 'Liste',
-    to:'',
+    to:'apps-project-list',
     icon: { icon: 'tabler-3d-cube-sphere' },
   },
 ]

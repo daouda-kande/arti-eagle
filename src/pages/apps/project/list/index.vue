@@ -82,6 +82,10 @@ const status = [
     value: 'Schedulled',
   },
   {
+    title: 'Terminé',
+    value: 'Finished',
+  },
+  {
     title: 'En cours',
     value: 'In Progress',
   },
@@ -137,6 +141,8 @@ const resolveProjectStatusVariant = stat => {
     return { status:'Suspendu', color:'warning' }
   if (stat === 'Failled')
     return { status:'Echec', color:'error' }
+  if (stat === 'Finished')
+    return { status:'Terminé', color:'success' }
 }
 
 const isAddNewUserDrawerVisible = ref(false)

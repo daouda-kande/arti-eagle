@@ -99,39 +99,6 @@ const status = [
   },
 ]
 
-const resolveUserRoleVariant = role => {
-  if (role === 'subscriber')
-    return {
-      color: 'warning',
-      icon: 'tabler-user',
-    }
-  if (role === 'author')
-    return {
-      color: 'success',
-      icon: 'tabler-circle-check',
-    }
-  if (role === 'maintainer')
-    return {
-      color: 'primary',
-      icon: 'tabler-chart-pie-2',
-    }
-  if (role === 'editor')
-    return {
-      color: 'info',
-      icon: 'tabler-pencil',
-    }
-  if (role === 'admin')
-    return {
-      color: 'secondary',
-      icon: 'tabler-device-laptop',
-    }
-  
-  return {
-    color: 'primary',
-    icon: 'tabler-user',
-  }
-}
-
 const resolveProjectStatusVariant = stat => {
   if (stat === 'Schedulled')
     return { status:'Non Demarré', color:'secondary' }
@@ -353,8 +320,8 @@ const userListMeta = [
             <!-- 👉 table body -->
             <tbody>
               <tr
-                v-for="user in projects"
-                :key="user.id"
+                v-for="project in projects"
+                :key="project.id"
                 style="height: 3.75rem;"
               >
                 <!-- 👉 PROJECT -->
@@ -362,27 +329,27 @@ const userListMeta = [
                   <div class="d-flex align-center">
                     <VAvatar
                       variant="tonal"
-                      :color="resolveProjectStatusVariant(user.status).color"
+                      :color="resolveProjectStatusVariant(project.status).color"
                       class="me-3"
                       size="38"
                     >
                       <VImg
-                        v-if="user.avatar"
-                        :src="user.avatar"
+                        v-if="project.avatar"
+                        :src="project.avatar"
                       />
-                      <span v-else>{{ avatarText(user.name) }}</span>
+                      <span v-else>{{ avatarText(project.name) }}</span>
                     </VAvatar>
 
                     <div class="d-flex flex-column">
                       <h6 class="text-base">
                         <RouterLink
-                          :to="{ name: 'apps-user-view-id', params: { id: user.id } }"
+                          :to="{ name: 'apps-user-view-id', params: { id: project.id } }"
                           class="font-weight-medium user-list-name"
                         >
-                          {{ user.name }}
+                          {{ project.name }}
                         </RouterLink>
                       </h6>
-                      <span class="text-sm text-disabled">@code: {{ user.code }}</span>
+                      <span class="text-sm text-disabled">@code: {{ project.code }}</span>
                     </div>
                   </div>
                 </td>
@@ -390,20 +357,20 @@ const userListMeta = [
                 <!-- 👉 DIRECTION -->
                 <td>
                   <div class="d-flex align-center">
-                    {{ user.direction }}
+                    {{ project.direction }}
                   </div>
                 </td>
                 <!-- 👉 START DATE -->
                 <td>
                   <div class="d-flex align-center">
-                    {{ user.start_date }}
+                    {{ project.start_date }}
                   </div>
                 </td>
 
                 <!-- 👉 END DATE -->
                 <td>
                   <div class="d-flex align-center">
-                    {{ user.end_date }}
+                    {{ project.end_date }}
                   </div>
                 </td>
 
@@ -416,20 +383,20 @@ const userListMeta = [
                 <td>
                   <VChip
                     label
-                    :color="resolveProjectStatusVariant(user.status).color"
+                    :color="resolveProjectStatusVariant(project.status).color"
                     size="small"
                     class="text-capitalize"
                   >
-                    {{ resolveProjectStatusVariant(user.status).status }}
+                    {{ resolveProjectStatusVariant(project.status).status }}
                   </VChip>
                 </td>
 
                 <!-- 👉 PROGRESSION -->
                 <td>
                   <VProgressLinear
-                    :model-value="user.progress"
+                    :model-value="project.progress"
                     bg-color="primary"
-                    :color="resolveProjectStatusVariant(user.status).color"
+                    :color="resolveProjectStatusVariant(project.status).color"
                   />
                 </td>
 
@@ -443,7 +410,7 @@ const userListMeta = [
                     size="x-small"
                     color="primary"
                     variant="text"
-                    :to="{ name: 'apps-user-view-id', params: { id: user.id } }"
+                    :to="{ name: 'apps-user-view-id', params: { id: project.id } }"
                   >
                     <VIcon
                       size="22"

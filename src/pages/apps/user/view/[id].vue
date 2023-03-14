@@ -33,6 +33,8 @@ const tabs = [
 userListStore.fetchUser(Number(route.params.id)).then(response => {
   userData.value = response.data
 })
+console.log("DEBUG")
+console.log(userData)
 </script>
 
 <template>

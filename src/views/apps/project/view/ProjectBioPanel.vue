@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps({
-  userData: {
+  projectData: {
     type: Object,
     required: true,
   },
@@ -91,53 +91,25 @@ const resolveUserRoleVariant = role => {
           <!-- 👉 Role chip -->
           <VChip
             label
-            :color="resolveUserRoleVariant(props.userData.role).color"
+            color="primary"
             size="small"
             class="text-capitalize mt-4"
           >
-            MAT001256
+            @code: {{ props.projectData.code }}
           </VChip>
         </VCardText>
 
         <VDivider />
 
-        <!-- 👉 Details -->
+        <!-- 👉 Details Section -->
         <VCardText>
           <p class="text-sm text-uppercase text-disabled">
             Details
           </p>
 
           <!-- 👉 User Details list -->
+          
           <VList class="card-list mt-2">
-            <VListItem>
-              <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
-                  Nom et prénom(s):
-                  <span class="text-body-2">
-                    Gren CISSE Al-Karid
-                  </span>
-                </h6>
-              </VListItemTitle>
-            </VListItem>
-
-            <VListItem>
-              <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
-                  Fonction:
-                  <span class="text-body-2">Chef de Service</span>
-                </h6>
-              </VListItemTitle>
-            </VListItem>
-
-            <VListItem>
-              <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
-                  Service:
-                  <span class="text-body-2">Recherche et Développement</span>
-                </h6>
-              </VListItemTitle>
-            </VListItem>
-
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
@@ -147,6 +119,7 @@ const resolveUserRoleVariant = role => {
               </VListItemTitle>
             </VListItem>
 
+            <!-- 👉 Contact Section -->
             <br> <VDivider /><br>
             <p class="text-sm text-uppercase text-disabled">
               Contacts
@@ -155,26 +128,26 @@ const resolveUserRoleVariant = role => {
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
+                  Responsable:
+                  <span class="text-body-2"> Gren CISSE Al-Karid</span>
+                </h6>
+              </VListItemTitle>
+            </VListItem>
+
+            <VListItem>
+              <VListItemTitle>
+                <h6 class="text-base font-weight-semibold">
+                  Telephone:
+                  <span class="text-body-2">0799852919</span>
+                </h6>
+              </VListItemTitle>
+            </VListItem>
+
+            <VListItem>
+              <VListItemTitle>
+                <h6 class="text-base font-weight-semibold">
                   Email:
-                  <span class="text-body-2">{{ props.userData.email }}</span>
-                </h6>
-              </VListItemTitle>
-            </VListItem>
-
-            <VListItem>
-              <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
-                  Contact:
-                  <span class="text-body-2">{{ props.userData.contact }}</span>
-                </h6>
-              </VListItemTitle>
-            </VListItem>
-
-            <VListItem>
-              <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
-                  Site:
-                  <span class="text-body-2">Siège</span>
+                  <span class="text-body-2">al-moustapha.cisse@arti.ci</span>
                 </h6>
               </VListItemTitle>
             </VListItem>
@@ -188,7 +161,7 @@ const resolveUserRoleVariant = role => {
   <!-- 👉 Edit user info dialog -->
   <UserInfoEditDialog
     v-model:isDialogVisible="isUserInfoEditDialogVisible"
-    :user-data="props.userData"
+    :user-data="props.projectData"
   />
 
   <!-- 👉 Upgrade plan dialog -->

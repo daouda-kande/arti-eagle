@@ -1,7 +1,7 @@
 <script setup>
+import { useProjectListStore } from '@/views/apps/project/useProjectListStore'
 import CardProjectProgressOverview from '@/views/apps/project/view/CardProjectProgressOverview.vue'
 import ProjectBioPanel from '@/views/apps/project/view/ProjectBioPanel.vue'
-import { useUserListStore } from '@/views/apps/user/useUserListStore'
 import UserTabAbsence from '@/views/apps/user/view/UserTabAbsence.vue'
 import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
@@ -10,9 +10,9 @@ import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vu
 import UserTabOverview from '@/views/apps/user/view/UserTabOverview.vue'
 
 
-const userListStore = useUserListStore()
+const projectListStore = useProjectListStore()
 const route = useRoute()
-const userData = ref()
+const projectData = ref()
 const userTab = ref(null)
 
 const tabs = [
@@ -30,19 +30,21 @@ const tabs = [
   },
 ]
 
-userListStore.fetchUser(Number(route.params.id)).then(response => {
-  userData.value = response.data
+projectListStore.fetchProject(Number(route.params.id)).then(response => {
+  projectData.value = response.data
 })
+console.log("DEBUG")
+console.log(projectData)
 </script>
 
 <template>
-  <VRow v-if="userData">
+  <VRow v-if="projectData">
     <VCol
       cols="12"
       md="5"
       lg="4"
     >
-      <ProjectBioPanel :user-data="userData" />
+      <ProjectBioPanel :project-data="projectData" />
     </VCol>
 
     <VCol

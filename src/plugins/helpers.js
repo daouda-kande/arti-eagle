@@ -1,4 +1,4 @@
-export default function resolveProjectStatusVariant(stat) {
+export function resolveProjectStatusVariant(stat) {
   if (stat === 'Schedulled')
     return { status:'Non Demarré', color:'secondary' }
   if (stat === 'In Progress')
@@ -9,4 +9,11 @@ export default function resolveProjectStatusVariant(stat) {
     return { status:'Echec', color:'error' }
   if (stat === 'Finished')
     return { status:'Terminé', color:'success' }
+}
+
+export function resolveLocalDateVariant (d) {
+  const date = new Date(d)
+  const options = { year: 'numeric', month: 'long', day: 'numeric' }
+  
+  return date.toLocaleDateString('fr-FR', options)
 }

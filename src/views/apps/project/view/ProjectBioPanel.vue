@@ -19,48 +19,24 @@ const standardPlan = {
 const isUserInfoEditDialogVisible = ref(false)
 const isUpgradePlanDialogVisible = ref(false)
 
-const resolveUserStatusVariant = stat => {
-  if (stat === 'pending')
-    return 'warning'
-  if (stat === 'active')
-    return 'success'
-  if (stat === 'inactive')
-    return 'secondary'
-  
-  return 'primary'
+const resolveProjectStatusVariant = stat => {
+  if (stat === 'Schedulled')
+    return { status:'Non Demarré', color:'secondary' }
+  if (stat === 'In Progress')
+    return { status:'En Cours', color:'info' }
+  if (stat === 'Stopped')
+    return { status:'Suspendu', color:'warning' }
+  if (stat === 'Failled')
+    return { status:'Echec', color:'error' }
+  if (stat === 'Finished')
+    return { status:'Terminé', color:'success' }
 }
 
-const resolveUserRoleVariant = role => {
-  if (role === 'subscriber')
-    return {
-      color: 'warning',
-      icon: 'tabler-user',
-    }
-  if (role === 'author')
-    return {
-      color: 'success',
-      icon: 'tabler-circle-check',
-    }
-  if (role === 'maintainer')
-    return {
-      color: 'primary',
-      icon: 'tabler-chart-pie-2',
-    }
-  if (role === 'editor')
-    return {
-      color: 'info',
-      icon: 'tabler-pencil',
-    }
-  if (role === 'admin')
-    return {
-      color: 'secondary',
-      icon: 'tabler-server-2',
-    }
+const resolveProjectDateVariant = d => {
+  const date = new Date(d)
+  const options = { year: 'numeric', month: 'long', day: 'numeric' }
   
-  return {
-    color: 'primary',
-    icon: 'tabler-user',
-  }
+  return date.toLocaleDateString('fr-FR', options)
 }
 </script>
 
@@ -69,23 +45,18 @@ const resolveUserRoleVariant = role => {
     <!-- SECTION User Details -->
     <VCol cols="12">
       <VCard>
-        <VCardText class="text-center pt-15">
-          <!-- 👉 Avatar -->
-          <VAvatar
-            rounded
-            :size="50"
-            color="primary"
-            variant="tonal"
-          >
-            <span
-              class="text-2xl font-weight-semibold"
-            >
-              NP
-            </span>
-          </VAvatar>
+        <VCardText class="text-center pt-7">
           <!-- 👉 User fullName -->
+          <VChip
+            label
+            :color="resolveProjectStatusVariant(projectData.status).color"
+            size="large"
+            variant="elevated"
+          >
+            {{ resolveProjectStatusVariant(projectData.status).status }}
+          </VChip><br>
           <h6 class="text-h6 mt-4">
-            This is supposed to be a very long project name intended for test. Just for testing purpose.
+            {{ projectData.name }}
           </h6>
 
           <!-- 👉 Role chip -->
@@ -118,6 +89,22 @@ const resolveUserRoleVariant = role => {
                 </h6>
               </VListItemTitle>
             </VListItem>
+            <VListItem>
+              <VListItemTitle>
+                <h6 class="text-base font-weight-semibold">
+                  Date de début:
+                  <span class="text-body-2">{{ resolveProjectDateVariant(projectData.start_date) }}</span>
+                </h6>
+              </VListItemTitle>
+            </VListItem>
+            <VListItem>
+              <VListItemTitle>
+                <h6 class="text-base font-weight-semibold">
+                  Date de fin:
+                  <span class="text-body-2">{{ resolveProjectDateVariant(projectData.end_date) }}</span>
+                </h6>
+              </VListItemTitle>
+            </VListItem>
 
             <!-- 👉 Contact Section -->
             <br> <VDivider /><br>
@@ -137,7 +124,7 @@ const resolveUserRoleVariant = role => {
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
-                  Telephone:
+                  Téléphone:
                   <span class="text-body-2">0799852919</span>
                 </h6>
               </VListItemTitle>

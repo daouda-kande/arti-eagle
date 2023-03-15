@@ -15,6 +15,33 @@ const route = useRoute()
 const projectData = ref()
 const userTab = ref(null)
 
+const statisticsHorizontal = [
+  {
+    title: 'Activités',
+    color: 'error',
+    icon: 'tabler-cpu',
+    stats: '08',
+  },
+  {
+    title: 'Réalisé',
+    color: 'error',
+    icon: 'tabler-chart-pie-2',
+    stats: '37%',
+  },
+  {
+    title: 'Personnes',
+    color: 'success',
+    icon: ' tabler-users',
+    stats: '03',
+  },
+  {
+    title: 'FCFA',
+    color: 'warning',
+    icon: 'tabler-wallet',
+    stats: '128M',
+  },
+]
+
 const tabs = [
   {
     icon: 'tabler-24-hours',
@@ -52,6 +79,20 @@ console.log(projectData)
       md="7"
       lg="8"
     >
+      <VRow>
+        <!-- 👉 Horizontal Cards -->
+        <VCol
+          v-for="statistics in statisticsHorizontal"
+          :key="statistics.title"
+          cols="12"
+          lg="3"
+          sm="6"
+          md="6"
+        >
+          <CardStatisticsHorizontal v-bind="statistics" />
+        </VCol>
+      </VRow>
+      <VDivider vertical="10" />
       <CardProjectProgressOverview />
       <br>
       <VTabs

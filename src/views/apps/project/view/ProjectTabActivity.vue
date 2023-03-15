@@ -1,4 +1,5 @@
 <script setup>
+
 // Images
 import { resolveLocalDateVariant, resolveProjectStatusVariant } from '@/plugins/helpers';
 import figma from '@images/icons/project-icons/figma.png';
@@ -113,6 +114,7 @@ const resolveUserProgressVariant = progress => {
               :key="project.name"
               style="height: 3.75rem;"
             >
+              <!-- 👉 Project name -->
               <td style="cursor: default;">
                 <div class="d-flex align-center">
                   <VAvatar
@@ -130,6 +132,8 @@ const resolveUserProgressVariant = progress => {
                   </div>
                 </div>
               </td>
+
+              <!-- 👉 Accountable -->
               <td>
                 <RouterLink
                   :to="{ name: 'apps-user-view-id', params: { id: project.accountable.id } }"
@@ -138,9 +142,13 @@ const resolveUserProgressVariant = progress => {
                   {{ project.accountable.name }}
                 </RouterLink>
               </td>
+
+              <!-- 👉 End date -->
               <td>
                 {{ resolveLocalDateVariant(project.end_date) }}
               </td>
+
+              <!-- 👉 Start Date -->
               <td class="text-medium-emphasis">
                 <VChip
                   label

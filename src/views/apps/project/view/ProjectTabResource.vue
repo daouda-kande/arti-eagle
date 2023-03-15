@@ -1,5 +1,4 @@
 <script setup>
-
 // Images
 import { resolveActivityProgression, resolveProjectStatusVariant, zerofill } from '@/plugins/helpers';
 import { avatarText } from '@core/utils/formatters';
@@ -96,7 +95,7 @@ const resources = [
     activity: {
       nb: 1,
       finished: 0,
-      status:"In Progress",
+      status:"Schedulled",
     },
   },
   {

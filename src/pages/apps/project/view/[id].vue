@@ -2,7 +2,7 @@
 import { useProjectListStore } from '@/views/apps/project/useProjectListStore'
 import CardProjectProgressOverview from '@/views/apps/project/view/CardProjectProgressOverview.vue'
 import ProjectBioPanel from '@/views/apps/project/view/ProjectBioPanel.vue'
-import UserTabAbsence from '@/views/apps/user/view/UserTabAbsence.vue'
+import ProjectTabActivity from '@/views/apps/project/view/ProjectTabActivity.vue'
 import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
 import UserTabEvaluation from '@/views/apps/user/view/UserTabEvaluation.vue'
@@ -44,8 +44,8 @@ const statisticsHorizontal = [
 
 const tabs = [
   {
-    icon: 'tabler-24-hours',
-    title: "Check-in",
+    icon: 'tabler-3d-cube-sphere',
+    title: "Activités",
   },
   {
     icon: 'tabler-user-check',
@@ -118,7 +118,7 @@ console.log(projectData)
         :touch="false"
       >
         <VWindowItem>
-          <UserTabAbsence />
+          <ProjectTabActivity />
         </VWindowItem>
         
         <VWindowItem>

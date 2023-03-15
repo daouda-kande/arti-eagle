@@ -17,3 +17,11 @@ export function resolveLocalDateVariant (d) {
   
   return date.toLocaleDateString('fr-FR', options)
 }
+
+export function resolveActivityProgression(activity) {
+  return activity.finished/activity.nb*100
+}
+
+export function zerofill(number) {
+  return number.toString().padStart(2, '0')
+}

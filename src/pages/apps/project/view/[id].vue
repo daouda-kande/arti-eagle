@@ -3,9 +3,9 @@ import { useProjectListStore } from '@/views/apps/project/useProjectListStore'
 import CardProjectProgressOverview from '@/views/apps/project/view/CardProjectProgressOverview.vue'
 import ProjectBioPanel from '@/views/apps/project/view/ProjectBioPanel.vue'
 import ProjectTabActivity from '@/views/apps/project/view/ProjectTabActivity.vue'
+import ProjectTabBudget from '@/views/apps/project/view/ProjectTabBudget.vue'
 import ProjectTabDeliverable from '@/views/apps/project/view/ProjectTabDeliverable.vue'
 import ProjectTabResource from '@/views/apps/project/view/ProjectTabResource.vue'
-import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
 import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
 
@@ -134,7 +134,7 @@ console.log(projectData)
         </VWindowItem>
 
         <VWindowItem>
-          <UserTabBillingsPlans />
+          <ProjectTabBudget />
         </VWindowItem>
 
         <VWindowItem>

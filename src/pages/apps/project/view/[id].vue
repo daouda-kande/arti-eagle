@@ -3,11 +3,11 @@ import { useProjectListStore } from '@/views/apps/project/useProjectListStore'
 import CardProjectProgressOverview from '@/views/apps/project/view/CardProjectProgressOverview.vue'
 import ProjectBioPanel from '@/views/apps/project/view/ProjectBioPanel.vue'
 import ProjectTabActivity from '@/views/apps/project/view/ProjectTabActivity.vue'
+import ProjectTabResource from '@/views/apps/project/view/ProjectTabResource.vue'
 import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
 import UserTabEvaluation from '@/views/apps/user/view/UserTabEvaluation.vue'
 import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
-import UserTabOverview from '@/views/apps/user/view/UserTabOverview.vue'
 
 
 const projectListStore = useProjectListStore()
@@ -48,8 +48,8 @@ const tabs = [
     title: "Activités",
   },
   {
-    icon: 'tabler-user-check',
-    title: 'Projets',
+    icon: 'tabler-users',
+    title: 'Ressources',
   },
   {
     icon: 'tabler-ad-2',
@@ -122,7 +122,7 @@ console.log(projectData)
         </VWindowItem>
         
         <VWindowItem>
-          <UserTabOverview />
+          <ProjectTabResource />
         </VWindowItem>
 
         <VWindowItem>

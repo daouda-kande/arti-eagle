@@ -1,7 +1,8 @@
 <script setup>
+
 // Images
-import { resolveLocalDateVariant, resolveProjectStatusVariant } from '@/plugins/helpers';
-import figma from '@images/icons/project-icons/figma.png';
+import { resolveActivityProgression, resolveProjectStatusVariant, zerofill } from '@/plugins/helpers';
+import { avatarText } from '@core/utils/formatters';
 
 const projects = [
   {
@@ -71,6 +72,48 @@ const projects = [
   },
 ]
 
+const resources = [
+  {
+    id: 1,
+    accountable: {
+      id: 1,
+      name: "Lamine Djiré",
+      role: "Manager",
+    },
+    activity: {
+      nb: 1,
+      finished: 1,
+      status:"Finished",
+    },
+  },
+  {
+    id: 1,
+    accountable: {
+      id: 1,
+      name: "Cissé Alassane",
+      role: "Stackholder",
+    },
+    activity: {
+      nb: 1,
+      finished: 0,
+      status:"In Progress",
+    },
+  },
+  {
+    id: 1,
+    accountable: {
+      id: 1,
+      name: "Bokoua Sébastien",
+      role: "Stackholder",
+    },
+    activity: {
+      nb: 2,
+      finished: 1,
+      status:"In Progress",
+    },
+  },
+]
+
 const resolveUserProgressVariant = progress => {
   if (progress <= 25)
     return 'error'
@@ -88,66 +131,87 @@ const resolveUserProgressVariant = progress => {
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="Liste des Activités">
+      <VCard title="Liste des Participants">
         <VDivider />
         <VTable class="text-no-wrap">
           <thead>
             <tr>
               <th scope="col">
-                ACTIVITE
+                PERSONNEL
               </th>
               <th scope="col">
-                RESPONSABE
+                RESPONSABILITE
               </th>
               <th scope="col">
-                DELAIS
+                NB ACTIVITES
               </th>
               <th scope="col">
-                STATUS
+                PRGRESSION
               </th>
             </tr>
           </thead>
           <tbody>
             <tr
-              v-for="project in projects"
-              :key="project.name"
+              v-for="resource in resources"
+              :key="resource.id"
               style="height: 3.75rem;"
             >
+              <!-- 👉 Stackholder -->
               <td style="cursor: default;">
                 <div class="d-flex align-center">
                   <VAvatar
                     :size="38"
                     class="me-3"
-                    :image="figma"
-                  />
+                    variant="tonal"
+                  >
+                    <span>{{ avatarText(resource.accountable.name) }}</span>
+                  </VAvatar>
                   <div>
                     <p class="text-base mb-0">
-                      {{ project.name }}
-                    </p>
-                    <p class="text-sm text-disabled mb-0">
-                      @code: a-001-2023
+                      <RouterLink
+                        :to="{ name: 'apps-user-view-id', params: { id: resource.accountable.id } }"
+                        class="font-weight-medium user-list-name"
+                      >
+                        {{ resource.accountable.name }}
+                      </RouterLink>
                     </p>
                   </div>
                 </div>
               </td>
+
+              <!-- 👉 Accountable -->
               <td>
-                <RouterLink
-                  :to="{ name: 'apps-user-view-id', params: { id: project.accountable.id } }"
-                  class="font-weight-medium user-list-name"
-                >
-                  {{ project.accountable.name }}
-                </RouterLink>
+                {{ resource.accountable.role }}
               </td>
+
+              <!-- 👉 NB Activity -->
               <td>
-                {{ resolveLocalDateVariant(project.end_date) }}
+                <span class="text-capitalize text-base font-weight-semibold">
+                  <VChip
+                    label
+                    :color="resolveProjectStatusVariant(resource.activity.status).color"
+                  >
+                    {{ zerofill(resource.activity.finished) }}
+                  </VChip>
+                  <VDivider
+                    vertical
+                    class="mx-auto"
+                  />
+                  <VChip label>
+                    {{ zerofill(resource.activity.nb) }}
+                  </VChip>
+                </span>
               </td>
+
+              <!-- 👉 Progression -->
               <td class="text-medium-emphasis">
-                <VChip
-                  label
-                  :color="resolveProjectStatusVariant(project.status).color"
-                >
-                  {{ resolveProjectStatusVariant(project.status).status }}
-                </VChip>
+                <VProgressLinear
+                  :model-value="resolveActivityProgression(resource.activity)"
+                  :color="resolveProjectStatusVariant(resource.activity.status).color"
+                  height="8"
+                  rounded
+                  rounded-bar
+                />
               </td>
             </tr>
           </tbody>

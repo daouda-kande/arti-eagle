@@ -1,5 +1,4 @@
 <script setup>
-
 // Images
 import { resolveLocalDateVariant, resolveProjectStatusVariant } from '@/plugins/helpers';
 import figma from '@images/icons/project-icons/figma.png';
@@ -125,9 +124,6 @@ const resolveUserProgressVariant = progress => {
                   <div>
                     <p class="text-base mb-0">
                       {{ project.name }}
-                    </p>
-                    <p class="text-sm text-disabled mb-0">
-                      @code: a-001-2023
                     </p>
                   </div>
                 </div>

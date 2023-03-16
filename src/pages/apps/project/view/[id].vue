@@ -1,7 +1,7 @@
 <script setup>
 import { useProjectListStore } from '@/views/apps/project/useProjectListStore'
-import CardProjectProgressOverview from '@/views/apps/project/view/CardProjectProgressOverview.vue'
-import ProjectBioPanel from '@/views/apps/project/view/ProjectBioPanel.vue'
+import CardProjectProgressOverview from '@/views/apps/project/view/components/CardProjectProgressOverview.vue'
+import ProjectBioPanel from '@/views/apps/project/view/components/ProjectBioPanel.vue'
 import ProjectTabActivity from '@/views/apps/project/view/ProjectTabActivity.vue'
 import ProjectTabBudget from '@/views/apps/project/view/ProjectTabBudget.vue'
 import ProjectTabDeliverable from '@/views/apps/project/view/ProjectTabDeliverable.vue'

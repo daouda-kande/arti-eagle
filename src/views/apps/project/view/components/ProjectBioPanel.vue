@@ -145,6 +145,31 @@ const resolveProjectDateVariant = d => {
       </VCard>
     </VCol>
     <!-- !SECTION -->
+
+    <!-- 👉 Project delays -->
+    <VCol cols="12">
+      <VCard
+        title="Retard"
+        subtitle="Jours de retard cumulés"
+      >
+        <VCardText>
+          <VList class="card-list mt-2">
+            <VListItem>
+              <VListItemTitle>
+                <h6 class="text-base font-weight-semibold">
+                  <VChip
+                    label
+                    color="success"
+                  >
+                    0 jour(s) de retard
+                  </VChip>
+                </h6>
+              </VListItemTitle>
+            </VListItem>
+          </VList>
+        </VCardText>
+      </VCard>
+    </VCol>
   </VRow>
 
   <!-- 👉 Edit user info dialog -->

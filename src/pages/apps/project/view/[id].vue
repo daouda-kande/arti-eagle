@@ -44,12 +44,12 @@ const statisticsHorizontal = [
 
 const tabs = [
   {
-    icon: 'tabler-3d-cube-sphere',
-    title: "Activités",
-  },
-  {
     icon: 'tabler-users',
     title: 'Ressources',
+  },
+  {
+    icon: 'tabler-3d-cube-sphere',
+    title: "Activités",
   },
   {
     icon: 'tabler-ad-2',
@@ -122,11 +122,11 @@ console.log(projectData)
         :touch="false"
       >
         <VWindowItem>
-          <ProjectTabActivity />
+          <ProjectTabResource />
         </VWindowItem>
         
         <VWindowItem>
-          <ProjectTabResource />
+          <ProjectTabActivity />
         </VWindowItem>
 
         <VWindowItem>

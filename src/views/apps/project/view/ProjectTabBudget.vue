@@ -1,8 +1,9 @@
 <script setup>
-import aeIcon from '@images/icons/payments/ae-icon.png';
-import mastercardIcon from '@images/icons/payments/mastercard-icon.png';
-import visaIcon from '@images/icons/payments/visa-icon.png';
-import CardBudgetState from './components/CardBudgetState.vue';
+import { resolveLocalDateVariant } from '@/plugins/helpers'
+import aeIcon from '@images/icons/payments/ae-icon.png'
+import mastercardIcon from '@images/icons/payments/mastercard-icon.png'
+import visaIcon from '@images/icons/payments/visa-icon.png'
+import CardBudgetState from './components/CardBudgetState.vue'
 
 const lastTransitions = [
   {
@@ -71,43 +72,86 @@ const resolveStatus = {
 
   <!-- 👉 Transactions -->
   <VCard title="Transactions">
-    <VDivider :length="20" />
-    <VTable class="text-no-wrap">
-      <thead>
-        <tr>
-          <th>OBJET</th>
-          <th>DATE</th>
-          <th>MONTANT</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr
-          v-for="transition in lastTransitions"
-          :key="transition.lastDigit"
+    <VCardText>
+      <VTimeline
+        side="end"
+        align="start"
+        truncate-line="both"
+        density="compact"
+        class="v-timeline-density-compact"
+      >
+        <VTimelineItem
+          dot-color="primary"
+          size="x-small"
         >
-          <td style="padding-block: 0.61rem;">
-            <div class="d-flex align-center">
-              <div>
-                <p class="text-sm mb-0">
-                  <VChip
-                    label
-                    color="primary"
-                  >
-                    {{ transition.cardType }}
-                  </VChip>
-                </p>
-              </div>
-            </div>
-          </td>
-          <td style="padding-block: 0.61rem;">
-            <span class="text-sm">{{ transition.sentDate }}</span>
-          </td>
-          <td style="padding-block: 0.61rem;">
-            <span class="text-base">{{ transition.trend }}</span>
-          </td>
-        </tr>
-      </tbody>
-    </VTable>
+          <!-- 👉 Header -->
+          <div class="d-flex justify-space-between">
+            <h6 class="text-base font-weight-semibold me-3">
+              Paiement librable de la phase 1
+            </h6>
+            <span class="text-sm text-disabled">{{ resolveLocalDateVariant("2023-06-12") }}</span>
+          </div>
+
+          <!-- 👉 Content -->
+          <p class="mb-1">
+            <span class="me-2">Réglé par <span class="text-sm text-primary">M'Baye Konan</span></span>
+            <VAvatar
+              :image="avatar2"
+              size="20"
+            />
+          </p>
+          <div class="d-flex align-center">
+            <a
+              href="#"
+              class="d-flex align-center me-4"
+            >
+              <VIcon
+                start
+                size="18"
+                color="primary"
+                icon="tabler-file-description"
+              />
+              <h6 class="font-weight-semibold text-base">Reçu de paiement</h6>
+            </a>
+          </div>
+        </VTimelineItem>
+
+        <VTimelineItem
+          dot-color="primary"
+          size="x-small"
+        >
+          <!-- 👉 Header -->
+          <div class="d-flex justify-space-between">
+            <h6 class="text-base font-weight-semibold me-3">
+              Paiement de la phase de démarrage du projet
+            </h6>
+            <span class="text-sm text-disabled">{{ resolveLocalDateVariant("2023-04-28") }}</span>
+          </div>
+
+          <!-- 👉 Content -->
+          <p class="mb-1">
+            <span class="me-2">Réglé par <span class="text-sm text-primary">MBailly</span></span>
+            <VAvatar
+              :image="avatar2"
+              size="20"
+            />
+          </p>
+          <div class="d-flex align-center">
+            <a
+              href="#"
+              class="d-flex align-center me-4"
+            >
+              <VIcon
+                start
+                size="18"
+                color="primary"
+                icon="tabler-file-description"
+              />
+              <h6 class="font-weight-semibold text-base">Facture N001</h6>
+            </a>
+          </div>
+        </VTimelineItem>
+      </VTimeline>
+    </VCardText>
   </VCard>
 </template>

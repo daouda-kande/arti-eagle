@@ -1,7 +1,7 @@
 <script setup>
 // Images
 import { resolveLocalDateVariant, resolveProjectStatusVariant } from '@/plugins/helpers';
-import figma from '@images/icons/project-icons/figma.png';
+import { avatarText } from '@core/utils/formatters';
 
 const projects = [
   {
@@ -88,7 +88,7 @@ const resolveUserProgressVariant = progress => {
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="Liste des Activités">
+      <VCard title="Liste des activités">
         <VDivider />
         <VTable class="text-no-wrap">
           <thead>
@@ -119,8 +119,11 @@ const resolveUserProgressVariant = progress => {
                   <VAvatar
                     :size="38"
                     class="me-3"
-                    :image="figma"
-                  />
+                    variant="tonal"
+                    :color="resolveProjectStatusVariant(project.status).color"
+                  >
+                    <span>{{ avatarText(project.accountable.name) }}</span>
+                  </VAvatar>
                   <div>
                     <p class="text-base mb-0">
                       {{ project.name }}

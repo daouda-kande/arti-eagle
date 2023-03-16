@@ -1,7 +1,8 @@
 <script setup>
-import aeIcon from '@images/icons/payments/ae-icon.png'
-import mastercardIcon from '@images/icons/payments/mastercard-icon.png'
-import visaIcon from '@images/icons/payments/visa-icon.png'
+import aeIcon from '@images/icons/payments/ae-icon.png';
+import mastercardIcon from '@images/icons/payments/mastercard-icon.png';
+import visaIcon from '@images/icons/payments/visa-icon.png';
+import CardBudgetState from './components/CardBudgetState.vue';
 
 const lastTransitions = [
   {
@@ -30,6 +31,23 @@ const lastTransitions = [
   },
 ]
 
+const budgetData = [
+  {
+    subtitle: 'Budget alloué',
+    avatarImg: visaIcon,
+    title: '12 500 000',
+    stats: '100',
+    progress: 'success',
+  },
+  {
+    subtitle: 'Budget consommé',
+    avatarImg: visaIcon,
+    title: '4 575 000',
+    stats: '36.6',
+    progress: 'error',
+  },
+]
+
 const resolveStatus = {
   Verified: 'success',
   Rejected: 'error',
@@ -38,8 +56,22 @@ const resolveStatus = {
 </script>
 
 <template>
+  <!-- 👉 Budget Stat Cards -->
+  <VRow class="mb-1">
+    <VCol
+      v-for="budget in budgetData"
+      :key="budget.title"
+      cols="12"
+      md="6"
+      lg="6"
+    >
+      <CardBudgetState :budget-data="budget" />
+    </VCol>
+  </VRow>
+
+  <!-- 👉 Transactions -->
   <VCard title="Transactions">
-    <VDivider />
+    <VDivider :length="20" />
     <VTable class="text-no-wrap">
       <thead>
         <tr>

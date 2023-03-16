@@ -1,4 +1,5 @@
 <script setup>
+import { zerofill } from '@/plugins/helpers';
 import { useProjectListStore } from '@/views/apps/project/useProjectListStore';
 import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue';
 import { avatarText } from '@core/utils/formatters';
@@ -294,7 +295,7 @@ const userListMeta = [
                   PROGRESSION
                 </th>
                 <th scope="col">
-                  ACTIONS
+                  ACTION
                 </th>
               </tr>
             </thead>
@@ -357,7 +358,9 @@ const userListMeta = [
 
                 <!-- 👉 RESOURCES -->
                 <td>
-                  <span class="text-base">5</span>
+                  <VChip label>
+                    <span class="text-base">{{ zerofill(5) }}</span>
+                  </VChip>
                 </td>
 
                 <!-- 👉 STATUS -->

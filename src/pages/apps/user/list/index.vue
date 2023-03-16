@@ -254,19 +254,22 @@ const userListMeta = [
             <thead>
               <tr>
                 <th scope="col">
-                  NOM & PRENOMS
+                  NOM & PRENOM
                 </th>
                 <th scope="col">
-                  MATRICULE
+                  DIRECTION
                 </th>
                 <th scope="col">
-                  RETARDS
+                  FONCTION
                 </th>
                 <th scope="col">
-                  ABS/JUSTIFIEES
+                  RETARD
                 </th>
                 <th scope="col">
-                  PROJETS
+                  ABS/JUSTIFIEE
+                </th>
+                <th scope="col">
+                  ACTIVITE
                 </th>
                 <th scope="col">
                   PROGRESSION
@@ -284,7 +287,7 @@ const userListMeta = [
                 style="height: 3.75rem;"
               >
                 <!-- 👉 NOM & PRENOM -->
-                <td>
+                <td style="width: 250px;">
                   <div class="d-flex align-center">
                     <VAvatar
                       variant="tonal"
@@ -294,7 +297,7 @@ const userListMeta = [
                     >
                       <span>{{ avatarText(user.fullName) }}</span>
                     </VAvatar>
-
+                      
                     <div class="d-flex flex-column">
                       <h6 class="text-base">
                         <RouterLink
@@ -304,14 +307,22 @@ const userListMeta = [
                           {{ user.fullName }}
                         </RouterLink>
                       </h6>
+                      <span class="text-sm text-disabled">@mat: MT-001</span>
                     </div>
                   </div>
                 </td>
 
-                <!-- 👉 ATRICULE -->
+                <!-- 👉 DIRECTION -->
                 <td>
-                  <div class="d-flex align-center">
-                    <span>{{ avatarText(user.fullName) }}</span>
+                  <div class="d-flex align-center text-capitalize">
+                    <span>{{ user.currentPlan }}</span>
+                  </div>
+                </td>
+
+                <!-- 👉 FONCTION -->
+                <td>
+                  <div class="d-flex align-center text-capitalize">
+                    <span>{{ user.role }}</span>
                   </div>
                 </td>
 

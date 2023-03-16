@@ -1,4 +1,5 @@
 <script setup>
+
 // Images
 import { resolveActivityProgression, resolveProjectStatusVariant, zerofill } from '@/plugins/helpers';
 import { avatarText } from '@core/utils/formatters';
@@ -130,7 +131,7 @@ const resolveUserProgressVariant = progress => {
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="Liste des Participants">
+      <VCard title="Liste des intervenants">
         <VDivider />
         <VTable class="text-no-wrap">
           <thead>

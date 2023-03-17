@@ -13,7 +13,7 @@ export function resolveProjectStatusVariant(stat) {
 
 export function resolveLocalDateVariant (d) {
   const date = new Date(d)
-  const options = { year: 'numeric', month: 'long', day: 'numeric' }
+  const options = { year: 'numeric', month: 'short', day: '2-digit' }
   
   return date.toLocaleDateString('fr-FR', options)
 }

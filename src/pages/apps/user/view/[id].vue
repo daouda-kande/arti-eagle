@@ -3,11 +3,9 @@ import { useUserListStore } from '@/views/apps/user/useUserListStore'
 import UserBioPanel from '@/views/apps/user/view/UserBioPanel.vue'
 import UserStatisticsTransactions from '@/views/apps/user/view/UserStatisticsTransactions.vue'
 import UserTabAbsence from '@/views/apps/user/view/UserTabAbsence.vue'
-import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
-import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
+import UserTabCourse from '@/views/apps/user/view/UserTabCourse.vue'
 import UserTabEvaluation from '@/views/apps/user/view/UserTabEvaluation.vue'
-import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
-import UserTabOverview from '@/views/apps/user/view/UserTabOverview.vue'
+import UserTabProject from '@/views/apps/user/view/UserTabProject.vue'
 
 
 const userListStore = useUserListStore()
@@ -23,6 +21,10 @@ const tabs = [
   {
     icon: 'tabler-user-check',
     title: 'Projets',
+  },
+  {
+    icon: 'tabler-book-2',
+    title: 'Formations',
   },
   {
     icon: 'tabler-ad-2',
@@ -81,23 +83,15 @@ console.log(userData)
         </VWindowItem>
         
         <VWindowItem>
-          <UserTabOverview />
+          <UserTabProject />
+        </VWindowItem>
+
+        <VWindowItem>
+          <UserTabCourse />
         </VWindowItem>
 
         <VWindowItem>
           <UserTabEvaluation />
-        </VWindowItem>
-
-        <VWindowItem>
-          <UserTabBillingsPlans />
-        </VWindowItem>
-
-        <VWindowItem>
-          <UserTabNotifications />
-        </VWindowItem>
-
-        <VWindowItem>
-          <UserTabConnections />
         </VWindowItem>
       </VWindow>
     </VCol>

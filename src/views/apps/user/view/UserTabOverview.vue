@@ -1,5 +1,4 @@
 <script setup>
-
 // Images
 import figma from '@images/icons/project-icons/figma.png';
 
@@ -192,11 +191,8 @@ const resolveUserProgressVariant = progress => {
                 {{ project.status }}
               </td>
               <td style="width: 250px;">
-                <span>{{ project.progress }}%</span>
                 <VProgressLinear
-                  :height="8"
                   :model-value="project.progress"
-                  rounded
                   :color="resolveUserProgressVariant(project.progress)"
                 />
               </td>

@@ -11,6 +11,7 @@ const projects = [
     start_date: "2023-05-13",
     end_date: "2023-10-11",
     status: "Schedulled",
+    role: "Stackholder",
     progress: 87,
     budget: 270,
   },
@@ -21,6 +22,7 @@ const projects = [
     start_date: "2023-02-12",
     end_date: "2024-06-22",
     status: "In Progress",
+    role: "Stackholder",
     progress: 12,
     budget: 635,
   },
@@ -31,6 +33,7 @@ const projects = [
     start_date: "2023-04-13",
     end_date: "2024-02-23",
     status: "Stopped",
+    role: "Manager",
     progress: 49,
     budget: 872,
   },
@@ -41,6 +44,7 @@ const projects = [
     start_date: "2023-05-27",
     end_date: "2024-08-13",
     status: "Failled",
+    role: "Stackholder",
     progress: 70,
     budget: 1072,
   },
@@ -70,6 +74,9 @@ const resolveUserProgressVariant = progress => {
             <tr>
               <th scope="col">
                 PROJET / ACTIVITE
+              </th>
+              <th scope="col">
+                RESPONSABILITE
               </th>
               <th scope="col">
                 DATE DE DEBUT
@@ -105,6 +112,11 @@ const resolveUserProgressVariant = progress => {
                     </p>
                   </div>
                 </div>
+              </td>
+
+              <!-- 👉 ROLE -->
+              <td class="text-medium-emphasis text-capitalize">
+                {{ project.role }} 
               </td>
 
               <!-- 👉 START DATE -->

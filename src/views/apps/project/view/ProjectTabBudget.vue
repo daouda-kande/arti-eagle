@@ -94,26 +94,20 @@ const resolveStatus = {
 
           <!-- 👉 Content -->
           <p class="mb-1">
-            <span class="me-2">Réglé par <span class="text-sm text-primary">M'Baye Konan</span></span>
+            <span class="me-2">Réglé par <span class="text-sm text-primary">M'Baye Konan </span>
+              
+            </span>
             <VAvatar
               :image="avatar2"
               size="20"
             />
           </p>
-          <div class="d-flex align-center">
-            <a
-              href="#"
-              class="d-flex align-center me-4"
-            >
-              <VIcon
-                start
-                size="18"
-                color="primary"
-                icon="tabler-file-description"
-              />
-              <h6 class="font-weight-semibold text-base">Reçu de paiement</h6>
-            </a>
-          </div>
+          <VSpacer />
+          <span class="mb-1">
+            <VChip color="primary">
+              4 000 000 FCFA
+            </VChip>
+          </span>
         </VTimelineItem>
 
         <VTimelineItem
@@ -130,26 +124,20 @@ const resolveStatus = {
 
           <!-- 👉 Content -->
           <p class="mb-1">
-            <span class="me-2">Réglé par <span class="text-sm text-primary">MBailly</span></span>
+            <span class="me-2">Réglé par <span class="text-sm text-primary">MBailly </span>
+              
+            </span>
             <VAvatar
               :image="avatar2"
               size="20"
             />
           </p>
-          <div class="d-flex align-center">
-            <a
-              href="#"
-              class="d-flex align-center me-4"
-            >
-              <VIcon
-                start
-                size="18"
-                color="primary"
-                icon="tabler-file-description"
-              />
-              <h6 class="font-weight-semibold text-base">Facture N001</h6>
-            </a>
-          </div>
+          <VSpacer />
+          <span class="mb-1">
+            <VChip color="primary">
+              575 000 FCFA
+            </VChip>
+          </span>
         </VTimelineItem>
       </VTimeline>
     </VCardText>

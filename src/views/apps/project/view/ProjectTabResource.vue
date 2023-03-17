@@ -1,5 +1,4 @@
 <script setup>
-
 // Images
 import { resolveActivityProgression, resolveProjectStatusVariant, zerofill } from '@/plugins/helpers';
 import { avatarText } from '@core/utils/formatters';
@@ -208,9 +207,6 @@ const resolveUserProgressVariant = progress => {
                 <VProgressLinear
                   :model-value="resolveActivityProgression(resource.activity)"
                   :color="resolveProjectStatusVariant(resource.activity.status).color"
-                  height="8"
-                  rounded
-                  rounded-bar
                 />
               </td>
             </tr>

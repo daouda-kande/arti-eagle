@@ -1,4 +1,5 @@
 <script setup>
+
 // Images
 import { resolveLocalDateVariant, resolveProjectStatusVariant } from '@/plugins/helpers';
 import { avatarText } from '@core/utils/formatters';
@@ -90,7 +91,7 @@ const resolveUserProgressVariant = progress => {
     <VCol cols="12">
       <VCard title="Liste des activités">
         <VDivider />
-        <VTable class="text-no-wrap">
+        <VTable>
           <thead>
             <tr>
               <th scope="col">

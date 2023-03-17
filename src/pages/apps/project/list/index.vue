@@ -1,5 +1,5 @@
 <script setup>
-import { zerofill } from '@/plugins/helpers';
+import { resolveLocalDateVariant, zerofill } from '@/plugins/helpers';
 import { useProjectListStore } from '@/views/apps/project/useProjectListStore';
 import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue';
 import { avatarText } from '@core/utils/formatters';
@@ -344,15 +344,15 @@ const userListMeta = [
                 </td>
                 <!-- 👉 START DATE -->
                 <td>
-                  <div class="d-flex align-center">
-                    {{ project.start_date }}
+                  <div class="d-flex align-center text-capitalize">
+                    {{ resolveLocalDateVariant(project.start_date) }}
                   </div>
                 </td>
 
                 <!-- 👉 END DATE -->
                 <td>
-                  <div class="d-flex align-center">
-                    {{ project.end_date }}
+                  <div class="d-flex align-center text-capitalize">
+                    {{ resolveLocalDateVariant(project.end_date) }}
                   </div>
                 </td>
 

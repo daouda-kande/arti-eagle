@@ -1,6 +1,5 @@
-import checkin from './checkin'
-import dashboard from './dashboard'
-import projects from './projects'
+import explorer from './explorer'
 
 // export default [...dashboard, ...appAndPages, ...uiElements, ...forms, ...charts, ...others]
-export default [...dashboard,...checkin,...projects]
+// export default [...checkin,...projects]
+export default [...explorer]

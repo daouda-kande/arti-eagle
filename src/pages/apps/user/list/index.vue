@@ -1,30 +1,28 @@
 <script setup>
-import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue';
-import { useUserListStore } from '@/views/apps/user/useUserListStore';
-import { avatarText } from '@core/utils/formatters';
+import { zerofill } from '@/plugins/helpers'
+import { useEmployeeListStore } from '@/views/apps/user/employeeListStore'
+import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue'
+import { useUserListStore } from '@/views/apps/user/useUserListStore'
+import { avatarText } from '@core/utils/formatters'
 
 const userListStore = useUserListStore()
+const employeeListStore = useEmployeeListStore()
 const searchQuery = ref('')
-const selectedRole = ref()
-const selectedPlan = ref()
-const selectedStatus = ref()
 const rowPerPage = ref(10)
 const currentPage = ref(1)
 const totalPage = ref(1)
 const totalUsers = ref(0)
 const users = ref([])
+const employees = ref([])
 
-// 👉 Fetching users
-const fetchUsers = () => {
-  userListStore.fetchUsers({
+// 👉 Fetching employees
+const fetchEmployees = () => {
+  employeeListStore.fetchEmployees({
     q: searchQuery.value,
-    status: selectedStatus.value,
-    plan: selectedPlan.value,
-    role: selectedRole.value,
     perPage: rowPerPage.value,
     currentPage: currentPage.value,
   }).then(response => {
-    users.value = response.data.users
+    employees.value = response.data.users
     totalPage.value = response.data.totalPage
     totalUsers.value = response.data.totalUsers
   }).catch(error => {
@@ -32,7 +30,7 @@ const fetchUsers = () => {
   })
 }
 
-watchEffect(fetchUsers)
+watchEffect(fetchEmployees)
 
 // 👉 watching current page
 watchEffect(() => {
@@ -40,86 +38,28 @@ watchEffect(() => {
     currentPage.value = totalPage.value
 })
 
-// 👉 search filters
-const roles = [
-  {
-    title: 'Admin',
-    value: 'admin',
-  },
-  {
-    title: 'Author',
-    value: 'author',
-  },
-  {
-    title: 'Editor',
-    value: 'editor',
-  },
-  {
-    title: 'Maintainer',
-    value: 'maintainer',
-  },
-  {
-    title: 'Subscriber',
-    value: 'subscriber',
-  },
-]
-
-const plans = [
-  {
-    title: 'Basic',
-    value: 'basic',
-  },
-  {
-    title: 'Company',
-    value: 'company',
-  },
-  {
-    title: 'Enterprise',
-    value: 'enterprise',
-  },
-  {
-    title: 'Team',
-    value: 'team',
-  },
-]
-
-const status = [
-  {
-    title: 'Pending',
-    value: 'pending',
-  },
-  {
-    title: 'Active',
-    value: 'active',
-  },
-  {
-    title: 'Inactive',
-    value: 'inactive',
-  },
-]
-
-const resolveUserRoleVariant = role => {
-  if (role === 'subscriber')
+const resolveEmployeeRoleVariant = role => {
+  if (role === 'AGENT')
     return {
       color: 'warning',
-      icon: 'tabler-user',
+      icon: 'A G',
     }
-  if (role === 'author')
+  if (role === 'DIRECTEUR')
     return {
       color: 'success',
-      icon: 'tabler-circle-check',
+      icon: 'DIR',
     }
-  if (role === 'maintainer')
+  if (role === 'SOUS-DIRECTEUR')
     return {
-      color: 'primary',
-      icon: 'tabler-chart-pie-2',
+      color: 'error',
+      icon: 'S D',
     }
-  if (role === 'editor')
+  if (role === 'CHEF DE SERVICE')
     return {
       color: 'info',
-      icon: 'tabler-pencil',
+      icon: 'C S',
     }
-  if (role === 'admin')
+  if (role === 'CHARGE D\'ETUDE')
     return {
       color: 'secondary',
       icon: 'tabler-device-laptop',
@@ -141,8 +81,6 @@ const resolveUserStatusVariant = stat => {
   
   return 'primary'
 }
-
-const resolveAbsStatusVariant = stat => { return 'error'}
 
 const isAddNewUserDrawerVisible = ref(false)
 
@@ -166,42 +104,6 @@ const addNewUser = userData => {
   // refetch User
   fetchUsers()
 }
-
-// 👉 List
-const userListMeta = [
-  {
-    icon: 'tabler-user',
-    color: 'primary',
-    title: 'Session',
-    stats: '21,459',
-    percentage: +29,
-    subtitle: 'Total Users',
-  },
-  {
-    icon: 'tabler-user-plus',
-    color: 'error',
-    title: 'Paid Users',
-    stats: '4,567',
-    percentage: +18,
-    subtitle: 'Last week analytics',
-  },
-  {
-    icon: 'tabler-user-check',
-    color: 'success',
-    title: 'Active Users',
-    stats: '19,860',
-    percentage: -14,
-    subtitle: 'Last week analytics',
-  },
-  {
-    icon: 'tabler-user-exclamation',
-    color: 'warning',
-    title: 'Pending Users',
-    stats: '237',
-    percentage: +42,
-    subtitle: 'Last week analytics',
-  },
-]
 </script>
 
 <template>
@@ -235,15 +137,6 @@ const userListMeta = [
                   density="compact"
                 />
               </div>
-
-              <!-- 👉 Export button -->
-              <VBtn
-                variant="tonal"
-                color="secondary"
-                prepend-icon="tabler-screen-share"
-              >
-                Exporter
-              </VBtn>
             </div>
           </VCardText>
 
@@ -282,8 +175,8 @@ const userListMeta = [
             <!-- 👉 table body -->
             <tbody>
               <tr
-                v-for="user in users"
-                :key="user.id"
+                v-for="emp in employees"
+                :key="emp.position_id"
                 style="height: 3.75rem;"
               >
                 <!-- 👉 NOM & PRENOM -->
@@ -291,23 +184,23 @@ const userListMeta = [
                   <div class="d-flex align-center">
                     <VAvatar
                       variant="tonal"
-                      :color="resolveUserRoleVariant(user.role).color"
+                      :color="resolveEmployeeRoleVariant(emp.rolename).color"
                       class="me-3"
                       size="38"
                     >
-                      <span>{{ avatarText(user.fullName) }}</span>
+                      <span>{{ avatarText(resolveEmployeeRoleVariant(emp.rolename).icon) }}</span>
                     </VAvatar>
                       
                     <div class="d-flex flex-column">
                       <h6 class="text-base">
                         <RouterLink
-                          :to="{ name: 'apps-user-view-id', params: { id: user.id } }"
+                          :to="{ name: 'apps-user-view-id', params: { id: emp.position_id } }"
                           class="font-weight-medium user-list-name"
                         >
-                          {{ user.fullName }}
+                          {{ emp.fullname }}
                         </RouterLink>
                       </h6>
-                      <span class="text-sm text-disabled">@mat: MT-001</span>
+                      <span class="text-sm text-disabled">@mat: {{ emp.matricula }}</span>
                     </div>
                   </div>
                 </td>
@@ -315,14 +208,14 @@ const userListMeta = [
                 <!-- 👉 DIRECTION -->
                 <td>
                   <div class="d-flex align-center text-capitalize">
-                    <span>{{ user.currentPlan }}</span>
+                    <span>{{ emp.direction }}</span>
                   </div>
                 </td>
 
                 <!-- 👉 FONCTION -->
                 <td>
                   <div class="d-flex align-center text-capitalize">
-                    <span>{{ user.role }}</span>
+                    <span>{{ emp.rolename }}</span>
                   </div>
                 </td>
 
@@ -331,11 +224,11 @@ const userListMeta = [
                   <span class="text-capitalize text-base">
                     <VChip
                       label
-                      :color="resolveUserRoleVariant(user.role).color"
+                      color="primary"
                       size="small"
                       class="text-capitalize"
                     >
-                      12
+                      {{ zerofill(emp.logs.late_arrivals) }}
                     </VChip>
                   </span>
                 </td>
@@ -345,11 +238,11 @@ const userListMeta = [
                   <span class="text-capitalize text-base font-weight-semibold">
                     <VChip
                       label
-                      :color="resolveUserRoleVariant(user.role).color"
+                      color="success"
                       size="small"
                       class="text-capitalize"
                     >
-                      9
+                      {{ zerofill(emp.logs.abs_justified) }}
                     </VChip>
                     <VDivider
                       vertical
@@ -357,11 +250,11 @@ const userListMeta = [
                     />
                     <VChip
                       label
-                      :color="resolveUserRoleVariant(user.status).color"
+                      color="primary"
                       size="small"
                       class="text-capitalize"
                     >
-                      12
+                      {{ zerofill(emp.logs.absences) }}
                     </VChip>
                   </span>
                 </td>
@@ -371,11 +264,11 @@ const userListMeta = [
                   <span class="text-base">
                     <VChip
                       label
-                      :color="resolveUserRoleVariant(user.status).color"
+                      color="primary"
                       size="small"
                       class="text-capitalize"
                     >
-                      12
+                      {{ zerofill(emp.tasks.nb_task) }}
                     </VChip>
                   </span>
                 </td>
@@ -383,9 +276,9 @@ const userListMeta = [
                 <!-- 👉 PROGRESS -->
                 <td>
                   <VProgressLinear
-                    model-value="15"
+                    :model-value="emp.tasks.progress"
                     bg-color="primary"
-                    :color="resolveUserStatusVariant(user.status)"
+                    :color="resolveUserStatusVariant(emp.rolename)"
                   />
                 </td>
 
@@ -399,7 +292,7 @@ const userListMeta = [
                     size="x-small"
                     color="primary"
                     variant="text"
-                    :to="{ name: 'apps-user-view-id', params: { id: user.id } }"
+                    :to="{ name: 'apps-user-view-id', params: { id: emp.position_id } }"
                   >
                     <VIcon
                       size="22"
@@ -411,13 +304,13 @@ const userListMeta = [
             </tbody>
 
             <!-- 👉 table footer  -->
-            <tfoot v-show="!users.length">
+            <tfoot v-show="!employees.length">
               <tr>
                 <td
                   colspan="7"
                   class="text-center"
                 >
-                  No data available
+                  Rien à afficher
                 </td>
               </tr>
             </tfoot>

@@ -31,3 +31,12 @@ export function subStringNameForAvatar (name) {
   
   return split[0] + " " + split[1]
 }
+
+export function timeDiff(start, end="08:10") {
+  // Time should be in format hh:mm
+  const startMin = (parseInt(start.slice(0, 2)) * 60) + parseInt(start.slice(3))
+  const endMin = (parseInt(end.slice(0, 2)) * 60) + parseInt(end.slice(3))
+  
+  return endMin - startMin
+}
+

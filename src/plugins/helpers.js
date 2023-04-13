@@ -25,3 +25,9 @@ export function resolveActivityProgression(activity) {
 export function zerofill(number) {
   return number.toString().padStart(2, '0')
 }
+
+export function subStringNameForAvatar (name) {
+  let split = name.split(" ", 2)
+  
+  return split[0] + " " + split[1]
+}

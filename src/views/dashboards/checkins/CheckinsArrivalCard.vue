@@ -1,7 +1,19 @@
 <script setup>
-import { timeDiff } from '@/plugins/helpers';
+import { resolveLocalDateVariant, subStringNameForAvatar } from '@/plugins/helpers';
+import { avatarText } from '@core/utils/formatters';
 
-const sourceVisits = [
+const p = defineProps({
+  checkinData: {
+    type: Object,
+    required: true,
+  },
+  metaData: {
+    type: Object,
+    required: true,
+  },
+})
+
+const sourcecheckins = [
   {
     avatarIcon: 'tabler-arrows-left-right',
     title: 'Direct Source',
@@ -50,11 +62,11 @@ const sourceVisits = [
 <template>
   <VCard
     title="Pointages"
-    subtitle="15 retards sur 30 présences"
+    :subtitle="p.metaData.lateCount + ' retards sur ' + p.metaData.presence + ' présences'"
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <span class="text-sm text-disabled">Lundi 17 avril 2023</span>
+        <span class="text-sm text-disabled">{{ resolveLocalDateVariant(p.metaData.logDate) }}</span>
         <VBtn
           icon
           color="default"
@@ -84,34 +96,36 @@ const sourceVisits = [
     <VCardText>
       <VList class="card-list">
         <VListItem
-          v-for="visit in sourceVisits"
-          :key="visit.title"
+          v-for="checkin in checkinData"
+          :key="checkin.positionId"
         >
           <template #prepend>
             <VAvatar
+              rounded
               size="34"
               color="secondary"
               variant="tonal"
-              rounded
             >
-              <VIcon :icon="visit.avatarIcon" />
+              <span class="font-weight-semibold">
+                {{ avatarText(subStringNameForAvatar(checkin.fullName)) }}
+              </span>
             </VAvatar>
           </template>
 
           <VListItemTitle class="font-weight-medium">
-            {{ visit.title }}
+            {{ checkin.fullName }}
           </VListItemTitle>
           <VListItemSubtitle class="opacity-100 text-disabled">
-            {{ visit.subtitle }}
+            {{ checkin.logCount }} pointage(s)
           </VListItemSubtitle>
 
           <template #append>
             <div class="d-flex align-center">
               <VChip
                 label
-                :color="timeDiff(visit.profitLoss) > 0 ? 'success' : 'error'"
+                :color="checkin.isLate ? 'error' : 'success'"
               >
-                {{ visit.profitLoss }}
+                {{ checkin.checkIn }}
               </VChip>
             </div>
           </template>

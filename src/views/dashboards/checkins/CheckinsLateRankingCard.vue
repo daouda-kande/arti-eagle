@@ -63,7 +63,7 @@ function resolveLateCountStatus(c) {
           <template #prepend>
             <VAvatar
               variant="tonal"
-              color="primary"
+              color="secondary"
               size="34"
               rounded
             >
@@ -72,7 +72,12 @@ function resolveLateCountStatus(c) {
           </template>
 
           <VListItemTitle class="font-weight-medium">
-            {{ late.lastName }} {{ late.fisrtName }}
+            <RouterLink
+              :to="{ name: 'apps-user-view-id', params: { id: late.positionId } }"
+              class="font-weight-medium user-list-name"
+            >
+              {{ late.lastName }} {{ late.fisrtName }}
+            </RouterLink>
           </VListItemTitle>
           <VListItemSubtitle class="opacity-100 text-disabled">
             {{ 20 - late.monthLogCount }} absences

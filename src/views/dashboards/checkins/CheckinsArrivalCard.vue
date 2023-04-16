@@ -59,7 +59,7 @@ checkinStore.fetchCheckin().then(response => {
             <VAvatar
               rounded
               size="34"
-              color="primary"
+              color="secondary"
               variant="tonal"
             >
               <span class="font-weight-semibold">
@@ -69,7 +69,12 @@ checkinStore.fetchCheckin().then(response => {
           </template>
 
           <VListItemTitle class="font-weight-medium">
-            {{ checkin.fullName }}
+            <RouterLink
+              :to="{ name: 'apps-user-view-id', params: { id: checkin.positionId } }"
+              class="font-weight-medium user-list-name"
+            >
+              {{ checkin.fullName }}
+            </RouterLink>
           </VListItemTitle>
           <VListItemSubtitle class="opacity-100 text-disabled">
             {{ checkin.logCount }} pointages
@@ -79,7 +84,7 @@ checkinStore.fetchCheckin().then(response => {
             <div class="d-flex align-center">
               <VChip
                 label
-                :color="checkin.isLate ? 'error' : 'success'"
+                :color="checkin.isLate ? 'error' : 'secondary'"
               >
                 {{ fullTimeToHourMinuteFormatter(checkin.checkIn) }}
               </VChip>

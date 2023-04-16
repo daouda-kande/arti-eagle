@@ -40,3 +40,26 @@ export function timeDiff(start, end="08:10") {
   return endMin - startMin
 }
 
+export function fullTimeToHourMinuteFormatter(timeString){
+  const [hours, minutes] = timeString.split(':')
+  
+  return `${hours}:${minutes}`
+}
+
+export function getWorkDaysInMonth(dateString) {
+  const date = new Date(dateString)
+  const month = date.getMonth()
+  const year = date.getFullYear()
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  let workDays = 0
+  
+  for (let i = 1; i <= daysInMonth; i++) {
+    const day = new Date(year, month, i).getDay()
+    if (day !== 0 && day !== 6) {
+      workDays++
+    }
+  }
+  
+  return workDays
+}
+

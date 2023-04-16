@@ -1,51 +1,15 @@
 <script setup>
 import { zerofill } from '@/plugins/helpers';
-import { avatarText } from '@core/utils/formatters';
 
-const sourceVisits = [
-  {
-    avatarIcon: '1',
-    title: 'Direct Source',
-    subtitle: '3 absences',
-    stats: '1.2k',
-    profitLoss: '7',
-  },
-  {
-    avatarIcon: '2',
-    title: 'Social Network',
-    subtitle: '1 absence',
-    stats: '31.5k',
-    profitLoss: '5',
-  },
-  {
-    avatarIcon: '3',
-    title: 'Email Newsletter',
-    subtitle: '4 absences',
-    stats: '893',
-    profitLoss: '3',
-  },
-  {
-    avatarIcon: '4',
-    title: 'Referrals',
-    subtitle: '1 absence',
-    stats: '342',
-    profitLoss: '2',
-  },
-  {
-    avatarIcon: '5',
-    title: 'Alexy celeste',
-    subtitle: '5 absence',
-    stats: '2.15k',
-    profitLoss: '2',
-  },
-  {
-    avatarIcon: '6',
-    title: 'Other',
-    subtitle: '1 absence',
-    stats: '12.5k',
-    profitLoss: '1',
-  },
-]
+import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
+
+const checkinStore = useCheckinStore()
+const lateData = ref()
+
+checkinStore.fetchCheckin().then(response => {
+  lateData.value = response.data.late_occurence
+
+})
 
 function resolveLateCountStatus(c) {
   if (c > 2) return "error"
@@ -57,6 +21,7 @@ function resolveLateCountStatus(c) {
 
 <template>
   <VCard
+    v-if="lateData"
     title="Occurence des retards"
     subtitle="Liste des employés selon les retards"
   >
@@ -92,40 +57,51 @@ function resolveLateCountStatus(c) {
     <VCardText>
       <VList class="card-list">
         <VListItem
-          v-for="visit in sourceVisits"
-          :key="visit.title"
+          v-for="(late, index) in lateData"
+          :key="late.positionId"
         >
           <template #prepend>
             <VAvatar
               variant="tonal"
-              color="secondary"
+              color="primary"
               size="34"
               rounded
             >
-              <span>{{ avatarText(visit.avatarIcon) }}</span>
+              <span>{{ index + 1 }}</span>
             </VAvatar>
           </template>
 
           <VListItemTitle class="font-weight-medium">
-            {{ visit.title }}
+            {{ late.lastName }} {{ late.fisrtName }}
           </VListItemTitle>
           <VListItemSubtitle class="opacity-100 text-disabled">
-            {{ visit.subtitle }}
+            {{ 20 - late.monthLogCount }} absences
           </VListItemSubtitle>
 
           <template #append>
             <div class="d-flex align-center">
               <VChip
                 label
-                :color="resolveLateCountStatus(visit.profitLoss)"
+                :color="resolveLateCountStatus(late.monthLateCount)"
               >
-                {{ zerofill(visit.profitLoss) }}
+                {{ zerofill(late.monthLateCount) }}
               </VChip>
             </div>
           </template>
         </VListItem>
       </VList>
     </VCardText>
+  </VCard>
+  <VCard
+    v-else
+    cols="12"
+    sm="6"
+    lg="6"
+  >
+    <VProgressCircular
+      indeterminate
+      color="primary"
+    />
   </VCard>
 </template>
 

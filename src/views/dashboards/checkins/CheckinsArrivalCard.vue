@@ -1,72 +1,28 @@
 <script setup>
-import { resolveLocalDateVariant, subStringNameForAvatar } from '@/plugins/helpers';
+import { fullTimeToHourMinuteFormatter, resolveLocalDateVariant, subStringNameForAvatar } from '@/plugins/helpers';
 import { avatarText } from '@core/utils/formatters';
 
-const p = defineProps({
-  checkinData: {
-    type: Object,
-    required: true,
-  },
-  metaData: {
-    type: Object,
-    required: true,
-  },
-})
+import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
 
-const sourcecheckins = [
-  {
-    avatarIcon: 'tabler-arrows-left-right',
-    title: 'Direct Source',
-    subtitle: '3 pointages',
-    stats: '1.2k',
-    profitLoss: '07:50',
-  },
-  {
-    avatarIcon: 'tabler-arrows-left-right',
-    title: 'Social Network',
-    subtitle: '1 pointage',
-    stats: '31.5k',
-    profitLoss: '07:00',
-  },
-  {
-    avatarIcon: 'tabler-arrows-left-right',
-    title: 'Email Newsletter',
-    subtitle: '4 pointages',
-    stats: '893',
-    profitLoss: '07:50',
-  },
-  {
-    avatarIcon: 'tabler-arrows-left-right',
-    title: 'Referrals',
-    subtitle: '1 pointage',
-    stats: '342',
-    profitLoss: '08:20',
-  },
-  {
-    avatarIcon: 'tabler-arrows-left-right',
-    title: 'Alexy celeste',
-    subtitle: '5 pointage',
-    stats: '2.15k',
-    profitLoss: '07:30',
-  },
-  {
-    avatarIcon: 'tabler-arrows-left-right',
-    title: 'Other',
-    subtitle: '1 pointage',
-    stats: '12.5k',
-    profitLoss: '08:10',
-  },
-]
+const checkinStore = useCheckinStore()
+const checkinData = ref()
+const metaData = ref()
+
+checkinStore.fetchCheckin().then(response => {
+  checkinData.value = response.data.checkins.checkins
+  metaData.value = response.data.checkins.metadata
+})
 </script>
 
 <template>
   <VCard
+    v-if="checkinData"
     title="Pointages"
-    :subtitle="p.metaData.lateCount + ' retards sur ' + p.metaData.presence + ' présences'"
+    :subtitle="metaData.lateCount + ' retards sur ' + metaData.presence + ' présences'"
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <span class="text-sm text-disabled">{{ resolveLocalDateVariant(p.metaData.logDate) }}</span>
+        <span class="text-sm text-disabled">{{ resolveLocalDateVariant(metaData.logDate) }}</span>
         <VBtn
           icon
           color="default"
@@ -103,7 +59,7 @@ const sourcecheckins = [
             <VAvatar
               rounded
               size="34"
-              color="secondary"
+              color="primary"
               variant="tonal"
             >
               <span class="font-weight-semibold">
@@ -116,7 +72,7 @@ const sourcecheckins = [
             {{ checkin.fullName }}
           </VListItemTitle>
           <VListItemSubtitle class="opacity-100 text-disabled">
-            {{ checkin.logCount }} pointage(s)
+            {{ checkin.logCount }} pointages
           </VListItemSubtitle>
 
           <template #append>
@@ -125,13 +81,24 @@ const sourcecheckins = [
                 label
                 :color="checkin.isLate ? 'error' : 'success'"
               >
-                {{ checkin.checkIn }}
+                {{ fullTimeToHourMinuteFormatter(checkin.checkIn) }}
               </VChip>
             </div>
           </template>
         </VListItem>
       </VList>
     </VCardText>
+  </VCard>
+  <VCard
+    v-else
+    cols="12"
+    sm="6"
+    lg="6"
+  >
+    <VProgressCircular
+      indeterminate
+      color="primary"
+    />
   </VCard>
 </template>
 

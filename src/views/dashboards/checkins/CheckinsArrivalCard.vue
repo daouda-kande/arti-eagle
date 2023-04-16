@@ -8,10 +8,13 @@ const checkinStore = useCheckinStore()
 const checkinData = ref()
 const metaData = ref()
 
-checkinStore.fetchCheckin().then(response => {
-  checkinData.value = response.data.checkins.checkins
-  metaData.value = response.data.checkins.metadata
-})
+function fetchData(){
+  checkinStore.fetchCheckin().then(response => {
+    checkinData.value = response.data.checkins.checkins
+    metaData.value = response.data.checkins.metadata
+  })}
+
+fetchData()
 </script>
 
 <template>
@@ -23,6 +26,7 @@ checkinStore.fetchCheckin().then(response => {
     <template #append>
       <div class="mt-n4 me-n2">
         <span class="text-sm text-disabled">{{ resolveLocalDateVariant(metaData.logDate) }}</span>
+        
         <VBtn
           icon
           color="default"
@@ -31,20 +35,9 @@ checkinStore.fetchCheckin().then(response => {
         >
           <VIcon
             size="22"
-            icon="tabler-dots-vertical"
+            icon="tabler-refresh"
+            :on-click="fetchData()"
           />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
         </VBtn>
       </div>
     </template>

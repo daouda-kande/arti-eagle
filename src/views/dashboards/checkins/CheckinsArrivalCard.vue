@@ -13,8 +13,17 @@ function fetchData(){
     checkinData.value = response.data.checkins.checkins
     metaData.value = response.data.checkins.metadata
   })}
-
+  
 fetchData()
+
+const optionActions = [
+  { title:"Actualiser",
+    action:fetchData, 
+  },
+  { title:"Télécharger",
+    action:null, 
+  },
+]
 </script>
 
 <template>
@@ -26,7 +35,7 @@ fetchData()
     <template #append>
       <div class="mt-n4 me-n2">
         <span class="text-sm text-disabled">{{ resolveLocalDateVariant(metaData.logDate) }}</span>
-        
+
         <VBtn
           icon
           color="default"
@@ -35,9 +44,21 @@ fetchData()
         >
           <VIcon
             size="22"
-            icon="tabler-refresh"
-            :on-click="fetchData()"
+            icon="tabler-dots-vertical"
           />
+
+          <VMenu activator="parent">
+            <VList>
+              <VListItem
+                v-for="(item, index) in optionActions"
+                :key="index"
+                :value="index"
+                @on-click="item.action"
+              >
+                <VListItemTitle>{{ item.title }}</VListItemTitle>
+              </VListItem>
+            </VList>
+          </VMenu>
         </VBtn>
       </div>
     </template>

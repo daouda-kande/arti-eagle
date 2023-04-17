@@ -6,10 +6,11 @@ import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
 const checkinStore = useCheckinStore()
 const lateData = ref()
 
-checkinStore.fetchCheckin().then(response => {
-  lateData.value = response.data.late_occurence
-
-})
+function fetchData(){
+  checkinStore.fetchCheckin().then(response => {
+    lateData.value = response.data.late_occurence
+  })
+}
 
 function resolveLateCountStatus(c) {
   if (c > 2) return "error"
@@ -17,6 +18,17 @@ function resolveLateCountStatus(c) {
   
   return "success"
 }
+
+const optionActions = [
+  { title:"Actualiser",
+    action:fetchData, 
+  },
+  { title:"Télécharger",
+    action:null, 
+  },
+]
+
+fetchData()
 </script>
 
 <template>
@@ -27,7 +39,7 @@ function resolveLateCountStatus(c) {
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <span class="text-sm text-disabled">Avril 2023</span>
+        <span class="text-sm text-disabled">Lundi 17 Avril 2023 (to update)</span>
         <VBtn
           icon
           color="default"
@@ -42,11 +54,12 @@ function resolveLateCountStatus(c) {
           <VMenu activator="parent">
             <VList>
               <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
+                v-for="(item, index) in optionActions"
                 :key="index"
                 :value="index"
+                @click="item.action"
               >
-                <VListItemTitle>{{ item }}</VListItemTitle>
+                <VListItemTitle>{{ item.title }}</VListItemTitle>
               </VListItem>
             </VList>
           </VMenu>

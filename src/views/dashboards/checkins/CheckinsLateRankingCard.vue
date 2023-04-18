@@ -1,14 +1,16 @@
 <script setup>
-import { zerofill } from '@/plugins/helpers';
+import { getWorkDaysInMonth, resolveLocalDateVariantMY, zerofill } from '@/plugins/helpers';
 
 import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
 
 const checkinStore = useCheckinStore()
 const lateData = ref()
+const lateDate = ref()
 
 function fetchData(){
   checkinStore.fetchCheckin().then(response => {
-    lateData.value = response.data.late_occurence
+    lateData.value = response.data.late.late_occurence
+    lateDate.value = response.data.late.late_date
   })
 }
 
@@ -39,7 +41,7 @@ fetchData()
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <span class="text-sm text-disabled">Lundi 17 Avril 2023 (to update)</span>
+        <span class="text-sm text-disabled capitalize-first-letter">Mois de {{ resolveLocalDateVariantMY(lateDate) }}</span>
         <VBtn
           icon
           color="default"
@@ -93,7 +95,7 @@ fetchData()
             </RouterLink>
           </VListItemTitle>
           <VListItemSubtitle class="opacity-100 text-disabled">
-            {{ 20 - late.monthLogCount }} absences
+            {{ getWorkDaysInMonth(lateDate) - late.monthLogCount }} absences
           </VListItemSubtitle>
 
           <template #append>
@@ -126,5 +128,9 @@ fetchData()
 <style lang="scss" scoped>
 .card-list {
   --v-card-list-gap: 19px;
+}
+
+.capitalize-first-letter::first-letter {
+  text-transform: capitalize;
 }
 </style>

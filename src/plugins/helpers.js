@@ -18,6 +18,13 @@ export function resolveLocalDateVariant (d) {
   return date.toLocaleDateString('fr-FR', options)
 }
 
+export function resolveLocalDateVariantMY (d) {
+  const date = new Date(d)
+  const options = { year: 'numeric', month: 'long' }
+  
+  return date.toLocaleDateString('fr-FR', options)
+}
+
 export function resolveActivityProgression(activity) {
   return activity.finished/activity.nb*100
 }

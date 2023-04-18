@@ -1,5 +1,5 @@
 <script setup>
-import { fullTimeToHourMinuteFormatter, resolveLocalDateVariant, subStringNameForAvatar } from '@/plugins/helpers';
+import { fullTimeToHourMinuteFormatter, resolveLocalDateVariantLong, subStringNameForAvatar } from '@/plugins/helpers';
 import { avatarText } from '@core/utils/formatters';
 
 import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
@@ -8,9 +8,27 @@ const checkinStore = useCheckinStore()
 const checkinData = ref()
 const metaData = ref()
 
+function sortObjectsByCheckIn(array) {
+  return array.sort((a, b) => {
+    // Convert checkIn time strings to total seconds
+    const timeA = a.checkIn.split(':').reduce((acc, val) => (acc * 60) + +val, 0)
+    const timeB = b.checkIn.split(':').reduce((acc, val) => (acc * 60) + +val, 0)
+
+    if (timeA > timeB) {
+      return -1
+    }
+    if (timeA < timeB) {
+      return 1
+    }
+    
+    return 0
+  })
+}
+
 function fetchData(){
   checkinStore.fetchCheckin().then(response => {
-    checkinData.value = response.data.checkins.checkins
+    let checkin = response.data.checkins.checkins
+    checkinData.value = sortObjectsByCheckIn(checkin)
     metaData.value = response.data.checkins.metadata
   })}
   
@@ -34,7 +52,7 @@ const optionActions = [
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <span class="text-sm text-disabled">{{ resolveLocalDateVariant(metaData.logDate) }}</span>
+        <span class="text-sm text-disabled">{{ resolveLocalDateVariantLong(metaData.logDate) }}</span>
 
         <VBtn
           icon

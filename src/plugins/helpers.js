@@ -18,6 +18,13 @@ export function resolveLocalDateVariant (d) {
   return date.toLocaleDateString('fr-FR', options)
 }
 
+export function resolveLocalDateVariantLong (d) {
+  const date = new Date(d)
+  const options = { year: 'numeric', month: 'long', day: '2-digit' }
+  
+  return date.toLocaleDateString('fr-FR', options)
+}
+
 export function resolveLocalDateVariantMY (d) {
   const date = new Date(d)
   const options = { year: 'numeric', month: 'long' }

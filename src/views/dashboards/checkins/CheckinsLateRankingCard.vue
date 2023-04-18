@@ -15,10 +15,10 @@ function fetchData(){
 }
 
 function resolveLateCountStatus(c) {
-  if (c > 2) return "error"
-  if (c > 1 && c <= 2) return "warning"
+  if (c > 4) return "error"
+  if (c > 0 && c <= 4) return "warning"
   
-  return "success"
+  return "secondary"
 }
 
 const optionActions = [
@@ -36,7 +36,7 @@ fetchData()
 <template>
   <VCard
     v-if="lateData"
-    title="Occurence des retards"
+    title="Nombre des retards"
     subtitle="Liste des employés selon les retards"
   >
     <template #append>

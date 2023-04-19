@@ -7,6 +7,7 @@ import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
 const checkinStore = useCheckinStore()
 const checkinData = ref()
 const metaData = ref()
+const logDate = ref()
 
 function sortObjectsByCheckIn(array) {
   return array.sort((a, b) => {
@@ -25,12 +26,19 @@ function sortObjectsByCheckIn(array) {
   })
 }
 
+function getFullName(checkin){
+  return checkin.lastName +" " + checkin.firstName
+}
+
 function fetchData(){
   checkinStore.fetchCheckin().then(response => {
-    let checkin = response.data.checkins.checkins
+    let checkin = response.data.checkins.checkins.checkins
     checkinData.value = sortObjectsByCheckIn(checkin)
-    metaData.value = response.data.checkins.metadata
+    logDate.value = response.data.checkins.log_date
+    metaData.value = response.data.checkins.checkins.metadata
+    console.log(response)
   })}
+
   
 fetchData()
 
@@ -46,13 +54,13 @@ const optionActions = [
 
 <template>
   <VCard
-    v-if="checkinData"
+    v-if="checkinData && metaData"
     title="Pointages"
-    :subtitle="metaData.lateCount + ' retards sur ' + metaData.presence + ' présences'"
+    :subtitle="metaData.late_count + ' retards sur ' + metaData.log_count + ' présences'"
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <span class="text-sm text-disabled">{{ resolveLocalDateVariantLong(metaData.logDate) }}</span>
+        <span class="text-sm text-disabled">{{ resolveLocalDateVariantLong(logDate) }}</span>
 
         <VBtn
           icon
@@ -91,11 +99,11 @@ const optionActions = [
             <VAvatar
               rounded
               size="34"
-              color="secondary"
+              :color="checkin.isLate ? 'error' : 'secondary'"
               variant="tonal"
             >
               <span class="font-weight-semibold">
-                {{ avatarText(subStringNameForAvatar(checkin.fullName)) }}
+                {{ avatarText(subStringNameForAvatar(getFullName(checkin))) }}
               </span>
             </VAvatar>
           </template>
@@ -105,11 +113,11 @@ const optionActions = [
               :to="{ name: 'apps-user-view-id', params: { id: checkin.positionId } }"
               class="font-weight-medium user-list-name"
             >
-              {{ checkin.fullName }}
+              {{ getFullName(checkin) }}
             </RouterLink>
           </VListItemTitle>
           <VListItemSubtitle class="opacity-100 text-disabled">
-            {{ checkin.logCount }} pointages
+            1 pointage
           </VListItemSubtitle>
 
           <template #append>

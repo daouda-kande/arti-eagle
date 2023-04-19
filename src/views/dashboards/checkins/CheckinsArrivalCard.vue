@@ -71,7 +71,7 @@ const optionActions = [
                 v-for="(item, index) in optionActions"
                 :key="index"
                 :value="index"
-                @on-click="item.action"
+                @click="item.action"
               >
                 <VListItemTitle>{{ item.title }}</VListItemTitle>
               </VListItem>

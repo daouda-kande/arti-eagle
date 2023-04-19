@@ -53,7 +53,7 @@ const earningsReports = [
                 </VTooltip>
               </h6>
             </div>
-            <VDivider vertical="14px" />
+            <VDivider vertical />
             <VProgressLinear
               :model-value="report.progress"
               :color="report.color"

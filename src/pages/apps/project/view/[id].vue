@@ -96,7 +96,7 @@ console.log(projectData)
           <CardStatisticsHorizontal v-bind="statistics" />
         </VCol>
       </VRow>
-      <VDivider vertical="10" />
+      <VDivider vertical />
       <CardProjectProgressOverview />
       <br>
       <VTabs

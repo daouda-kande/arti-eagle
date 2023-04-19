@@ -77,3 +77,8 @@ export function getWorkDaysInMonth(dateString) {
   return workDays
 }
 
+export const currentDate = () => {
+  const date = new Date()
+  
+  return date.toLocaleDateString('fr-FR')
+}

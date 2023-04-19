@@ -79,13 +79,13 @@ const resolveUserProgressVariant = progress => {
                 RESPONSABILITE
               </th>
               <th scope="col">
-                DATE DE DEBUT
+                DEBUT
               </th>
               <th scope="col">
-                DATE DE FIN
+                FIN
               </th>
               <th scope="col">
-                PROGRESSION
+                STATUT
               </th>
             </tr>
           </thead>

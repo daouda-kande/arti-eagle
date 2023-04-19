@@ -1,34 +1,43 @@
 <script setup>
+import { currentDate } from '@/plugins/helpers'
+
+const props = defineProps({
+  userData: {
+    type: Object,
+    required: true,
+  },
+})
+
 const statistics = [
   {
     title: 'Absences',
-    stats: '2',
-    statsMax: '7',
-    icon: 'tabler-chart-pie-2',
+    stats: props.userData.absence.done,
+    statsMax: props.userData.absence.nb,
+    icon: 'tabler-user-exclamation',
     color: 'primary',
     verb: ' justifées ',
   },
   {
     title: 'Evaluations',
-    stats: '3',
-    statsMax: '5',
-    icon: 'tabler-users',
+    stats: props.userData.evaluation.done,
+    statsMax: props.userData.evaluation.nb,
+    icon: 'tabler-clipboard-check',
     color: 'info',
     verb: ' faites ',
   },
   {
     title: 'Activités',
-    stats: '8',
-    statsMax: '15',
-    icon: 'tabler-shopping-cart',
+    stats: props.userData.task.done,
+    statsMax: props.userData.task.nb,
+    icon: 'tabler-activity',
     color: 'error',
     verb: ' achevées ',
   },
   {
     title: 'Formations',
-    stats: '2',
-    statsMax: '6',
-    icon: 'tabler-currency-dollar',
+    stats: props.userData.training.done,
+    statsMax: props.userData.training.nb,
+    icon: 'tabler-clipboard-text',
     color: 'success',
     verb: ' cours ',
   },
@@ -38,7 +47,7 @@ const statistics = [
 <template>
   <VCard title="Vue d'ensemble">
     <template #append>
-      <span class="text-sm text-disabled">Mise à jour : 13/03/2023</span>
+      <span class="text-sm text-disabled">Mise à jour :{{ currentDate() }}</span>
     </template>
 
     <VCardText>

@@ -38,12 +38,7 @@ const logout = () => {
       color="primary"
       variant="tonal"
     >
-      <VImg
-        v-if="userData && userData.avatar"
-        :src="userData.avatar"
-      />
       <VIcon
-        v-else
         icon="tabler-user"
       />
 
@@ -70,12 +65,8 @@ const logout = () => {
                     color="primary"
                     variant="tonal"
                   >
-                    <VImg
-                      v-if="userData && userData.avatar"
-                      :src="userData.avatar"
-                    />
                     <VIcon
-                      v-else
+                    
                       icon="tabler-user"
                     />
                   </VAvatar>

@@ -54,7 +54,7 @@ console.log(userData)
       md="7"
       lg="8"
     >
-      <UserStatisticsTransactions />
+      <UserStatisticsTransactions :user-data="userData.metadata" />
       <br>
       <VTabs
         v-model="userTab"

@@ -121,17 +121,6 @@ const resolveUserRoleVariant = role => {
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
-                  Nom et prénom(s):
-                  <span class="text-body-2">
-                    {{ props.userData.fullname }}
-                  </span>
-                </h6>
-              </VListItemTitle>
-            </VListItem>
-
-            <VListItem>
-              <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
                   Fonction:
                   <span class="text-body-2">{{ props.userData.rolename }}</span>
                 </h6>

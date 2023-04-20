@@ -13,8 +13,12 @@ import '@core/scss/template/index.scss'
 import '@styles/styles.scss'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
+import { currentDateYmd } from './plugins/helpers'
 
 loadFonts()
+
+// Initialise selectedDate in localstorage
+localStorage.setItem("selectedDate", currentDateYmd())
 
 
 // Create vue app

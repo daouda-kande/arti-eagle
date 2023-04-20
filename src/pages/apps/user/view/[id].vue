@@ -1,5 +1,7 @@
 <script setup>
 import { useEmployeeListStore } from '@/views/apps/user/employeeListStore'
+import { useEmployeeTaskListStore } from '@/views/apps/user/employeeTaskListStore'
+import { useEmployeeEvaluationStore } from '@/views/apps/user/employeeEvaluationStore'
 import UserBioPanel from '@/views/apps/user/view/UserBioPanel.vue'
 import UserStatisticsTransactions from '@/views/apps/user/view/UserStatisticsTransactions.vue'
 import UserTabAbsence from '@/views/apps/user/view/UserTabAbsence.vue'
@@ -9,6 +11,10 @@ import UserTabProject from '@/views/apps/user/view/UserTabProject.vue'
 
 
 const employeeListStore = useEmployeeListStore()
+const employeeTaskListStore = useEmployeeTaskListStore()
+const employeeEvaluationStore = useEmployeeEvaluationStore()
+const userEval = ref()
+const userTask = ref()
 const route = useRoute()
 const userData = ref()
 const userTab = ref(null)
@@ -37,6 +43,18 @@ employeeListStore.fetchUser(Number(route.params.id)).then(response => {
 })
 console.log("DEBUG")
 console.log(userData)
+
+employeeTaskListStore.fetchTaskList(Number(route.params.id)).then(response => {
+  userTask.value = response.data
+})
+console.log("DEBUG TASK LIST")
+console.log(userTask)
+
+employeeEvaluationStore.fetchUserEvaluation(Number(route.params.id)).then(response => {
+  userEval.value = response.data.evaluations
+})
+console.log("DEBUG EVAL LIST")
+console.log(userEval)
 </script>
 
 <template>
@@ -83,7 +101,7 @@ console.log(userData)
         </VWindowItem>
         
         <VWindowItem>
-          <UserTabProject />
+          <UserTabProject :user-task="userTask.tasks" />
         </VWindowItem>
 
         <VWindowItem>
@@ -91,7 +109,7 @@ console.log(userData)
         </VWindowItem>
 
         <VWindowItem>
-          <UserTabEvaluation />
+          <UserTabEvaluation :user-eval="userEval" />
         </VWindowItem>
       </VWindow>
     </VCol>

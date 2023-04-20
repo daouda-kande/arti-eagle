@@ -1,11 +1,10 @@
 <script setup>
+import { bus } from '@/plugins/eventBus';
 import AppDateTimePicker from '@core/components/AppDateTimePicker.vue';
 
 function onButtonClick(e) {
   // Emit custom event with event name and optional data
-  console.log("DEBUG - EVENT")
-  console.log(e)
-  $emit("selectedDate",e)
+  bus.emit(e)
 }
 </script>
 

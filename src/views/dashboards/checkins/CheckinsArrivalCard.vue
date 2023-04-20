@@ -1,4 +1,5 @@
 <script setup>
+import { bus } from '@/plugins/eventBus';
 import { fullTimeToHourMinuteFormatter, resolveLocalDateVariantLong, subStringNameForAvatar } from '@/plugins/helpers';
 import { avatarText } from '@core/utils/formatters';
 
@@ -9,6 +10,7 @@ let checkinData = ref()
 const logDate = ref()
 const lateCount = ref(0)
 const logCount = ref(0)
+const selectedDate = ref()
 
 function sortObjectsByCheckIn(array) {
   return array.sort((a, b) => {
@@ -61,6 +63,12 @@ const optionActions = [
 ]
 
 fetchData()
+
+function listenerAC(d) {
+  selectedDate.value = d
+  console.log(`selectedDate: ${selectedDate.value}`)
+}
+bus.on(listenerAC)
 </script>
 
 <template>

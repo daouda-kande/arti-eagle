@@ -5,6 +5,6 @@ import { defineStore } from 'pinia'
 export const useCheckinStore = defineStore('CheckinStore', {
   actions: {
     // 👉 Fetch users data
-    fetchCheckin() { return axios.get(`${API_BASE_URL}/dashboard/checkins/`) },
+    fetchCheckin(selectedDate) { return axios.get(`${API_BASE_URL}/dashboard/checkins/${selectedDate}`) },
   },
 })

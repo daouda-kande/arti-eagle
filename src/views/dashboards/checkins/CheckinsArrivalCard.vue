@@ -1,6 +1,6 @@
 <script setup>
 import { bus } from '@/plugins/eventBus';
-import { fullTimeToHourMinuteFormatter, resolveLocalDateVariantLong, subStringNameForAvatar } from '@/plugins/helpers';
+import { currentDateYmd, fullTimeToHourMinuteFormatter, resolveLocalDateVariantLong, subStringNameForAvatar } from '@/plugins/helpers';
 import { avatarText } from '@core/utils/formatters';
 
 import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
@@ -10,7 +10,7 @@ let checkinData = ref()
 const logDate = ref()
 const lateCount = ref(0)
 const logCount = ref(0)
-const selectedDate = ref()
+const selectedDate = ref(currentDateYmd())
 
 function sortObjectsByCheckIn(array) {
   return array.sort((a, b) => {
@@ -34,7 +34,7 @@ function getFullName(checkin){
 }
 
 function fetchData(){
-  checkinStore.fetchCheckin().then(response => {
+  checkinStore.fetchCheckin(selectedDate.value).then(response => {
     let checkin = response.data.checkins.checkins.checkins
     if(Array.isArray(checkin) && checkin.length > 0){
       checkinData.value = sortObjectsByCheckIn(checkin)
@@ -66,9 +66,11 @@ fetchData()
 
 function listenerAC(d) {
   selectedDate.value = d
+  updateDate()
   console.log(`selectedDate: ${selectedDate.value}`)
 }
 bus.on(listenerAC)
+console.log(selectedDate.value)
 </script>
 
 <template>

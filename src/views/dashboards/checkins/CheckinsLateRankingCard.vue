@@ -2,14 +2,16 @@
 import { getWorkDaysInMonth, resolveLocalDateVariantMY, zerofill } from '@/plugins/helpers';
 
 import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
+import { ref } from 'vue';
 
 const checkinStore = useCheckinStore()
-const lateData = ref()
+let lateData = ref()
 const lateDate = ref()
 
 function fetchData(){
   checkinStore.fetchCheckin().then(response => {
-    lateData.value = response.data.late.late_occurence
+    let late = response.data.late.late_occurence
+    if(Array.isArray(late) && late.length > 0){ lateData.value = late }
     lateDate.value = response.data.late.late_date
   })
 }
@@ -21,9 +23,14 @@ function resolveLateCountStatus(c) {
   return "secondary"
 }
 
+function updateData(){
+  lateData.value = null
+  fetchData()
+}
+
 const optionActions = [
   { title:"Actualiser",
-    action:fetchData, 
+    action:updateData, 
   },
   { title:"Télécharger",
     action:null, 
@@ -35,7 +42,6 @@ fetchData()
 
 <template>
   <VCard
-    v-if="lateData"
     title="Nombre des retards"
     subtitle="Liste des employés selon les retards"
   >
@@ -69,7 +75,7 @@ fetchData()
       </div>
     </template>
 
-    <VCardText>
+    <VCardText v-if="lateData">
       <VList class="card-list">
         <VListItem
           v-for="(late, index) in lateData"
@@ -111,17 +117,17 @@ fetchData()
         </VListItem>
       </VList>
     </VCardText>
-  </VCard>
-  <VCard
-    v-else
-    cols="12"
-    sm="6"
-    lg="6"
-  >
-    <VProgressCircular
-      indeterminate
-      color="primary"
-    />
+    <VCardText
+      v-else
+      cols="12"
+      sm="6"
+      lg="6"
+    >
+      <VProgressCircular
+        indeterminate
+        color="primary"
+      />
+    </VCardText>
   </VCard>
 </template>
 

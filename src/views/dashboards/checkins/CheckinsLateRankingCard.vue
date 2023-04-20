@@ -1,5 +1,6 @@
 <script setup>
-import { getWorkDaysInMonth, resolveLocalDateVariantMY, zerofill } from '@/plugins/helpers';
+import { bus } from '@/plugins/eventBus';
+import { currentDateYmd, getWorkDaysInMonth, resolveLocalDateVariantMY, zerofill } from '@/plugins/helpers';
 
 import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
 import { ref } from 'vue';
@@ -7,9 +8,10 @@ import { ref } from 'vue';
 const checkinStore = useCheckinStore()
 let lateData = ref()
 const lateDate = ref()
+const selectedDate = ref(currentDateYmd())
 
 function fetchData(){
-  checkinStore.fetchCheckin().then(response => {
+  checkinStore.fetchCheckin(selectedDate.value).then(response => {
     let late = response.data.late.late_occurence
     if(Array.isArray(late) && late.length > 0){ lateData.value = late }
     lateDate.value = response.data.late.late_date
@@ -38,6 +40,14 @@ const optionActions = [
 ]
 
 fetchData()
+
+function listenerRC(d) {
+  selectedDate.value = d
+  updateData()
+  console.log(`selectedDate: ${selectedDate.value}`)
+}
+bus.on(listenerRC)
+console.log(selectedDate.value)
 </script>
 
 <template>

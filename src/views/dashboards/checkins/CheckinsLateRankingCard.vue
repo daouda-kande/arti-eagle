@@ -1,6 +1,6 @@
 <script setup>
 import { bus } from '@/plugins/eventBus';
-import { currentDateYmd, getWorkDaysInMonth, resolveLocalDateVariantMY, zerofill } from '@/plugins/helpers';
+import { currentDateYmd, getLastDateOfMonth, getWorkDaysInMonth, resolveLocalDateVariantMY, zerofill } from '@/plugins/helpers';
 
 import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
 import { ref } from 'vue';
@@ -42,8 +42,10 @@ const optionActions = [
 fetchData()
 
 function listenerRC(d) {
-  selectedDate.value = d
-  updateData()
+  if(getLastDateOfMonth(d) != lateDate.value){
+    selectedDate.value = d
+    updateData()
+  }
   console.log(`selectedDate: ${selectedDate.value}`)
 }
 bus.on(listenerRC)

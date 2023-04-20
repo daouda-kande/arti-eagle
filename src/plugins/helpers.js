@@ -95,3 +95,21 @@ export function currentDateYmd(){
   // Format the date as "Y-m-d"
   return `${year}-${month}-${day}`
 }
+
+export function getLastDateOfMonth(datestring){
+  // Create a new Date object for the current date
+  const currentDate = new Date(datestring)
+
+  // Get the current year and month
+  const currentYear = currentDate.getFullYear()
+  const currentMonth = currentDate.getMonth()
+
+  // Create a new Date object for the first day of the next month
+  const firstDayOfNextMonth = new Date(currentYear, currentMonth + 1, 1)
+
+  // Subtract one day to get the last day of the current month
+  const lastDayOfCurrentMonth = new Date(firstDayOfNextMonth.getTime() - (24 * 60 * 60 * 1000))
+
+  // Format the date as 'YYYY-mm-dd'
+  return lastDayOfCurrentMonth.toISOString().slice(0, 10)
+}

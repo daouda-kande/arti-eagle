@@ -5,9 +5,10 @@ import { avatarText } from '@core/utils/formatters';
 import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
 
 const checkinStore = useCheckinStore()
-const checkinData = ref()
-const metaData = ref()
+let checkinData = ref()
 const logDate = ref()
+const lateCount = ref(0)
+const logCount = ref(0)
 
 function sortObjectsByCheckIn(array) {
   return array.sort((a, b) => {
@@ -33,30 +34,39 @@ function getFullName(checkin){
 function fetchData(){
   checkinStore.fetchCheckin().then(response => {
     let checkin = response.data.checkins.checkins.checkins
-    checkinData.value = sortObjectsByCheckIn(checkin)
+    if(Array.isArray(checkin) && checkin.length > 0){
+      checkinData.value = sortObjectsByCheckIn(checkin)
+      let metaData = response.data.checkins.checkins.metadata
+      lateCount.value = metaData.late_count
+      logCount.value = metaData.log_count
+    }else{
+      lateCount.value = 0
+      logCount.value = 0
+    }
     logDate.value = response.data.checkins.log_date
-    metaData.value = response.data.checkins.checkins.metadata
-    console.log(response)
   })}
 
+function updateDate(){
+  checkinData = ref()
+  fetchData()
+}
   
-fetchData()
-
 const optionActions = [
   { title:"Actualiser",
-    action:fetchData, 
+    action:updateDate, 
   },
   { title:"Télécharger",
     action:null, 
   },
 ]
+
+fetchData()
 </script>
 
 <template>
   <VCard
-    v-if="checkinData && metaData"
     title="Pointages"
-    :subtitle="metaData.late_count + ' retards sur ' + metaData.log_count + ' présences'"
+    :subtitle="lateCount + ' retards sur ' + logCount + ' présences'"
   >
     <template #append>
       <div class="mt-n4 me-n2">
@@ -89,7 +99,7 @@ const optionActions = [
       </div>
     </template>
 
-    <VCardText>
+    <VCardText v-if="checkinData">
       <VList class="card-list">
         <VListItem
           v-for="checkin in checkinData"
@@ -133,17 +143,17 @@ const optionActions = [
         </VListItem>
       </VList>
     </VCardText>
-  </VCard>
-  <VCard
-    v-else
-    cols="12"
-    sm="6"
-    lg="6"
-  >
-    <VProgressCircular
-      indeterminate
-      color="primary"
-    />
+    <VCardText
+      v-else
+      cols="12"
+      sm="6"
+      lg="6"
+    >
+      <VProgressCircular
+        indeterminate
+        color="primary"
+      />
+    </VCardText>
   </VCard>
 </template>
 

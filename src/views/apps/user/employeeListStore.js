@@ -3,10 +3,27 @@ import { API_BASE_URL } from '@projectConfig'
 import { defineStore } from 'pinia'
 
 export const useEmployeeListStore = defineStore('EmployeeListStore', {
+  
+  // 👉 Store name
+  id: 'employeeStore',
+
+  // 👉 Save data to be displayed when needed
+  state: () => ({
+    employeeTaskList : null,
+  }),
+
   actions: {
     // 👉 Fetch users data
-    // fetchEmployees(params) { return axios.get('http://192.168.0.218:8000/api/v1/emp/list', { params }) },
     fetchEmployees(params) { return axios.get(`${API_BASE_URL}/employee/list`, { params }) },
+    
+    // 👉 Fetch employee assigned tasks
+    fetchEmployeeTasks(employeeId) { 
+      const response = new Promise((resolve, reject) => {
+        axios.get(`${API_BASE_URL}/task/list/employee/${employeeId}`).then(response => resolve(response)).catch(error => reject(error))
+      })
+
+      response.then(response => {this.employeeTaskList = response})
+    },
 
     // 👉 Add User
     addUser(userData) {

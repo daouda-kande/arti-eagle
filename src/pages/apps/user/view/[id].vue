@@ -35,8 +35,9 @@ const tabs = [
 employeeListStore.fetchUser(Number(route.params.id)).then(response => {
   userData.value = response.data
 })
-console.log("DEBUG")
-console.log(userData)
+
+// 👉 Prepare data to be available to Project Tab
+employeeListStore.fetchEmployeeTasks(Number(route.params.id))
 </script>
 
 <template>

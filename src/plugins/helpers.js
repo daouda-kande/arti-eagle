@@ -1,13 +1,13 @@
 export function resolveProjectStatusVariant(stat) {
-  if (stat === 'Schedulled')
+  if (stat === 'Schedulled' || stat === 'SCHEDULED')
     return { status:'Non Demarré', color:'secondary' }
-  if (stat === 'In Progress')
+  if (stat === 'In Progress'|| stat === 'IN_PROGRESS')
     return { status:'En Cours', color:'info' }
-  if (stat === 'Stopped')
+  if (stat === 'Stopped' || stat === 'STOPPED')
     return { status:'Suspendu', color:'warning' }
-  if (stat === 'Failled')
+  if (stat === 'Failled' || stat === 'FAILLED')
     return { status:'Echec', color:'error' }
-  if (stat === 'Finished')
+  if (stat === 'Finished' || stat === 'FINISHED')
     return { status:'Terminé', color:'success' }
 }
 

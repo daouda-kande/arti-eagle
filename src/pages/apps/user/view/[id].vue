@@ -13,6 +13,9 @@ const route = useRoute()
 const userData = ref()
 const userTab = ref(null)
 
+// 👉 Prepare data to be available to Project Tab
+const selectedDate = ref("2023-04-12")
+
 const tabs = [
   {
     icon: 'tabler-24-hours',
@@ -40,6 +43,7 @@ employeeListStore.fetchUser(Number(route.params.id)).then(response => {
 employeeListStore.fetchEmployeeTasks(Number(route.params.id))
 employeeListStore.fetchEmployeeTrainings(Number(route.params.id))
 employeeListStore.fetchEmployeeEvaluations(Number(route.params.id))
+employeeListStore.fetchEmployeeLogbook(Number(route.params.id), selectedDate.value)
 </script>
 
 <template>
@@ -82,7 +86,7 @@ employeeListStore.fetchEmployeeEvaluations(Number(route.params.id))
         :touch="false"
       >
         <VWindowItem>
-          <UserTabAbsence />
+          <UserTabAbsence :date-data="selectedDate" />
         </VWindowItem>
         
         <VWindowItem>

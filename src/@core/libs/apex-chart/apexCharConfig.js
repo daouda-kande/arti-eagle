@@ -602,7 +602,7 @@ export const getHeatMapChartConfig = themeColors => {
       },
     },
     xaxis: {
-      labels: { show: false },
+      labels: { show: true },
       axisTicks: { show: false },
       axisBorder: { show: false },
     },

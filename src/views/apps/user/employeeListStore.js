@@ -12,6 +12,7 @@ export const useEmployeeListStore = defineStore('EmployeeListStore', {
     employeeTaskList : null,
     employeeTrainingList: null,
     employeevaluationList: null,
+    employeeLogbook: null,
   }),
 
   actions: {
@@ -43,6 +44,15 @@ export const useEmployeeListStore = defineStore('EmployeeListStore', {
       })
 
       response.then(response => {this.employeeEvaluationList = response})
+    },
+
+    // 👉 Fetch employee logbook 
+    fetchEmployeeLogbook(employeeId, date_string) { 
+      const response = new Promise((resolve, reject) => {
+        axios.get(`${API_BASE_URL}/logbook/employee/${employeeId}/${date_string}`).then(response => resolve(response)).catch(error => reject(error))
+      })
+
+      response.then(response => {this.employeeLogbook = response})
     },
 
     // 👉 Add User

@@ -1,7 +1,15 @@
 <script setup>
+
 // Images
 import { resolveLocalDateVariant, resolveProjectStatusVariant } from '@/plugins/helpers';
+import { useEmployeeListStore } from '@/views/apps/user/employeeListStore';
 import figma from '@images/icons/project-icons/figma.png';
+
+const courseList = ref([])
+
+const employeeListStore = useEmployeeListStore()
+
+courseList.value = employeeListStore.employeeTrainingList.data.courses
 
 const projects = [
   {
@@ -9,10 +17,10 @@ const projects = [
     code: "76485-1048",
     school: "PMI",
     name: "PMP: Project management",
-    start_date: "2023-05-13",
-    end_date: "2023-10-11",
+    startDate: "2023-05-13",
+    endDate: "2023-10-11",
     status: "Schedulled",
-    timing: 8,
+    duration: 8,
     budget: 270000,
   },
   {
@@ -20,10 +28,10 @@ const projects = [
     code: "10631-121",
     school: "Oo2 Formation",
     name: "Développement personnel",
-    start_date: "2023-02-12",
-    end_date: "2024-06-22",
+    startDate: "2023-02-12",
+    endDate: "2024-06-22",
     status: "In Progress",
-    timing: 12,
+    duration: 12,
     budget: 635000,
   },
   {
@@ -31,10 +39,10 @@ const projects = [
     code: "0115-9911",
     school: "Stats4Decision",
     name: "Formation en Analyse de données et statistiques primaires",
-    start_date: "2023-04-13",
-    end_date: "2024-02-23",
+    startDate: "2023-04-13",
+    endDate: "2024-02-23",
     status: "Stopped",
-    timing: 9,
+    duration: 9,
     budget: 872000,
   },
 ]
@@ -55,10 +63,10 @@ const projects = [
                 STRUCTURE
               </th>
               <th scope="col">
-                DATE DE DEBUT
+                DEBUT
               </th>
               <th scope="col">
-                PERIODE
+                DUREE
               </th>
               <th scope="col">
                 STATUT
@@ -67,7 +75,7 @@ const projects = [
           </thead>
           <tbody>
             <tr
-              v-for="project in projects"
+              v-for="project in courseList"
               :key="project.name"
               style="height: 3.75rem;"
             >
@@ -96,15 +104,15 @@ const projects = [
                 
               <!-- 👉 START DATE -->
               <td class="text-medium-emphasis text-capitalize">
-                {{ resolveLocalDateVariant(project.start_date) }}
+                {{ resolveLocalDateVariant(project.startDate) }}
               </td>
 
-              <!-- 👉 TIMING -->
+              <!-- 👉 duration -->
               <td class="text-capitalize">
                 <VChip
                   label
                 >
-                  {{ project.timing }} jours
+                  {{ project.duration }} jours
                 </VChip>
               </td>
 

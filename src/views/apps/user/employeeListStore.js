@@ -10,6 +10,7 @@ export const useEmployeeListStore = defineStore('EmployeeListStore', {
   // 👉 Save data to be displayed when needed
   state: () => ({
     employeeTaskList : null,
+    employeeTrainingList: null,
   }),
 
   actions: {
@@ -23,6 +24,15 @@ export const useEmployeeListStore = defineStore('EmployeeListStore', {
       })
 
       response.then(response => {this.employeeTaskList = response})
+    },
+
+    // 👉 Fetch employee assigned trainings
+    fetchEmployeeTrainings(employeeId) { 
+      const response = new Promise((resolve, reject) => {
+        axios.get(`${API_BASE_URL}/training/list/employee/${employeeId}`).then(response => resolve(response)).catch(error => reject(error))
+      })
+
+      response.then(response => {this.employeeTrainingList = response})
     },
 
     // 👉 Add User

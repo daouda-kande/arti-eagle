@@ -38,6 +38,7 @@ employeeListStore.fetchUser(Number(route.params.id)).then(response => {
 
 // 👉 Prepare data to be available to Project Tab
 employeeListStore.fetchEmployeeTasks(Number(route.params.id))
+employeeListStore.fetchEmployeeTrainings(Number(route.params.id))
 </script>
 
 <template>

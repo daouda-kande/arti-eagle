@@ -44,12 +44,12 @@ const statisticsHorizontal = [
 
 const tabs = [
   {
-    icon: 'tabler-users',
-    title: 'Ressources',
-  },
-  {
     icon: 'tabler-3d-cube-sphere',
     title: "Activités",
+  },
+  {
+    icon: 'tabler-users',
+    title: 'Ressources',
   },
   {
     icon: 'tabler-ad-2',
@@ -72,16 +72,16 @@ console.log(projectData)
   <VRow v-if="projectData">
     <VCol
       cols="12"
-      md="5"
-      lg="4"
+      md="4"
+      lg="3"
     >
       <ProjectBioPanel :project-data="projectData" />
     </VCol>
 
     <VCol
       cols="12"
-      md="7"
-      lg="8"
+      md="8"
+      lg="9"
     >
       <VRow>
         <!-- 👉 Horizontal Cards -->
@@ -122,11 +122,11 @@ console.log(projectData)
         :touch="false"
       >
         <VWindowItem>
-          <ProjectTabResource />
+          <ProjectTabActivity />
         </VWindowItem>
         
         <VWindowItem>
-          <ProjectTabActivity />
+          <ProjectTabResource />
         </VWindowItem>
 
         <VWindowItem>

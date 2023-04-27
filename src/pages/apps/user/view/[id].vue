@@ -50,16 +50,16 @@ employeeListStore.fetchEmployeeLogbook(Number(route.params.id), selectedDate.val
   <VRow v-if="userData">
     <VCol
       cols="12"
-      md="5"
-      lg="4"
+      md="4"
+      lg="3"
     >
       <UserBioPanel :user-data="userData.bio" />  <!-- passage de données à UserBioPanel -->
     </VCol>
 
     <VCol
       cols="12"
-      md="7"
-      lg="8"
+      md="8"
+      lg="9"
     >
       <UserStatisticsTransactions :user-data="userData.metadata" />
       <br>

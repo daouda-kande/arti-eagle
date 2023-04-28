@@ -7,6 +7,9 @@ export const useProjectListStore = defineStore('ProjectListStore', {
     // 👉 Fetch project data
     fetchProjects(params) { return axios.get(`${API_BASE_URL}/task/list/filter`, { params }) },
 
+    // Fetch project stats
+    fetchProjectStats() { return  axios.get(`${API_BASE_URL}/task/stats/`) },
+    
     // 👉 Add Project
     addProject(projectData) {
       return new Promise((resolve, reject) => {

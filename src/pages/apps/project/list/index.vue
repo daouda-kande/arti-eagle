@@ -14,6 +14,7 @@ const currentPage = ref(1)
 const totalPage = ref(1)
 const totalProjects = ref(0)
 const projects = ref([])
+const projectStats = ref([]) 
 
 // 👉 Fetching projects
 const fetchProjects = () => {
@@ -35,13 +36,18 @@ const fetchProjects = () => {
 
 watchEffect(fetchProjects)
 
-
-
 // 👉 watching current page
 watchEffect(() => {
   if (currentPage.value > totalPage.value)
     currentPage.value = totalPage.value
 })
+
+projectListStore.fetchProjectStats().then(response => {
+  projectStats.value = response.data.stats
+})
+
+console.log("DEBUG PROJECT STATS");
+console.log(projectStats[0]);
 
 // 👉 search filters
 const directions = [
@@ -144,7 +150,7 @@ const userListMeta = [
     icon: 'tabler-3d-cube-sphere',
     color: 'primary',
     title: 'Projets',
-    stats: '12',
+    stats: '',
     percentage: +100,
     subtitle: 'Projets initiés',
   },
@@ -179,8 +185,8 @@ const userListMeta = [
   <section>
     <VRow>
       <VCol
-       v-for="meta in userListMeta"
-        :key="meta.title"
+        v-for=" (meta, index ) in projectStats"
+        :key="index"
         cols="12"
         sm="6"
         lg="3"
@@ -188,21 +194,21 @@ const userListMeta = [
         <VCard>
           <VCardText class="d-flex justify-space-between">
             <div>
-              <span>{{ meta.title }}</span>
+              <span>{{ meta.status }}</span>
               <div class="d-flex align-center gap-2 my-1">
                 <h6 class="text-h6">
-                  {{ meta.stats }}
+                  {{ meta.count }}
                 </h6>
-                <span :class="meta.percentage > 0 ? 'text-success' : 'text-error'">({{ meta.percentage }}%)</span>
+                <span :class="meta.percent > 0 ? 'text-success' : 'text-error'">({{ meta.percent }}%)</span>
               </div>
-              <span>{{ meta.subtitle }}</span>
+              <span>{{ userListMeta[index].subtitle }}</span>
             </div>
 
             <VAvatar
               rounded
               variant="tonal"
-              :color="meta.color"
-              :icon="meta.icon"
+              :color="userListMeta[index].color"
+              :icon="userListMeta[index].icon"
             />
           </VCardText>
         </VCard>

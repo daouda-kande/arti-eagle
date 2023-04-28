@@ -1,8 +1,8 @@
 <script setup>
-import { resolveLocalDateVariant, zerofill } from '@/plugins/helpers';
-import { useProjectListStore } from '@/views/apps/project/useProjectListStore';
-import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue';
-import { avatarText } from '@core/utils/formatters';
+import { resolveLocalDateVariant, zerofill, subStringNameForAvatar } from '@/plugins/helpers'
+import { useProjectListStore } from '@/views/apps/project/useProjectListStore'
+import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue'
+import { avatarText } from '@core/utils/formatters'
 
 const projectListStore = useProjectListStore()
 const searchQuery = ref('')
@@ -25,15 +25,17 @@ const fetchProjects = () => {
     perPage: rowPerPage.value,
     currentPage: currentPage.value,
   }).then(response => {
-    projects.value = response.data.projects
+    projects.value = response.data.tasks
     totalPage.value = response.data.totalPage
-    totalProjects.value = response.data.totalProjects
+    totalProjects.value = response.data.totalTasks
   }).catch(error => {
     console.error(error)
   })
 }
 
 watchEffect(fetchProjects)
+
+
 
 // 👉 watching current page
 watchEffect(() => {
@@ -101,15 +103,15 @@ const status = [
 ]
 
 const resolveProjectStatusVariant = stat => {
-  if (stat === 'Schedulled')
+  if (stat === 'SCHEDULED')
     return { status:'Non Demarré', color:'secondary' }
-  if (stat === 'In Progress')
+  if (stat === 'IN_PROGRESS')
     return { status:'En Cours', color:'info' }
-  if (stat === 'Stopped')
+  if (stat === 'STOPPED')
     return { status:'Suspendu', color:'warning' }
   if (stat === 'Failled')
     return { status:'Echec', color:'error' }
-  if (stat === 'Finished')
+  if (stat === 'FINISHED')
     return { status:'Terminé', color:'success' }
 }
 
@@ -177,7 +179,7 @@ const userListMeta = [
   <section>
     <VRow>
       <VCol
-        v-for="meta in userListMeta"
+       v-for="meta in userListMeta"
         :key="meta.title"
         cols="12"
         sm="6"
@@ -303,7 +305,7 @@ const userListMeta = [
             <tbody>
               <tr
                 v-for="project in projects"
-                :key="project.id"
+                :key="project.taskId"
                 style="height: 3.75rem;"
               >
                 <!-- 👉 PROJECT -->
@@ -319,13 +321,13 @@ const userListMeta = [
                         v-if="project.avatar"
                         :src="project.avatar"
                       />
-                      <span v-else>{{ avatarText(project.name) }}</span>
+                      <span v-else>{{ avatarText(subStringNameForAvatar(project.name)) }}</span>
                     </VAvatar>
 
                     <div class="d-flex flex-column">
                       <h6 class="text-base">
                         <RouterLink
-                          :to="{ name: 'apps-project-view-id', params: { id: project.id } }"
+                          :to="{ name: 'apps-project-view-id', params: { id: project.taskId } }"
                           class="font-weight-medium user-list-name"
                         >
                           {{ project.name }}
@@ -339,27 +341,27 @@ const userListMeta = [
                 <!-- 👉 DIRECTION -->
                 <td>
                   <div class="d-flex align-center">
-                    {{ project.direction }}
+                    {{ project.comment }}
                   </div>
                 </td>
                 <!-- 👉 START DATE -->
                 <td>
                   <div class="d-flex align-center text-capitalize">
-                    {{ resolveLocalDateVariant(project.start_date) }}
+                    {{ resolveLocalDateVariant(project.startDate) }}
                   </div>
                 </td>
 
                 <!-- 👉 END DATE -->
                 <td>
                   <div class="d-flex align-center text-capitalize">
-                    {{ resolveLocalDateVariant(project.end_date) }}
+                    {{ resolveLocalDateVariant(project.endDate) }}
                   </div>
                 </td>
 
                 <!-- 👉 RESOURCES -->
                 <td>
                   <VChip label>
-                    <span class="text-base">{{ zerofill(5) }}</span>
+                    <span class="text-base">{{ project.resources }}</span>
                   </VChip>
                 </td>
 
@@ -378,7 +380,7 @@ const userListMeta = [
                 <!-- 👉 PROGRESSION -->
                 <td>
                   <VProgressLinear
-                    :model-value="project.progress"
+                    :model-value="project.progression"
                     bg-color="primary"
                     :color="resolveProjectStatusVariant(project.status).color"
                   />
@@ -394,7 +396,7 @@ const userListMeta = [
                     size="x-small"
                     color="primary"
                     variant="text"
-                    :to="{ name: 'apps-project-view-id', params: { id: project.id } }"
+                    :to="{ name: 'apps-project-view-id', params: { id: project.taskId } }"
                   >
                     <VIcon
                       size="22"
@@ -412,7 +414,7 @@ const userListMeta = [
                   colspan="7"
                   class="text-center"
                 >
-                  No data available
+                  Rien a afficher
                 </td>
               </tr>
             </tfoot>

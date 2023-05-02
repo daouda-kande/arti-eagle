@@ -1,11 +1,15 @@
 import axios from '@axios'
+import { API_BASE_URL } from '@projectConfig'
 import { defineStore } from 'pinia'
 
 export const useProjectListStore = defineStore('ProjectListStore', {
   actions: {
     // 👉 Fetch project data
-    fetchProjects(params) { return axios.get('/apps/projects/list', { params }) },
+    fetchProjects(params) { return axios.get(`${API_BASE_URL}/task/list/filter`, { params }) },
 
+    // Fetch project stats
+    fetchProjectStats() { return  axios.get(`${API_BASE_URL}/task/stats/`) },
+    
     // 👉 Add Project
     addProject(projectData) {
       return new Promise((resolve, reject) => {

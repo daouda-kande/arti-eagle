@@ -23,12 +23,6 @@ const statisticsHorizontal = [
     stats: '08',
   },
   {
-    title: 'Réalisé',
-    color: 'error',
-    icon: 'tabler-chart-pie-2',
-    stats: '37%',
-  },
-  {
     title: 'Personnes',
     color: 'success',
     icon: ' tabler-users',
@@ -89,7 +83,7 @@ console.log(projectData)
           v-for="statistics in statisticsHorizontal"
           :key="statistics.title"
           cols="12"
-          lg="3"
+          lg="4"
           sm="6"
           md="6"
         >

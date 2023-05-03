@@ -23,7 +23,7 @@ export const useProjectListStore = defineStore('ProjectListStore', {
     // 👉 fetch single project
     fetchProject(id) {
       return new Promise((resolve, reject) => {
-        axios.get(`/apps/projects/${id}`).then(response => resolve(response)).catch(error => reject(error))
+        axios.get(`${API_BASE_URL}/task/details/${id}`).then(response => resolve(response)).catch(error => reject(error))
       })
     },
   },

@@ -9,18 +9,24 @@ import ProjectTabResource from '@/views/apps/project/view/ProjectTabResource.vue
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
 import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
 
-
 const projectListStore = useProjectListStore()
 const route = useRoute()
 const projectData = ref()
 const userTab = ref(null)
+const projectStats = ref()
+
+projectListStore.fetchProject(Number(route.params.id)).then(response => {
+  projectData.value = response.data 
+ 
+  
+})
 
 const statisticsHorizontal = [
   {
     title: 'Activités',
     color: 'error',
     icon: 'tabler-cpu',
-    stats: '08',
+    stats:'08',
   },
   {
     title: 'Personnes',
@@ -32,7 +38,7 @@ const statisticsHorizontal = [
     title: 'FCFA',
     color: 'warning',
     icon: 'tabler-wallet',
-    stats: '128M',
+    stats: '128 M',
   },
 ]
 
@@ -55,11 +61,10 @@ const tabs = [
   },
 ]
 
-projectListStore.fetchProject(Number(route.params.id)).then(response => {
-  projectData.value = response.data
-})
+
 console.log("DEBUG")
 console.log(projectData)
+
 </script>
 
 <template>
@@ -116,11 +121,11 @@ console.log(projectData)
         :touch="false"
       >
         <VWindowItem>
-          <ProjectTabActivity />
+          <ProjectTabActivity :project-data="projectData" />
         </VWindowItem>
         
         <VWindowItem>
-          <ProjectTabResource />
+          <ProjectTabResource :project-data="projectData" />
         </VWindowItem>
 
         <VWindowItem>

@@ -4,6 +4,13 @@
 import { resolveLocalDateVariant, resolveProjectStatusVariant } from '@/plugins/helpers';
 import { avatarText } from '@core/utils/formatters';
 
+const props = defineProps({
+  projectData: {
+    type: Object,
+    required: true,
+  },
+})
+
 const projects = [
   {
     id: 1,
@@ -110,7 +117,7 @@ const resolveUserProgressVariant = progress => {
           </thead>
           <tbody>
             <tr
-              v-for="project in projects"
+              v-for="project in props.projectData.tasks"
               :key="project.name"
               style="height: 3.75rem;"
             >
@@ -123,7 +130,7 @@ const resolveUserProgressVariant = progress => {
                     variant="tonal"
                     :color="resolveProjectStatusVariant(project.status).color"
                   >
-                    <span>{{ avatarText(project.accountable.name) }}</span>
+                    <span>{{ avatarText(project.name) }}</span>
                   </VAvatar>
                   <div>
                     <p class="text-base mb-0">
@@ -136,16 +143,16 @@ const resolveUserProgressVariant = progress => {
               <!-- 👉 Accountable -->
               <td>
                 <RouterLink
-                  :to="{ name: 'apps-user-view-id', params: { id: project.accountable.id } }"
+                  :to="{ name: 'apps-user-view-id', params: { id: project.taskId } }"
                   class="font-weight-medium user-list-name"
                 >
-                  {{ project.accountable.name }}
+                  {{ project.name }}
                 </RouterLink>
               </td>
 
               <!-- 👉 End date -->
               <td>
-                {{ resolveLocalDateVariant(project.end_date) }}
+                {{ resolveLocalDateVariant(project.endDate) }}
               </td>
 
               <!-- 👉 Start Date -->

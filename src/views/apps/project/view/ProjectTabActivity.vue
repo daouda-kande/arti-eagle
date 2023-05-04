@@ -1,7 +1,7 @@
 <script setup>
 
 // Images
-import { resolveLocalDateVariant, resolveProjectStatusVariant } from '@/plugins/helpers';
+import { resolveLocalDateVariant, resolveProjectStatusVariant, subStringNameForAvatar } from '@/plugins/helpers';
 import { avatarText } from '@core/utils/formatters';
 
 const props = defineProps({
@@ -130,7 +130,7 @@ const resolveUserProgressVariant = progress => {
                     variant="tonal"
                     :color="resolveProjectStatusVariant(project.status).color"
                   >
-                    <span>{{ avatarText(project.name) }}</span>
+                    <span>{{ avatarText(subStringNameForAvatar (project.name)) }}</span>
                   </VAvatar>
                   <div>
                     <p class="text-base mb-0">
@@ -146,7 +146,7 @@ const resolveUserProgressVariant = progress => {
                   :to="{ name: 'apps-user-view-id', params: { id: project.taskId } }"
                   class="font-weight-medium user-list-name"
                 >
-                  {{ project.name }}
+                  {{ project.firstName + ' ' + project.lastName }}
                 </RouterLink>
               </td>
 

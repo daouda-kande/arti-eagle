@@ -11,6 +11,21 @@ export function resolveProjectStatusVariant(stat) {
     return { status:'Terminé', color:'success' }
 }
 
+
+export function resolveProjectStatusVariantWithoutColor(stat) {
+  if (stat === 'Schedulled' || stat === 'SCHEDULED')
+    return 'Non Demarré'
+  if (stat === 'In Progress'|| stat === 'IN_PROGRESS')
+    return 'En Cours'
+  if (stat === 'Stopped' || stat === 'STOPPED')
+    return 'Suspendu'
+  if (stat === 'Finished' || stat === 'FINISHED')
+    return 'Terminé'
+  else {
+    return stat
+  }
+}
+
 export function resolveLocalDateVariant (d) {
   const date = new Date(d)
   const options = { year: 'numeric', month: 'short', day: '2-digit' }
@@ -113,3 +128,6 @@ export function getLastDateOfMonth(datestring){
   // Format the date as 'YYYY-mm-dd'
   return lastDayOfCurrentMonth.toISOString().slice(0, 10)
 }
+
+
+

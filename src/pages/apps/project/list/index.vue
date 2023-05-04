@@ -1,5 +1,5 @@
 <script setup>
-import { resolveLocalDateVariant, zerofill, subStringNameForAvatar } from '@/plugins/helpers'
+import { resolveLocalDateVariant, zerofill, subStringNameForAvatar, resolveProjectStatusVariantWithoutColor } from '@/plugins/helpers'
 import { useProjectListStore } from '@/views/apps/project/useProjectListStore'
 import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue'
 import { avatarText } from '@core/utils/formatters'
@@ -45,9 +45,6 @@ watchEffect(() => {
 projectListStore.fetchProjectStats().then(response => {
   projectStats.value = response.data.stats
 })
-
-console.log("DEBUG PROJECT STATS");
-console.log(projectStats[0]);
 
 // 👉 search filters
 const directions = [
@@ -194,7 +191,7 @@ const userListMeta = [
         <VCard>
           <VCardText class="d-flex justify-space-between">
             <div>
-              <span>{{ meta.status }}</span>
+              <span>{{ resolveProjectStatusVariantWithoutColor(meta.status) }}</span>
               <div class="d-flex align-center gap-2 my-1">
                 <h6 class="text-h6">
                   {{ meta.count }}

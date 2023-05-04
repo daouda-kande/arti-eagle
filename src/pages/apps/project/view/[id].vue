@@ -9,32 +9,19 @@ import ProjectTabResource from '@/views/apps/project/view/ProjectTabResource.vue
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
 import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
 
-
 const projectListStore = useProjectListStore()
 const route = useRoute()
 const projectData = ref()
 const userTab = ref(null)
+const projectStats = ref()
 
-const statisticsHorizontal = [
-  {
-    title: 'Activités',
-    color: 'error',
-    icon: 'tabler-cpu',
-    stats: '08',
-  },
-  {
-    title: 'Personnes',
-    color: 'success',
-    icon: ' tabler-users',
-    stats: '03',
-  },
-  {
-    title: 'FCFA',
-    color: 'warning',
-    icon: 'tabler-wallet',
-    stats: '128M',
-  },
-]
+projectListStore.fetchProject(Number(route.params.id)).then(response => {
+  projectData.value = response.data 
+ 
+  
+})
+
+
 
 const tabs = [
   {
@@ -55,9 +42,7 @@ const tabs = [
   },
 ]
 
-projectListStore.fetchProject(Number(route.params.id)).then(response => {
-  projectData.value = response.data
-})
+
 console.log("DEBUG")
 console.log(projectData)
 </script>
@@ -79,16 +64,7 @@ console.log(projectData)
     >
       <VRow>
         <!-- 👉 Horizontal Cards -->
-        <VCol
-          v-for="statistics in statisticsHorizontal"
-          :key="statistics.title"
-          cols="12"
-          lg="4"
-          sm="6"
-          md="6"
-        >
-          <CardStatisticsHorizontal v-bind="statistics" />
-        </VCol>
+        <CardStatisticsHorizontal :project-data="projectData.stats" />
       </VRow>
       <VDivider vertical />
       <CardProjectProgressOverview />
@@ -116,11 +92,11 @@ console.log(projectData)
         :touch="false"
       >
         <VWindowItem>
-          <ProjectTabActivity />
+          <ProjectTabActivity :project-data="projectData" />
         </VWindowItem>
         
         <VWindowItem>
-          <ProjectTabResource />
+          <ProjectTabResource :project-data="projectData.resources" />
         </VWindowItem>
 
         <VWindowItem>

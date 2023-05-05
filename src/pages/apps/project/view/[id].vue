@@ -16,12 +16,8 @@ const userTab = ref(null)
 const projectStats = ref()
 
 projectListStore.fetchProject(Number(route.params.id)).then(response => {
-  projectData.value = response.data 
- 
-  
+  projectData.value = response.data   
 })
-
-
 
 const tabs = [
   {
@@ -42,7 +38,6 @@ const tabs = [
   },
 ]
 
-
 console.log("DEBUG")
 console.log(projectData)
 </script>
@@ -62,10 +57,8 @@ console.log(projectData)
       md="8"
       lg="9"
     >
-      <VRow>
-        <!-- 👉 Horizontal Cards -->
-        <CardStatisticsHorizontal :project-data="projectData.stats" />
-      </VRow>
+      <!-- 👉 Horizontal Cards -->
+      <CardStatisticsHorizontal :project-data="projectData.stats" />
       <VDivider vertical />
       <CardProjectProgressOverview />
       <br>

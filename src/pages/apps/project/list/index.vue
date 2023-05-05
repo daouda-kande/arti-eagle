@@ -1,5 +1,5 @@
 <script setup>
-import { resolveLocalDateVariant, zerofill, subStringNameForAvatar, resolveProjectStatusVariantWithoutColor } from '@/plugins/helpers'
+import { resolveLocalDateVariant, resolveProjectStatusVariantWithoutColor, subStringNameForAvatar } from '@/plugins/helpers'
 import { useProjectListStore } from '@/views/apps/project/useProjectListStore'
 import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue'
 import { avatarText } from '@core/utils/formatters'
@@ -7,7 +7,6 @@ import { avatarText } from '@core/utils/formatters'
 const projectListStore = useProjectListStore()
 const searchQuery = ref('')
 const selectedDirection = ref()
-const selectedPlan = ref()
 const selectedStatus = ref()
 const rowPerPage = ref(10)
 const currentPage = ref(1)
@@ -20,9 +19,8 @@ const projectStats = ref([])
 const fetchProjects = () => {
   projectListStore.fetchProjects({
     q: searchQuery.value,
-    status: selectedStatus.value,
-    plan: selectedPlan.value,
     direction: selectedDirection.value,
+    status: selectedStatus.value,
     perPage: rowPerPage.value,
     currentPage: currentPage.value,
   }).then(response => {
@@ -85,23 +83,23 @@ const directions = [
 const status = [
   {
     title: 'Non demarré',
-    value: 'Schedulled',
+    value: 'SCHEDULED',
   },
   {
     title: 'Terminé',
-    value: 'Finished',
+    value: 'FINISHED',
   },
   {
     title: 'En cours',
-    value: 'In Progress',
+    value: 'IN_PROGRESS',
   },
   {
     title: 'Suspendu',
-    value: 'Stopped',
+    value: 'STOPPED',
   },
   {
     title: 'Echec',
-    value: 'Failled',
+    value: 'FAILED',
   },
 ]
 

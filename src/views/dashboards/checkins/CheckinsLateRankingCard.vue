@@ -1,9 +1,9 @@
 <script setup>
-import { bus } from '@/plugins/eventBus';
-import { currentDateYmd, getLastDateOfMonth, getWorkDaysInMonth, resolveLocalDateVariantMY, zerofill } from '@/plugins/helpers';
+import { bus } from '@/plugins/eventBus'
+import { currentDateYmd, getLastDateOfMonth, getWorkDaysInMonth, resolveLocalDateVariantMY, zerofill } from '@/plugins/helpers'
 
-import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore';
-import { ref } from 'vue';
+import { useCheckinStore } from '@/views/dashboards/checkins/useCheckinStore'
+import { ref } from 'vue'
 
 const checkinStore = useCheckinStore()
 let lateData = ref()
@@ -96,7 +96,7 @@ console.log(selectedDate.value)
           <template #prepend>
             <VAvatar
               variant="tonal"
-              color="secondary"
+              :color="resolveLateCountStatus(late.monthLateCount)"
               size="34"
               rounded
             >

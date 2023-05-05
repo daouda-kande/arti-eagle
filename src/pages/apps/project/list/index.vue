@@ -181,11 +181,11 @@ const userListMeta = [
   },
   {
     icon: 'tabler-3d-cube-sphere',
-    color: 'warning',
+    color: 'secondary',
     title: 'Suspendu',
     stats: '04',
     percentage: -33,
-    subtitle: 'Projets suspendus',
+    subtitle: 'Projets non démarrés',
   },
 ]
 </script>

@@ -192,7 +192,7 @@ const resolveUserProgressVariant = progress => {
 
               <!-- 👉 Accountable -->
               <td>
-                Pas disponible dans l'API
+                {{ resource.role }}
               </td>
 
               <!-- 👉 NB Activity -->
@@ -200,7 +200,7 @@ const resolveUserProgressVariant = progress => {
                 <span class="text-capitalize text-base font-weight-semibold">
                   <VChip
                     label
-                    color="primary"
+                    color="success"
                   >
                     {{ zerofill(resource.finishedTasks) }}
                   </VChip>

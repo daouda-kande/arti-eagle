@@ -15,6 +15,8 @@ const totalProjects = ref(0)
 const projects = ref([])
 const projectStats = ref([]) 
 
+
+
 // 👉 Fetching projects
 const fetchProjects = () => {
   projectListStore.fetchProjects({
@@ -43,6 +45,8 @@ watchEffect(() => {
 projectListStore.fetchProjectStats().then(response => {
   projectStats.value = response.data.stats
 })
+
+
 
 // 👉 search filters
 const directions = [
@@ -102,6 +106,14 @@ const status = [
     value: 'FAILED',
   },
 ]
+
+const resolveActivityTypeColor = type => {
+  if (type === 'ACTIVITY' || type === 'activity') {
+    return 'primary'
+  }
+
+  return 'error'
+}
 
 const resolveProjectStatusVariant = stat => {
   if (stat === 'SCHEDULED')
@@ -167,11 +179,11 @@ const userListMeta = [
   },
   {
     icon: 'tabler-3d-cube-sphere',
-    color: 'warning',
+    color: 'secondary',
     title: 'Suspendu',
     stats: '04',
     percentage: -33,
-    subtitle: 'Projets suspendus',
+    subtitle: 'Projets non démarrés',
   },
 ]
 </script>
@@ -314,7 +326,7 @@ const userListMeta = [
                   <div class="d-flex align-center">
                     <VAvatar
                       variant="tonal"
-                      :color="resolveProjectStatusVariant(project.status).color"
+                      :color="resolveActivityTypeColor(project.type)"
                       class="me-3"
                       size="38"
                     >
@@ -361,8 +373,11 @@ const userListMeta = [
 
                 <!-- 👉 RESOURCES -->
                 <td>
-                  <VChip label>
-                    <span class="text-base">{{ project.resources }}</span>
+                  <VChip 
+                    label
+                    color="primary"
+                  >
+                    <span class="text-base">{{ zerofill(project.resources) }}</span>
                   </VChip>
                 </td>
 

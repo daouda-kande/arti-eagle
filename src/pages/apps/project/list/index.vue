@@ -1,5 +1,5 @@
 <script setup>
-import { resolveLocalDateVariant, resolveProjectStatusVariantWithoutColor, subStringNameForAvatar } from '@/plugins/helpers'
+import { resolveLocalDateVariant, resolveProjectStatusVariantWithoutColor, subStringProjectTypeForAvatar, zerofill } from '@/plugins/helpers'
 import { useProjectListStore } from '@/views/apps/project/useProjectListStore'
 import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue'
 import { avatarText } from '@core/utils/formatters'
@@ -14,8 +14,6 @@ const totalPage = ref(1)
 const totalProjects = ref(0)
 const projects = ref([])
 const projectStats = ref([]) 
-
-
 
 // 👉 Fetching projects
 const fetchProjects = () => {
@@ -45,8 +43,6 @@ watchEffect(() => {
 projectListStore.fetchProjectStats().then(response => {
   projectStats.value = response.data.stats
 })
-
-
 
 // 👉 search filters
 const directions = [
@@ -108,9 +104,8 @@ const status = [
 ]
 
 const resolveActivityTypeColor = type => {
-  if (type === 'ACTIVITY' || type === 'activity') {
-    return 'primary'
-  }
+  if (type === 'ACTIVITY' || type === 'activity') {return 'primary'}
+  else if (type === 'OS' || type === 'os'){ return 'warning'}
 
   return 'error'
 }
@@ -334,7 +329,7 @@ const userListMeta = [
                         v-if="project.avatar"
                         :src="project.avatar"
                       />
-                      <span v-else>{{ avatarText(subStringNameForAvatar(project.name)) }}</span>
+                      <span v-else>{{ avatarText(subStringProjectTypeForAvatar(project.type)) }}</span>
                     </VAvatar>
 
                     <div class="d-flex flex-column">

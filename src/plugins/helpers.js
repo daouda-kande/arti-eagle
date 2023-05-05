@@ -61,6 +61,12 @@ export function subStringNameForAvatar (name) {
   return split[0] + " " + split[1]
 }
 
+export function subStringProjectTypeForAvatar (name) {
+  let split = name.split(" ", 2)
+  
+  return split[0] + ""
+}
+
 export function timeDiff(start, end="08:10") {
   // Time should be in format hh:mm
   const startMin = (parseInt(start.slice(0, 2)) * 60) + parseInt(start.slice(3))

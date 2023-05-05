@@ -192,7 +192,7 @@ const resolveUserProgressVariant = progress => {
 
               <!-- 👉 Accountable -->
               <td>
-                Pas disponible dans l'API
+                {{ resource.role }}
               </td>
 
               <!-- 👉 NB Activity -->

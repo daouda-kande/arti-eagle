@@ -109,6 +109,14 @@ const status = [
   },
 ]
 
+const resolveActivityTypeColor = type => {
+  if (type === 'ACTIVITY' || type === 'activity') {
+    return 'primary'
+  }
+
+  return 'error'
+}
+
 const resolveProjectStatusVariant = stat => {
   if (stat === 'SCHEDULED')
     return { status:'Non Demarré', color:'secondary' }
@@ -320,7 +328,7 @@ const userListMeta = [
                   <div class="d-flex align-center">
                     <VAvatar
                       variant="tonal"
-                      :color="resolveProjectStatusVariant(project.status).color"
+                      :color="resolveActivityTypeColor(project.type)"
                       class="me-3"
                       size="38"
                     >
@@ -367,7 +375,10 @@ const userListMeta = [
 
                 <!-- 👉 RESOURCES -->
                 <td>
-                  <VChip label>
+                  <VChip 
+                    label
+                    color="primary"
+                  >
                     <span class="text-base">{{ zerofill(project.resources) }}</span>
                   </VChip>
                 </td>

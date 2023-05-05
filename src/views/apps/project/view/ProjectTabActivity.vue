@@ -79,6 +79,8 @@ const projects = [
   },
 ]
 
+
+
 const resolveUserProgressVariant = progress => {
   if (progress <= 25)
     return 'error'
@@ -143,7 +145,7 @@ const resolveUserProgressVariant = progress => {
               <!-- 👉 Accountable -->
               <td>
                 <RouterLink
-                  :to="{ name: 'apps-user-view-id', params: { id: project.taskId } }"
+                  :to="{ name: 'apps-user-view-id', params: { id: project.employeeId } }"
                   class="font-weight-medium user-list-name"
                 >
                   {{ project.firstName + ' ' + project.lastName }}

@@ -16,6 +16,8 @@ const totalProjects = ref(0)
 const projects = ref([])
 const projectStats = ref([]) 
 
+
+
 // 👉 Fetching projects
 const fetchProjects = () => {
   projectListStore.fetchProjects({
@@ -45,6 +47,8 @@ watchEffect(() => {
 projectListStore.fetchProjectStats().then(response => {
   projectStats.value = response.data.stats
 })
+
+
 
 // 👉 search filters
 const directions = [
@@ -364,7 +368,7 @@ const userListMeta = [
                 <!-- 👉 RESOURCES -->
                 <td>
                   <VChip label>
-                    <span class="text-base">{{ project.resources }}</span>
+                    <span class="text-base">{{ zerofill(project.resources) }}</span>
                   </VChip>
                 </td>
 

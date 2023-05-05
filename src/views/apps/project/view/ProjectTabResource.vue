@@ -200,7 +200,7 @@ const resolveUserProgressVariant = progress => {
                 <span class="text-capitalize text-base font-weight-semibold">
                   <VChip
                     label
-                    color="primary"
+                    color="success"
                   >
                     {{ zerofill(resource.finishedTasks) }}
                   </VChip>

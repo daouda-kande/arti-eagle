@@ -1,8 +1,7 @@
 <script setup>
-
 // Images
-import { resolveLocalDateVariant, resolveProjectStatusVariant, subStringNameForAvatar } from '@/plugins/helpers';
-import { avatarText } from '@core/utils/formatters';
+import { resolveLocalDateVariant, resolveProjectStatusVariant, subStringNameForAvatar } from '@/plugins/helpers'
+import { avatarText } from '@core/utils/formatters'
 
 const props = defineProps({
   projectData: {
@@ -100,7 +99,7 @@ const resolveUserProgressVariant = progress => {
     <VCol cols="12">
       <VCard title="Liste des activités">
         <VDivider />
-        <VTable>
+        <VTable v-if="props.projectData">
           <thead>
             <tr>
               <th scope="col">
@@ -124,7 +123,10 @@ const resolveUserProgressVariant = progress => {
               style="height: 3.75rem;"
             >
               <!-- 👉 Project name -->
-              <td style="cursor: default;">
+              <td
+                style=" max-width: 300px;cursor: default;"
+                class="text-truncate"
+              >
                 <div class="d-flex align-center">
                   <VAvatar
                     :size="38"
@@ -140,15 +142,21 @@ const resolveUserProgressVariant = progress => {
                     </p>
                   </div>
                 </div>
+                <VTooltip
+                  activator="parent"
+                  location="top right"
+                >
+                  {{ project.name }}
+                </VTooltip>
               </td>
 
               <!-- 👉 Accountable -->
               <td>
                 <RouterLink
-                  :to="{ name: 'apps-user-view-id', params: { id: project.employeeId } }"
+                  :to="{ name: 'apps-user-view-id', params: { id: project.employeeId ? project.employeeId : 0 } }"
                   class="font-weight-medium user-list-name"
                 >
-                  {{ project.firstName + ' ' + project.lastName }}
+                  {{ project.firstName ? project.firstName + ' ' + project.lastName : "Non assigné" }}
                 </RouterLink>
               </td>
 

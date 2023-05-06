@@ -317,7 +317,10 @@ const userListMeta = [
                 style="height: 3.75rem;"
               >
                 <!-- 👉 PROJECT -->
-                <td>
+                <td
+                  class="text-truncate"
+                  style="max-width: 350px;"
+                >
                   <div class="d-flex align-center">
                     <VAvatar
                       variant="tonal"
@@ -340,6 +343,12 @@ const userListMeta = [
                         >
                           {{ project.name }}
                         </RouterLink>
+                        <VTooltip
+                          activator="parent"
+                          location="top right"
+                        >
+                          {{ project.name }}
+                        </VTooltip>
                       </h6>
                       <span class="text-sm text-disabled">@code: {{ project.code }}</span>
                     </div>

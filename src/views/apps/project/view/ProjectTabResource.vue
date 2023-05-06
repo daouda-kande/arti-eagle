@@ -1,8 +1,8 @@
 <script setup>
 
 // Images
-import { resolveActivityProgression, resolveProjectStatusVariant, zerofill } from '@/plugins/helpers';
-import { avatarText } from '@core/utils/formatters';
+import { zerofill } from '@/plugins/helpers'
+import { avatarText } from '@core/utils/formatters'
 
 const props = defineProps({
   projectData: {
@@ -137,6 +137,9 @@ const resolveUserProgressVariant = progress => {
   
   return 'secondary'
 }
+
+console.log("DEBUG - Resources")
+console.log(props.projectData)
 </script>
 
 <template>
@@ -144,7 +147,7 @@ const resolveUserProgressVariant = progress => {
     <VCol cols="12">
       <VCard title="Liste des intervenants">
         <VDivider />
-        <VTable>
+        <VTable v-if="props.projectData">
           <thead>
             <tr>
               <th scope="col">

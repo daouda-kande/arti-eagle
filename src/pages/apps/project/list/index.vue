@@ -8,6 +8,7 @@ const projectListStore = useProjectListStore()
 const searchQuery = ref('')
 const selectedDirection = ref()
 const selectedStatus = ref()
+const selectedPType = ref("PROJECT")
 const rowPerPage = ref(10)
 const currentPage = ref(1)
 const totalPage = ref(1)
@@ -19,6 +20,7 @@ const projectStats = ref([])
 const fetchProjects = () => {
   projectListStore.fetchProjects({
     q: searchQuery.value,
+    ptype: selectedPType.value,
     direction: selectedDirection.value,
     status: selectedStatus.value,
     perPage: rowPerPage.value,
@@ -100,6 +102,21 @@ const status = [
   {
     title: 'Echec',
     value: 'FAILED',
+  },
+]
+
+const ptype = [
+  {
+    title: 'OS',
+    value: 'OS',
+  },
+  {
+    title: 'PROJET',
+    value: 'PROJECT',
+  },
+  {
+    title: 'ACTIVITE',
+    value: 'ACTIVITY',
   },
 ]
 
@@ -221,6 +238,19 @@ const userListMeta = [
           <!-- 👉 Filters -->
           <VCardText>
             <VRow>
+              <!-- 👉 Type -->
+              <VCol
+                cols="12"
+                sm="4"
+              >
+                <VSelect
+                  v-model="selectedPType"
+                  label="Filtre par Type"
+                  :items="ptype"
+                  clearable
+                  clear-icon="tabler-x"
+                />
+              </VCol>
               <!-- 👉 Select Direction -->
               <VCol
                 cols="12"

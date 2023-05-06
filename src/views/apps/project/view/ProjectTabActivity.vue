@@ -1,4 +1,5 @@
 <script setup>
+
 // Images
 import { resolveLocalDateVariant, resolveProjectStatusVariant, subStringNameForAvatar } from '@/plugins/helpers'
 import { avatarText } from '@core/utils/formatters'
@@ -125,7 +126,7 @@ const resolveUserProgressVariant = progress => {
               <!-- 👉 Project name -->
               <td
                 style=" max-width: 300px;cursor: default;"
-                class="text-truncate"
+                class="text-break"
               >
                 <div class="d-flex align-center">
                   <VAvatar

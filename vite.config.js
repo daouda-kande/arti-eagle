@@ -1,10 +1,10 @@
-import { fileURLToPath } from 'url'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import DefineOptions from 'unplugin-vue-define-options/vite'
+import { fileURLToPath } from 'url'
 import { defineConfig } from 'vite'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
@@ -89,6 +89,7 @@ export default defineConfig({
       '@axios': fileURLToPath(new URL('./src/plugins/axios', import.meta.url)),
       '@validators': fileURLToPath(new URL('./src/@core/utils/validators', import.meta.url)),
       'apexcharts': fileURLToPath(new URL('node_modules/apexcharts-clevision', import.meta.url)),
+      '@projectConfig': fileURLToPath(new URL('./config.js', import.meta.url)),
     },
   },
   build: {

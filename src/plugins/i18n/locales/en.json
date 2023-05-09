@@ -108,6 +108,10 @@
   "Two Steps": "Two Steps",
   "Two Steps v1": "Two Steps v1",
   "Two Steps v2": "Two Steps v2",
+  "Pointage":"Pointage",
+  "Liste du personnel":"Liste du personnel",
+  "Activités & Projets":"Activités & Projets",
+  "Exploration":"Exploration",
   "$vuetify": {
     "badge": "Badge",
     "pagination": {

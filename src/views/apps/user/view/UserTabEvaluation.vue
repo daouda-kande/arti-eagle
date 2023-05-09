@@ -1,8 +1,19 @@
 <script setup>
+import { resolveLocalDateVariant } from '@/plugins/helpers';
+import { useEmployeeListStore } from '@/views/apps/user/employeeListStore';
+
+const evalList = ref([])
+
+const employeeListStore = useEmployeeListStore()
+
+evalList.value = employeeListStore.employeeEvaluationList.data.evaluations
 </script>
 
 <template>
-  <VCard title="Chronologie">
+  <VCard
+    title="Chronologie"
+    subtitle="Evaluations et évolutions"
+  >
     <VCardText>
       <VTimeline
         side="end"
@@ -12,6 +23,8 @@
         class="v-timeline-density-compact"
       >
         <VTimelineItem
+          v-for="ev in evalList"
+          :key="ev.evaluationId"
           dot-color="primary"
           size="x-small"
         >
@@ -20,69 +33,16 @@
             <h6 class="text-base font-weight-semibold me-3">
               Evaluation trimestrielle
             </h6>
-            <span class="text-sm text-disabled">17 juin 2022</span>
+            <span class="text-sm text-disabled"> {{ resolveLocalDateVariant(ev.evalDate) }}</span>
           </div>
 
           <!-- 👉 Content -->
-          <p class="mb-1">
-            <VChip color="error">
-              DEMOTIVE
-            </VChip>
+          <p class="mb-2">
+            {{ ev.description }}
           </p>
-        </VTimelineItem>
-
-        <VTimelineItem
-          dot-color="success"
-          size="x-small"
-        >
-          <!-- 👉 Header -->
-          <div class="d-flex justify-space-between">
-            <h6 class="text-base font-weight-semibold me-3">
-              Promotion de poste
-            </h6>
-            <span class="text-sm text-disabled">7 juin 2022</span>
-          </div>
-
-          <!-- 👉 Content -->
-          <p class="mb-1">
-            Passé de Compatble à Chef Comptable
-          </p>
-        </VTimelineItem>
-
-        <VTimelineItem
-          dot-color="error"
-          size="x-small"
-        >
-          <!-- 👉 Header -->
-          <div class="d-flex justify-space-between">
-            <h6 class="text-base font-weight-semibold me-3">
-              Demande d'explications
-            </h6>
-            <span class="text-sm text-disabled">6 avril 2022</span>
-          </div>
-
-          <!-- 👉 Content -->
-          <p class="mb-1">
-            <span class="me-2">Envoie d'un courrier externe sans autorisation de la Direction</span>
-          </p>
-        </VTimelineItem>
-
-        <VTimelineItem
-          dot-color="primary"
-          size="x-small"
-        >
-          <!-- 👉 Header -->
-          <div class="d-flex justify-space-between">
-            <h6 class="text-base font-weight-semibold me-3">
-              Evaluation trimestrielle
-            </h6>
-            <span class="text-sm text-disabled">10 mars 2022</span>
-          </div>
-
-          <!-- 👉 Content -->
           <p class="mb-1">
             <VChip color="primary">
-              PROACTIF
+              {{ ev.status }}
             </VChip>
           </p>
         </VTimelineItem>

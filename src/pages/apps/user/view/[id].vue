@@ -1,5 +1,5 @@
 <script setup>
-import { useUserListStore } from '@/views/apps/user/useUserListStore'
+import { useEmployeeListStore } from '@/views/apps/user/employeeListStore'
 import UserBioPanel from '@/views/apps/user/view/UserBioPanel.vue'
 import UserStatisticsTransactions from '@/views/apps/user/view/UserStatisticsTransactions.vue'
 import UserTabAbsence from '@/views/apps/user/view/UserTabAbsence.vue'
@@ -8,10 +8,13 @@ import UserTabEvaluation from '@/views/apps/user/view/UserTabEvaluation.vue'
 import UserTabProject from '@/views/apps/user/view/UserTabProject.vue'
 
 
-const userListStore = useUserListStore()
+const employeeListStore = useEmployeeListStore()
 const route = useRoute()
 const userData = ref()
 const userTab = ref(null)
+
+// 👉 Prepare data to be available to Project Tab
+const selectedDate = ref("2023-04-12")
 
 const tabs = [
   {
@@ -32,29 +35,33 @@ const tabs = [
   },
 ]
 
-userListStore.fetchUser(Number(route.params.id)).then(response => {
+employeeListStore.fetchUser(Number(route.params.id)).then(response => {
   userData.value = response.data
 })
-console.log("DEBUG")
-console.log(userData)
+
+// 👉 Prepare data to be available to Project Tab
+employeeListStore.fetchEmployeeTasks(Number(route.params.id))
+employeeListStore.fetchEmployeeTrainings(Number(route.params.id))
+employeeListStore.fetchEmployeeEvaluations(Number(route.params.id))
+employeeListStore.fetchEmployeeLogbook(Number(route.params.id), selectedDate.value)
 </script>
 
 <template>
   <VRow v-if="userData">
     <VCol
       cols="12"
-      md="5"
-      lg="4"
+      md="4"
+      lg="3"
     >
-      <UserBioPanel :user-data="userData" />
+      <UserBioPanel :user-data="userData.bio" />  <!-- passage de données à UserBioPanel -->
     </VCol>
 
     <VCol
       cols="12"
-      md="7"
-      lg="8"
+      md="8"
+      lg="9"
     >
-      <UserStatisticsTransactions />
+      <UserStatisticsTransactions :user-data="userData.metadata" />
       <br>
       <VTabs
         v-model="userTab"
@@ -79,7 +86,7 @@ console.log(userData)
         :touch="false"
       >
         <VWindowItem>
-          <UserTabAbsence />
+          <UserTabAbsence :date-data="selectedDate" />
         </VWindowItem>
         
         <VWindowItem>

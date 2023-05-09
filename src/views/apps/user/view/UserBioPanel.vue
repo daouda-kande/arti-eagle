@@ -1,5 +1,6 @@
 <script setup>
-import { avatarText } from '@core/utils/formatters';
+import { subStringNameForAvatar } from '@/plugins/helpers'
+import { avatarText } from '@core/utils/formatters'
 
 const props = defineProps({
   userData: {
@@ -87,13 +88,13 @@ const resolveUserRoleVariant = role => {
               v-else
               class="text-5xl font-weight-semibold"
             >
-              {{ avatarText(props.userData.fullName) }}
+              {{ avatarText(subStringNameForAvatar(props.userData.fullname)) }}
             </span>
           </VAvatar>
 
           <!-- 👉 User fullName -->
           <h6 class="text-h6 mt-4">
-            {{ props.userData.fullName }}
+            {{ props.userData.fullname }}
           </h6>
 
           <!-- 👉 Role chip -->
@@ -103,7 +104,7 @@ const resolveUserRoleVariant = role => {
             size="small"
             class="text-capitalize mt-4"
           >
-            MAT001256
+            {{ props.userData.matricula }}
           </VChip>
         </VCardText>
 
@@ -120,19 +121,8 @@ const resolveUserRoleVariant = role => {
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
-                  Nom et prénom(s):
-                  <span class="text-body-2">
-                    Gren CISSE Al-Karid
-                  </span>
-                </h6>
-              </VListItemTitle>
-            </VListItem>
-
-            <VListItem>
-              <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
                   Fonction:
-                  <span class="text-body-2">Chef de Service</span>
+                  <span class="text-body-2">{{ props.userData.rolename }}</span>
                 </h6>
               </VListItemTitle>
             </VListItem>
@@ -141,7 +131,7 @@ const resolveUserRoleVariant = role => {
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
                   Service:
-                  <span class="text-body-2">Recherche et Développement</span>
+                  <span class="text-body-2">{{ props.userData.service }}</span>
                 </h6>
               </VListItemTitle>
             </VListItem>
@@ -150,7 +140,7 @@ const resolveUserRoleVariant = role => {
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
                   Direction:
-                  <span class="text-body-2">DSESP</span>
+                  <span class="text-body-2">{{ props.userData.direction }}</span>
                 </h6>
               </VListItemTitle>
             </VListItem>
@@ -182,7 +172,7 @@ const resolveUserRoleVariant = role => {
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
                   Site:
-                  <span class="text-body-2">Siège</span>
+                  <span class="text-body-2">{{ props.userData.location }}</span>
                 </h6>
               </VListItemTitle>
             </VListItem>

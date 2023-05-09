@@ -3,10 +3,11 @@ import navItems from '@/navigation/vertical'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
 
 // Components
+import CalendarShortcut from '@/layouts/components/CalendarShortcut.vue'
 import Footer from '@/layouts/components/Footer.vue'
+import NavSearchBar from '@/layouts/components/NavSearchBar.vue'
 import NavbarShortcuts from '@/layouts/components/NavbarShortcuts.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
-import NavSearchBar from '@/layouts/components/NavSearchBar.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
 
 // @layouts plugin
@@ -42,6 +43,7 @@ const { width: windowWidth } = useWindowSize()
 
         <VSpacer />
 
+        <CalendarShortcut />
         <NavbarShortcuts />
         <NavbarThemeSwitcher />
         <UserProfile />

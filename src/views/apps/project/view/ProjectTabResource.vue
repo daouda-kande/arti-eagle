@@ -1,8 +1,15 @@
 <script setup>
 
 // Images
-import { resolveActivityProgression, resolveProjectStatusVariant, zerofill } from '@/plugins/helpers';
-import { avatarText } from '@core/utils/formatters';
+import { zerofill } from '@/plugins/helpers'
+import { avatarText } from '@core/utils/formatters'
+
+const props = defineProps({
+  projectData: {
+    type: Object,
+    required: true,
+  },
+})
 
 const projects = [
   {
@@ -114,6 +121,10 @@ const resources = [
   },
 ]
 
+const percentageResolution = percent  => {
+  return Math.round(percent*100)
+}
+
 const resolveUserProgressVariant = progress => {
   if (progress <= 25)
     return 'error'
@@ -126,6 +137,9 @@ const resolveUserProgressVariant = progress => {
   
   return 'secondary'
 }
+
+console.log("DEBUG - Resources")
+console.log(props.projectData)
 </script>
 
 <template>
@@ -133,7 +147,7 @@ const resolveUserProgressVariant = progress => {
     <VCol cols="12">
       <VCard title="Liste des intervenants">
         <VDivider />
-        <VTable>
+        <VTable v-if="props.projectData">
           <thead>
             <tr>
               <th scope="col">
@@ -146,14 +160,14 @@ const resolveUserProgressVariant = progress => {
                 NB ACTIVITES
               </th>
               <th scope="col">
-                PRGRESSION
+                PROGRESSION
               </th>
             </tr>
           </thead>
           <tbody>
             <tr
-              v-for="resource in resources"
-              :key="resource.id"
+              v-for="resource in props.projectData"
+              :key="resource.employeeId"
               style="height: 3.75rem;"
             >
               <!-- 👉 Stackholder -->
@@ -164,15 +178,15 @@ const resolveUserProgressVariant = progress => {
                     class="me-3"
                     variant="tonal"
                   >
-                    <span>{{ avatarText(resource.accountable.name) }}</span>
+                    <span>{{ avatarText(resource.lastName + '' + resource.firstName ) }}</span>
                   </VAvatar>
                   <div>
                     <p class="text-base mb-0">
                       <RouterLink
-                        :to="{ name: 'apps-user-view-id', params: { id: resource.accountable.id } }"
+                        :to="{ name: 'apps-user-view-id', params: { id: resource.employeeId } }"
                         class="font-weight-medium user-list-name"
                       >
-                        {{ resource.accountable.name }}
+                        {{ resource.lastName + ' ' + resource.firstName }}
                       </RouterLink>
                     </p>
                   </div>
@@ -181,7 +195,7 @@ const resolveUserProgressVariant = progress => {
 
               <!-- 👉 Accountable -->
               <td>
-                {{ resource.accountable.role }}
+                {{ resource.role }}
               </td>
 
               <!-- 👉 NB Activity -->
@@ -189,16 +203,16 @@ const resolveUserProgressVariant = progress => {
                 <span class="text-capitalize text-base font-weight-semibold">
                   <VChip
                     label
-                    :color="resolveProjectStatusVariant(resource.activity.status).color"
+                    color="success"
                   >
-                    {{ zerofill(resource.activity.finished) }}
+                    {{ zerofill(resource.finishedTasks) }}
                   </VChip>
                   <VDivider
                     vertical
                     class="mx-auto"
                   />
                   <VChip label>
-                    {{ zerofill(resource.activity.nb) }}
+                    {{ zerofill(resource.totalTasks) }}
                   </VChip>
                 </span>
               </td>
@@ -206,8 +220,8 @@ const resolveUserProgressVariant = progress => {
               <!-- 👉 Progression -->
               <td class="text-medium-emphasis">
                 <VProgressLinear
-                  :model-value="resolveActivityProgression(resource.activity)"
-                  :color="resolveProjectStatusVariant(resource.activity.status).color"
+                  :model-value="percentageResolution(resource.ratioFinished)"
+                  :color="resolveUserProgressVariant(percentageResolution(resource.ratioFinished))"
                 />
               </td>
             </tr>

@@ -1,41 +1,60 @@
 <script setup>
 const props = defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  color: {
-    type: String,
-    required: false,
-    default: 'primary',
-  },
-  icon: {
-    type: String,
-    required: true,
-  },
-  stats: {
-    type: String,
+  projectData: {
+    type: Object,
     required: true,
   },
 })
+
+const statisticsHorizontal = [
+  {
+    title: 'Activités',
+    color: 'error',
+    icon: 'tabler-cpu',
+    stats:props.projectData[0].tasks,
+  },
+  {
+    title: 'Personnes',
+    color: 'success',
+    icon: ' tabler-users',
+    stats: props.projectData[0].resources,
+  },
+  {
+    title: 'FCFA',
+    color: 'warning',
+    icon: 'tabler-wallet',
+    stats: props.projectData[0].budget,
+  },
+]
 </script>
 
 <template>
-  <VCard>
-    <VCardText class="d-flex align-center justify-space-between">
-      <div>
-        <div class="d-flex align-center flex-wrap">
-          <span class="text-h6 font-weight-semibold">{{ props.stats }}</span>
-        </div>
-        <span class="text-body-2">{{ props.title }}</span>
-      </div>
+  <VRow>
+    <VCol
+      v-for="statistics in statisticsHorizontal"
+      :key="statistics.title"
+      cols="12"
+      lg="4"
+      sm=""
+      md="6"
+    >
+      <VCard>
+        <VCardText class="d-flex align-center justify-space-between">
+          <div>
+            <div class="d-flex align-center flex-wrap">
+              <span class="text-h6 font-weight-semibold">{{ statistics.stats }}</span>
+            </div>
+            <span class="text-body-2">{{ statistics.title }}</span>
+          </div>
 
-      <VAvatar
-        :icon="props.icon"
-        :color="props.color"
-        :size="42"
-        variant="tonal"
-      />
-    </VCardText>
-  </VCard>
+          <VAvatar
+            :icon="statistics.icon"
+            :color="statistics.color"
+            :size="42"
+            variant="tonal"
+          />
+        </VCardText>
+      </vcard>
+    </VCol>
+  </VRow>
 </template>

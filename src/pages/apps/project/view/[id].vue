@@ -9,47 +9,24 @@ import ProjectTabResource from '@/views/apps/project/view/ProjectTabResource.vue
 import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
 import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
 
-
 const projectListStore = useProjectListStore()
 const route = useRoute()
 const projectData = ref()
 const userTab = ref(null)
+const projectStats = ref()
 
-const statisticsHorizontal = [
-  {
-    title: 'Activités',
-    color: 'error',
-    icon: 'tabler-cpu',
-    stats: '08',
-  },
-  {
-    title: 'Réalisé',
-    color: 'error',
-    icon: 'tabler-chart-pie-2',
-    stats: '37%',
-  },
-  {
-    title: 'Personnes',
-    color: 'success',
-    icon: ' tabler-users',
-    stats: '03',
-  },
-  {
-    title: 'FCFA',
-    color: 'warning',
-    icon: 'tabler-wallet',
-    stats: '128M',
-  },
-]
+projectListStore.fetchProject(Number(route.params.id)).then(response => {
+  projectData.value = response.data   
+})
 
 const tabs = [
   {
-    icon: 'tabler-users',
-    title: 'Ressources',
-  },
-  {
     icon: 'tabler-3d-cube-sphere',
     title: "Activités",
+  },
+  {
+    icon: 'tabler-users',
+    title: 'Ressources',
   },
   {
     icon: 'tabler-ad-2',
@@ -61,9 +38,6 @@ const tabs = [
   },
 ]
 
-projectListStore.fetchProject(Number(route.params.id)).then(response => {
-  projectData.value = response.data
-})
 console.log("DEBUG")
 console.log(projectData)
 </script>
@@ -72,31 +46,20 @@ console.log(projectData)
   <VRow v-if="projectData">
     <VCol
       cols="12"
-      md="5"
-      lg="4"
+      md="4"
+      lg="3"
     >
       <ProjectBioPanel :project-data="projectData" />
     </VCol>
 
     <VCol
       cols="12"
-      md="7"
-      lg="8"
+      md="8"
+      lg="9"
     >
-      <VRow>
-        <!-- 👉 Horizontal Cards -->
-        <VCol
-          v-for="statistics in statisticsHorizontal"
-          :key="statistics.title"
-          cols="12"
-          lg="3"
-          sm="6"
-          md="6"
-        >
-          <CardStatisticsHorizontal v-bind="statistics" />
-        </VCol>
-      </VRow>
-      <VDivider vertical="10" />
+      <!-- 👉 Horizontal Cards -->
+      <CardStatisticsHorizontal :project-data="projectData.stats" />
+      <VDivider vertical />
       <CardProjectProgressOverview />
       <br>
       <VTabs
@@ -122,11 +85,11 @@ console.log(projectData)
         :touch="false"
       >
         <VWindowItem>
-          <ProjectTabResource />
+          <ProjectTabActivity :project-data="projectData" />
         </VWindowItem>
         
         <VWindowItem>
-          <ProjectTabActivity />
+          <ProjectTabResource :project-data="projectData.resources" />
         </VWindowItem>
 
         <VWindowItem>

@@ -1,10 +1,20 @@
 <script setup>
-import { hexToRgb } from '@layouts/utils';
-import VueApexCharts from 'vue3-apexcharts';
-import { useTheme } from 'vuetify';
-import UserCardCheckin from './UserCardCheckin.vue';
+import { currentDateYmd, resolveLocalDateVariantMY } from '@/plugins/helpers'
+import { hexToRgb } from '@layouts/utils'
+import VueApexCharts from 'vue3-apexcharts'
+import { useTheme } from 'vuetify'
+import UserCardCheckin from './UserCardCheckin.vue'
+
+const props = defineProps({
+  dateData: {
+    type: String,
+    required: true,
+  },
+})
+
 
 const vuetifyTheme = useTheme()
+const currentDate = ref(currentDateYmd())
 
 const series = {
   bar: [
@@ -180,12 +190,16 @@ const chartOptions = computed(() => {
     },
   }
 })
+
+function displayCurrentDate(){  
+  return "Matrice des présences du mois de " + resolveLocalDateVariantMY(props.dateData)
+}
 </script>
 
 <template>
   <VCard
     title="Pointage hebdomadaire"
-    subtitle="Mois de Janvier 2023"
+    :subtitle="displayCurrentDate()"
   >
     <UserCardCheckin />  
   </VCard>

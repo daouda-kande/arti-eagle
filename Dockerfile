@@ -5,7 +5,7 @@ FROM node:18
 WORKDIR /app
 
 # Copy the package.json and package-lock.json files to the container
-COPY arti-eagle/package*.json ./
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
@@ -14,7 +14,7 @@ RUN npm install
 RUN npm install @iconify/tools@latest
 
 # Copy the rest of the application files to the container
-COPY arti-eagle/ .
+COPY . .
 
 # Build the application
 RUN npm run build

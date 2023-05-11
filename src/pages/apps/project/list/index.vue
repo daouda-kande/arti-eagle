@@ -130,6 +130,8 @@ const resolveActivityTypeColor = type => {
 const resolveProjectStatusVariant = stat => {
   if (stat === 'SCHEDULED')
     return { status:'Non Demarré', color:'secondary' }
+  if (stat === 'TOTAL')
+    return { status:'initiés', color:'primary' }
   if (stat === 'IN_PROGRESS')
     return { status:'En Cours', color:'info' }
   if (stat === 'STOPPED')
@@ -171,7 +173,7 @@ const userListMeta = [
     title: 'Projets',
     stats: '',
     percentage: +100,
-    subtitle: 'Projets initiés',
+    subtitle: 'Projets',
   },
   {
     icon: 'tabler-3d-cube-sphere',
@@ -179,7 +181,7 @@ const userListMeta = [
     title: 'En cours',
     stats: '02',
     percentage: +16.66,
-    subtitle: 'Projets en cours',
+    subtitle: 'Projets ',
   },
   {
     icon: 'tabler-3d-cube-sphere',
@@ -187,7 +189,7 @@ const userListMeta = [
     title: 'Terminés',
     stats: '02',
     percentage: +16.66,
-    subtitle: 'Projets terminés',
+    subtitle: 'Projets ',
   },
   {
     icon: 'tabler-3d-cube-sphere',
@@ -195,7 +197,7 @@ const userListMeta = [
     title: 'Suspendu',
     stats: '04',
     percentage: -33,
-    subtitle: 'Projets non démarrés',
+    subtitle: 'Projets ',
   },
 ]
 </script>
@@ -220,13 +222,13 @@ const userListMeta = [
                 </h6>
                 <span :class="meta.percent > 0 ? 'text-success' : 'text-error'">({{ meta.percent }}%)</span>
               </div>
-              <span>{{ userListMeta[index].subtitle }}</span>
+              <span>{{ userListMeta[index].subtitle + " " + resolveProjectStatusVariant(meta.status).status }}</span>
             </div>
 
             <VAvatar
               rounded
               variant="tonal"
-              :color="userListMeta[index].color"
+              :color="resolveProjectStatusVariant(meta.status).color"
               :icon="userListMeta[index].icon"
             />
           </VCardText>

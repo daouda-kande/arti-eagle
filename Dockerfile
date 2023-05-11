@@ -22,4 +22,4 @@ RUN npm run build
 EXPOSE 5050
 
 # Set the startup command
-CMD ["npm", "run", "preview"]
+CMD ["npm", "run", "preview","--host","0.0.0.0"]

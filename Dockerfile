@@ -19,7 +19,7 @@ COPY . .
 # Build the application
 RUN npm run build
 
-EXPOSE 5173
+EXPOSE 5050
 
 # Set the startup command
-CMD ["npm", "start"]
+CMD ["npm", "run", "preview"]

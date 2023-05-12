@@ -1,3 +1,4 @@
+import { readUserData } from '@/plugins/helpers'
 import axios from '@axios'
 import { API_BASE_URL } from '@projectConfig'
 import { defineStore } from 'pinia'
@@ -19,7 +20,7 @@ export const useEmployeeListStore = defineStore('EmployeeListStore', {
     // 👉 Fetch users data
     fetchEmployees(params) { return axios.get(`${API_BASE_URL}/employee/list`, 
       { 
-        headers:{ "X-Filter":"DCSTI" },
+        headers:{ "X-Filter": readUserData().direction },
         params : params,
       }) },
     

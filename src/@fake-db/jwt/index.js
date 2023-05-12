@@ -57,6 +57,102 @@ const database = [
   },
   {
     id: 3,
+    fullName: 'DCSTI ARTI',
+    username: 'dcsti',
+    password: 'dcsti',
+    avatar: avatar1,
+    email: 'dcsti@arti.ci',
+    role: 'admin',
+    direction:"DCSTI",
+    abilities: [
+      {
+        action: 'manage',
+        subject: 'all',
+      },
+    ],
+  },
+  {
+    id: 4,
+    fullName: 'DRRN ARTI',
+    username: 'drrn',
+    password: 'drrn',
+    avatar: avatar1,
+    email: 'drrn@arti.ci',
+    role: 'admin',
+    direction:"DRRN",
+    abilities: [
+      {
+        action: 'manage',
+        subject: 'all',
+      },
+    ],
+  },
+  {
+    id: 5,
+    fullName: 'DAAF ARTI',
+    username: 'daaf',
+    password: 'daaf',
+    avatar: avatar1,
+    email: 'daaf@arti.ci',
+    role: 'admin',
+    direction:"DAAF",
+    abilities: [
+      {
+        action: 'manage',
+        subject: 'all',
+      },
+    ],
+  },
+  {
+    id: 6,
+    fullName: 'DGPEC ARTI',
+    username: 'dgpec',
+    password: 'dgpec',
+    avatar: avatar1,
+    email: 'dgpec@arti.ci',
+    role: 'admin',
+    direction:"DGPEC",
+    abilities: [
+      {
+        action: 'manage',
+        subject: 'all',
+      },
+    ],
+  },
+  {
+    id: 7,
+    fullName: 'DSI ARTI',
+    username: 'dsi',
+    password: 'dsi',
+    avatar: avatar1,
+    email: 'dsi@arti.ci',
+    role: 'admin',
+    direction:"DSI",
+    abilities: [
+      {
+        action: 'manage',
+        subject: 'all',
+      },
+    ],
+  },
+  {
+    id: 2,
+    fullName: 'DCP ARTI',
+    username: 'dcp',
+    password: 'dcp',
+    avatar: avatar1,
+    email: 'dcp@arti.ci',
+    role: 'admin',
+    direction:"DCP",
+    abilities: [
+      {
+        action: 'manage',
+        subject: 'all',
+      },
+    ],
+  },
+  {
+    id: 3,
     fullName: 'Jane Doe',
     username: 'janedoe',
     password: 'client',

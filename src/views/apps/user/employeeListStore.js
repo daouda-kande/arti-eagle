@@ -17,7 +17,11 @@ export const useEmployeeListStore = defineStore('EmployeeListStore', {
 
   actions: {
     // 👉 Fetch users data
-    fetchEmployees(params) { return axios.get(`${API_BASE_URL}/employee/list`, { params }) },
+    fetchEmployees(params) { return axios.get(`${API_BASE_URL}/employee/list`, 
+      { 
+        headers:{ "X-Filter":"DCSTI" },
+        params : params,
+      }) },
     
     // 👉 Fetch employee assigned tasks
     fetchEmployeeTasks(employeeId) { 

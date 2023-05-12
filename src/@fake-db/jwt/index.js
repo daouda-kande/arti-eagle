@@ -1,6 +1,6 @@
+import mock from '@/@fake-db/mock'
 import avatar1 from '@images/avatars/avatar-1.png'
 import avatar2 from '@images/avatars/avatar-2.png'
-import mock from '@/@fake-db/mock'
 
 
 // TODO: Use jsonwebtoken pkg
@@ -25,12 +25,13 @@ const userTokens = [
 const database = [
   {
     id: 1,
-    fullName: 'John Doe',
-    username: 'johndoe',
-    password: 'admin',
+    fullName: 'DG ARTI',
+    username: 'dgrti',
+    password: 'dgarti',
     avatar: avatar1,
-    email: 'admin@demo.com',
+    email: 'dg@arti.ci',
     role: 'admin',
+    direction:"HOLLOW",
     abilities: [
       {
         action: 'manage',
@@ -40,6 +41,22 @@ const database = [
   },
   {
     id: 2,
+    fullName: 'DSESP ARTI',
+    username: 'dsesp',
+    password: 'dsesp',
+    avatar: avatar1,
+    email: 'dsesp@arti.ci',
+    role: 'admin',
+    direction:"DSESP",
+    abilities: [
+      {
+        action: 'manage',
+        subject: 'all',
+      },
+    ],
+  },
+  {
+    id: 3,
     fullName: 'Jane Doe',
     username: 'janedoe',
     password: 'client',

@@ -1,3 +1,7 @@
+export function readUserData(){
+  return JSON.parse(localStorage.getItem("userData"))
+}
+
 export function resolveProjectStatusVariant(stat) {
   if (stat === 'Schedulled' || stat === 'SCHEDULED')
     return { status:'Non Demarré', color:'secondary' }

@@ -176,7 +176,7 @@ const addNewUser = userData => {
             <tbody>
               <tr
                 v-for="emp in employees"
-                :key="emp.position_id"
+                :key="emp.positionId"
                 style="height: 3.75rem;"
               >
                 <!-- 👉 NOM & PRENOM -->
@@ -194,7 +194,7 @@ const addNewUser = userData => {
                     <div class="d-flex flex-column">
                       <h6 class="text-base">
                         <RouterLink
-                          :to="{ name: 'apps-user-view-id', params: { id: emp.position_id } }"
+                          :to="{ name: 'apps-user-view-id', params: { id: emp.positionId } }"
                           class="font-weight-medium user-list-name"
                         >
                           {{ emp.fullname }}
@@ -292,7 +292,7 @@ const addNewUser = userData => {
                     size="x-small"
                     color="primary"
                     variant="text"
-                    :to="{ name: 'apps-user-view-id', params: { id: emp.position_id } }"
+                    :to="{ name: 'apps-user-view-id', params: { id: emp.positionId } }"
                   >
                     <VIcon
                       size="22"

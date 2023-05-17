@@ -94,7 +94,7 @@ const logout = () => {
               />
             </template>
 
-            <VListItemTitle>Logout</VListItemTitle>
+            <VListItemTitle>Déconnexion</VListItemTitle>
           </VListItem>
         </VList>
       </VMenu>

@@ -48,7 +48,7 @@ const isPasswordVisible = ref(false)
 
         <VCardText class="pt-1">
           <h5 class="text-h5 font-weight-semibold mb-1">
-            Welcome to {{ themeConfig.app.title }}! 👋🏻
+            Bienvenue sur {{ themeConfig.app.title }}! 👋🏻
           </h5>
           <p class="mb-0">
             Please sign-in to your account and start the adventure

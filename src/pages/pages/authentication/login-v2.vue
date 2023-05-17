@@ -62,10 +62,10 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
             class="mb-6"
           />
           <h5 class="text-h5 font-weight-semibold mb-1">
-            Welcome to {{ themeConfig.app.title }}! 👋🏻
+            Bienvenue sur {{ themeConfig.app.title }}! 👋🏻
           </h5>
           <p class="mb-0">
-            Please sign-in to your account and start the adventure
+            Veuillez vous connecter
           </p>
         </VCardText>
         <VCardText>
@@ -84,7 +84,7 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
               <VCol cols="12">
                 <VTextField
                   v-model="form.password"
-                  label="Password"
+                  label="Mot de passe"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
@@ -93,13 +93,13 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
                 <div class="d-flex align-center flex-wrap justify-space-between mt-2 mb-4">
                   <VCheckbox
                     v-model="form.remember"
-                    label="Remember me"
+                    label="Se souvenir de moi"
                   />
                   <RouterLink
                     class="text-primary ms-2 mb-1"
                     :to="{ name: 'pages-authentication-forgot-password-v2' }"
                   >
-                    Forgot Password?
+                    Mot de passe oublié?
                   </RouterLink>
                 </div>
 
@@ -116,12 +116,12 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
                 cols="12"
                 class="text-center text-base"
               >
-                <span>New on our platform?</span>
+                <span>Nouveau?</span>
                 <RouterLink
                   class="text-primary ms-2"
                   :to="{ name: 'pages-authentication-register-v2' }"
                 >
-                  Create an account
+                  Créer un compte
                 </RouterLink>
               </VCol>
 

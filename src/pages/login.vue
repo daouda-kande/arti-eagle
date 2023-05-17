@@ -106,10 +106,10 @@ const onSubmit = () => {
           />
 
           <h5 class="text-h5 font-weight-semibold mb-1">
-            Welcome to {{ themeConfig.app.title }}! 👋🏻
+            Bienvenue sur {{ themeConfig.app.title }}! 👋🏻
           </h5>
           <p class="mb-0">
-            Please sign-in to your account and start the adventure
+            Veuillez-vous connecter 
           </p>
         </VCardText>
         <VCardText>
@@ -146,7 +146,7 @@ const onSubmit = () => {
               <VCol cols="12">
                 <VTextField
                   v-model="password"
-                  label="Password"
+                  label="Mot de passe"
                   :rules="[requiredValidator]"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :error-messages="errors.password"
@@ -157,13 +157,13 @@ const onSubmit = () => {
                 <div class="d-flex align-center flex-wrap justify-space-between mt-2 mb-4">
                   <VCheckbox
                     v-model="rememberMe"
-                    label="Remember me"
+                    label="Se souvenir de moi"
                   />
                   <RouterLink
                     class="text-primary ms-2 mb-1"
                     :to="{ name: 'forgot-password' }"
                   >
-                    Forgot Password?
+                    Mot de passe oublié ?
                   </RouterLink>
                 </div>
 
@@ -180,12 +180,12 @@ const onSubmit = () => {
                 cols="12"
                 class="text-center"
               >
-                <span>New on our platform?</span>
+                <span>Nouveau sur la plate-forme</span>
                 <RouterLink
                   class="text-primary ms-2"
                   :to="{ name: 'register' }"
                 >
-                  Create an account
+                  Créer un compte
                 </RouterLink>
               </VCol>
               <VCol
@@ -193,7 +193,7 @@ const onSubmit = () => {
                 class="d-flex align-center"
               >
                 <VDivider />
-                <span class="mx-4">or</span>
+                <span class="mx-4">ou</span>
                 <VDivider />
               </VCol>
 

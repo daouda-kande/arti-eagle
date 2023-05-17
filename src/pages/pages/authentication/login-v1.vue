@@ -51,7 +51,7 @@ const isPasswordVisible = ref(false)
             Bienvenue sur {{ themeConfig.app.title }}! 👋🏻
           </h5>
           <p class="mb-0">
-            Please sign-in to your account and start the adventure
+            Veuillez vous connecter
           </p>
         </VCardText>
 
@@ -71,7 +71,7 @@ const isPasswordVisible = ref(false)
               <VCol cols="12">
                 <VTextField
                   v-model="form.password"
-                  label="Password"
+                  label="Mot de passe"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
@@ -81,7 +81,7 @@ const isPasswordVisible = ref(false)
                 <div class="d-flex align-center justify-space-between flex-wrap mt-2 mb-4">
                   <VCheckbox
                     v-model="form.remember"
-                    label="Remember me"
+                    label="Se souvenir de moi"
                   />
 
                   <RouterLink
@@ -120,7 +120,7 @@ const isPasswordVisible = ref(false)
                 class="d-flex align-center"
               >
                 <VDivider />
-                <span class="mx-4">or</span>
+                <span class="mx-4">ou</span>
                 <VDivider />
               </VCol>
 
